@@ -1,0 +1,47 @@
+
+canvas {
+        width: 99%; height: 35%;
+	background-image: -webkit-linear-gradient(top, #cee4ff, #fff3e1);
+	background-image: linear-gradient(to bottom, #cee4ff, #fff3e1);
+	background-image:    -moz-linear-gradient(top, #cee4ff, #fff3e1);  //FF3.6+ 
+	background-image:     -ms-linear-gradient(top, #cee4ff, #fff3e1);  //IE10 
+	background-image:      -o-linear-gradient(top, #cee4ff, #fff3e1);  //Opera 11.10+ 
+}
+
+
+.center-container {
+        color: #333;
+	margin: 0 auto;	
+        position:absolute; 
+        center: 0px; 
+}
+
+.bottom-container {
+        color: #333;
+	margin: auto;	
+        position:absolute; 
+        bottom: 0px; 
+}
+
+.left-container {
+        color: #333;
+	margin: auto;	
+        position:absolute; 
+        left: 0px; 
+}
+
+.top-container {
+        color: #333;
+	margin: auto;	
+        position:absolute; 
+        top: auto; 
+}
+
+.right-container {
+        color: #333;
+	margin: auto;	
+        position:absolute; 
+        right: auto; 
+}
+
+
