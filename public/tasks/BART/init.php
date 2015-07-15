@@ -87,7 +87,7 @@
             /* Database call to check whether the participant id in url exists to this experiment ,
               if exists fecthing number of trials done by the participant corresponding to this experiment */
             $viewexpts = $userdbo->viewFieldsParticipantCond('*', 'mid="' . $participantid . '" and experid="' . $experimentid . '" order by trialno');
-            $viewexpts = json_decode($viewexpts);
+            $viewexpts = json_decode($viewexpts); 
             //$trialno = 0;//count($viewexpts);   
             $trialAttempted = count($viewexpts);            
 
@@ -333,7 +333,7 @@
                         $.ajax({
                         type: "POST",
                         url: $url,         
-                        data: jsonExrData,
+                        data: jsonExrData,                                   
                         dataType: "json",
                         success: function(data) { 
                             $('#storeDataModel').modal('hide');
@@ -478,7 +478,7 @@
                 basicScene.add(balloon);                
                 });
                 
-                currBalloonSize = BALLOON_MIN_SIZE;
+                currBalloonSize = BALLOON_MIN_SI
                 currBalloonVPos = BALLOON_MIN_VPOS;
             }   
             
@@ -599,7 +599,7 @@
           </div>  
       </div>
       <div class="modal-footer">     
-          <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+          <!--<button type="button" class="btn btn-default" data-dismi"modal">Close</button>-->
       </div>
     </div>
   </div>

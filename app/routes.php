@@ -45,6 +45,15 @@ Route::get('/registration', array('as' => 'registration', 'uses' => 'Registratio
 
 Route::get('/login',array( 'as' =>'login', 'uses' =>'RegistrationController@showLoginPage'));
 
+Route::get('/Task/new/1',array('before'=> 'auth', 'uses'=>'RDMTaskController@show_first'));
+
+Route::get('/Task/new/2',array('before'=> 'auth', 'uses'=>'RDMTaskController@show_second'));
+
+Route::get('/Task/new/3',array('before'=> 'auth','uses'=>'RDMTaskController@show_third'));
+
+
+
+
 //Route::controller('/dashboard', 'DashBoardController');
 
 Route::get('/dashboard/profile',array('before' => 'auth','as' => 'dashboard/profile', 'uses' => 'DashBoardController@profile'));
@@ -58,6 +67,10 @@ Route::get('/logout', array('before' => 'auth','as' => 'logout', 'uses' => 'Dash
 Route::get('dropdowns/exprs/{id}', 'ExprResultsController@getExprids');
 
 Route::get('participants/exprs/show/{id}', 'RDMExprController@showParticipants');
+
+Route::get('/experiments/db/DelayD',array('before'=>'auth','uses'=>'DelayDdbController@show'));
+
+Route::get('/experiments/db/DelayD/new',array('as'=>'DelayD/new','uses'=>'DelayDdbController@create'));
 
 
 /**
@@ -73,6 +86,24 @@ Route::post('/registration',array('as' => 'registration', 'uses' => 'RDMUserCont
 Route::post('/expr/rslts/download',array('as' => '/expr/rslts/download', 'uses' => 'ExprResultsController@experRsltDwnld'));
 
 Route::post('/expr/rslts/bart/store',array('as' => '/expr/rslts/bart/store', 'uses' => 'ExprResultsController@storeBart'));
+
+Route::post('/experiments/db/DelayD/edit',array('as'=>'DelayD/edit','uses'=>'DelayDdbController@edit'));
+
+Route::post('/experiments/db/DelayD/update',array('as'=>'DelayD/update','uses'=>'DelayDdbController@update'));
+
+Route::post('/experiments/db/DelayD/delete',array('as'=>'DelayD/delete','uses'=>'DelayDdbController@destroy'));
+
+Route::post('/experiments/db/DelayD/create',array('as'=>'DelayD/create','uses'=>'DelayDdbController@store'));
+
+Route::post('/experiments/db/DelayD/random',array('as'=>'DelayD/random','uses'=>'DelayDdbController@randomize'));
+
+Route::post('/Task/new/1',array('before'=> 'auth','uses'=>'RDMTaskController@new_first'));
+
+Route::post('/Task/new/2',array('before'=> 'auth','uses'=>'RDMTaskController@new_second'));
+
+Route::post('/Task/new/3',array('before'=> 'auth','uses'=>'RDMTaskController@new_third'));
+
+
 
 /*
  * Resource routes

@@ -20,6 +20,7 @@ DROP TABLE IF EXISTS `stroop_expr_data`;
 DROP TABLE IF EXISTS `nback_expr_data`;
 DROP TABLE IF EXISTS `nback_score_practice`;
 DROP TABLE IF EXISTS `nback_score_values`;
+DROP TABLE IF EXISTS `delayed_discount_que`;
 
 # RDM_USER Table to keep track of users ROLE can be  
 # admin - ADMIN
@@ -106,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `bart_expr_data` (
   KEY `experid` (`experid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=231 ;
 
--- --------------------------------------------------------
+-- ----------------------------------------------------------
 
 --
 -- Table structure for table cups task
@@ -387,6 +388,40 @@ INSERT INTO `nback_score_values` (`s.no`, `char_value`) VALUES
 (95, 't'),
 (96, 'i');
 
+CREATE TABLE IF NOT EXISTS `delayed_discount_que` (
+  `id` int(11) NOT NULL,
+  `option_b` varchar(100) NOT NULL,
+  `option_a` varchar(100) NOT NULL,
+  PRIMARY KEY(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `delayed_discount_que`
+--
+
+INSERT INTO `delayed_discount_que` (`id`, `option_b`, `option_a`) VALUES
+(1, '$10 in 365 days', '$1.5 Now'),
+(2, '$7.5 in 10 days', '$1 now'),
+(3, '$10 with 50% chance', '$3.5 for sure'),
+(4, '$10 with 100% chance', '$7.5 for sure'),
+(5, '$10 with 90% chance', '$0.5 for sure'),
+(6, '$10 in 2 days', '$1 now'),
+(7, '$10 in 365 days', '$4.5 now'),
+(8, '$10 in 2 days', '$1 now'),
+(9, '$10 with 90% chance', '$0.5 for sure'),
+(10, '$10 in 180 days', '$1.5 now'),
+(11, '$10 in 30 days', '$2 now'),
+(12, '$10 with 90% chance', '$0.5 for sure'),
+(13, '$10 in 180 days', '$1.5 now'),
+(14, '$10 in 30 days', '$2 now'),
+(15, '$10 with 90% chance', '$0.5 for sure'),
+(16, '$10 in 180 days', '$1.5 now'),
+(17, '$10 in 30 days', '$2 now'),
+(18, '$10 with 90% chance', '$0.5 for sure'),
+(19, '$10 in 180 days', '$1.5 now'),
+(20, '$10 in 30 days', '$2 now');
+
+
 # Insert VALUES
 INSERT INTO `tasks`
 (`id`,
@@ -465,6 +500,20 @@ VALUES
 now(),
 now());
 
+INSERT INTO `tasks`
+(`id`,
+`taskname`,
+`created_by`,
+`modified_by`,
+`created_at`,
+`updated_at`)
+VALUES
+('DelayD',
+'Delayed Discounting Task',
+'ADMIN',
+'ADMIN',
+now(),
+now());
 
 INSERT INTO `experconfirmation`
 (`confirmation_type`,

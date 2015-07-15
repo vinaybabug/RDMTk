@@ -81,6 +81,12 @@
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
+                    @yield('flash-content')
+                </div>
+                <div class="row">
+                    @yield('error-message')
+                </div>
+                <div class="row">
                     @yield('page-content')
                     
                     

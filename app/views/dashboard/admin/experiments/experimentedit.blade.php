@@ -50,6 +50,10 @@
     <div class="form-group">
             {{ Form::submit('Submit', array('class' => 'btn btn-success')) }}
             <a href="{{URL::to('experiments')}}" class="btn btn-danger">Cancel</a>
+            @if($experiment->expertype == 'DelayD')
+            <a href = "{{URL::to('/experiments/db/DelayD') }}" class="btn btn-primary" role="button" style="float:right;display:inline;">
+                Edit the Task Database</a>
+            @endif
     </div>
 {{ Form::close() }}
 

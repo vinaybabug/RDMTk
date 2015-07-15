@@ -11,7 +11,8 @@ class Tasks extends Eloquent  {
 	 * @var string
 	 */
 	protected $table = 'tasks';
-        
+    protected $fillable = array('id','taskname','created_by','modified_by','created_at','updated_at');
+    public $timestamps = false;
 
 	/**
 	 * The attributes excluded from the model's JSON form.

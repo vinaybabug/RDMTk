@@ -40,9 +40,47 @@
                        
 @stop
 
+@section('flash-content')
+    @if(Session::has('message'))
+    <div class="col-lg-12">
+        <div class="row" style="padding:15px 5px 5px 5px;">
+            <div class="alert alert-info" role="alert" style="margin:0px;padding:15px 10px 10px 10px;"><h4>
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>&nbsp;{{Session::get('message')}}</h4></div>
+        </div>
+    </div>
+    @endif
+@endsection
+
+@section('error-message')
+        @if($errors->has())
+            <div class="col-lg-12">
+                <div class="row" style="padding:15px 5px 5px 5px;">
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger" role="alert" style="margin:0px;padding:15px 10px 10px 10px;"><h5>
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;{{$error}}</h5></div> 
+                @endforeach
+                </div>
+            </div>
+
+        @endif
+@endsection
 @section('page-content') 
     <div class="col-lg-12">
-                        <h1 class="page-header">Welcome</h1>
+    <h1 class="page-header">Welcome</h1>
+        <div class="row">
+            <div class="jumbotron col-lg-4 col-lg-offset-8">
+                <div class="container text-center">
+                    <div style='font-family:cursive;'><h2>Create a new Task</h2></div>
+                    <br>
+                    <div style='color:#000080;'>
+                        <h4>Follow the simple Three Step Procedure to integrate a new Task </h4>
+                        <br>
+                        <a href="{{URL::to('Task/new/1')}}" role="button" class="btn btn-primary btn-lg"> Get Started </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 @stop
 
