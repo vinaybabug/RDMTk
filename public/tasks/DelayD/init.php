@@ -1,4 +1,24 @@
 <?php 
+
+/**
+* Copyright (C) 2015  WiSe Lab, Computer Science Department, Western Michigan University
+*Project Members Involved: Ajay Gupta, Aakash Gupta, Baba Shiv, Praneet Soni, Shrey Gupta and Vinay B Gavirangaswamy
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>
+*/
+
+
 include 'include/databasemanager.php';
 $fields = 'id,option_a,option_b';
 $table = 'delayed_discount_que';
@@ -7,6 +27,7 @@ $participantid= $_GET['MID'];
 $count = 1;
 $cols='nooftrials';
 
+/*  Fetch all the Questions from the Database */
 $db = new DataBaseManager();
 $db->connect();
 $db->sql('SELECT '.$cols .' FROM experiments WHERE id="'.$experimentid.'"');
@@ -35,7 +56,7 @@ $db->disconnect();
             
 				<h3>Que. What would you rather prefer:
 </h3>				
-              
+   <!--  The following script iterates through the questions and changes the contents of HTML DOM element holding the question everytime an option is selected -->           
   <script type="text/javascript">
     var clicks = 0;
 	var z=0;
@@ -45,6 +66,7 @@ $db->disconnect();
     var  ranNums = new Array();
     
     <?php  
+    //order of the questions is randomized if do_random variable is set
     	if($_POST['do_random']){
 	    	echo 'for(z=0;z<count;z++)
 			nums[z]=z;

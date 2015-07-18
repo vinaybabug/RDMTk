@@ -1,5 +1,24 @@
 <?php
 
+/**
+* Copyright (C) 2015  WiSe Lab, Computer Science Department, Western Michigan University
+*Project Members Involved: Ajay Gupta, Aakash Gupta, Baba Shiv, Praneet Soni, Shrey Gupta and Vinay B Gavirangaswamy
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>
+*/
+
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -45,16 +64,11 @@ Route::get('/registration', array('as' => 'registration', 'uses' => 'Registratio
 
 Route::get('/login',array( 'as' =>'login', 'uses' =>'RegistrationController@showLoginPage'));
 
-Route::get('/Task/new/1',array('before'=> 'auth', 'uses'=>'RDMTaskController@show_first'));
+Route::get('/Task/new/first',array('before'=> 'auth', 'uses'=>'RDMTaskController@showFirst'));
 
-Route::get('/Task/new/2',array('before'=> 'auth', 'uses'=>'RDMTaskController@show_second'));
+Route::get('/Task/new/second',array('before'=> 'auth', 'uses'=>'RDMTaskController@showSecond'));
 
-Route::get('/Task/new/3',array('before'=> 'auth','uses'=>'RDMTaskController@show_third'));
-
-
-
-
-//Route::controller('/dashboard', 'DashBoardController');
+Route::get('/Task/new/third',array('before'=> 'auth','uses'=>'RDMTaskController@showThird'));
 
 Route::get('/dashboard/profile',array('before' => 'auth','as' => 'dashboard/profile', 'uses' => 'DashBoardController@profile'));
 
@@ -97,11 +111,11 @@ Route::post('/experiments/db/DelayD/create',array('as'=>'DelayD/create','uses'=>
 
 Route::post('/experiments/db/DelayD/random',array('as'=>'DelayD/random','uses'=>'DelayDdbController@randomize'));
 
-Route::post('/Task/new/1',array('before'=> 'auth','uses'=>'RDMTaskController@new_first'));
+Route::post('/Task/new/first',array('before'=> 'auth','uses'=>'RDMTaskController@validateFirst'));
 
-Route::post('/Task/new/2',array('before'=> 'auth','uses'=>'RDMTaskController@new_second'));
+Route::post('/Task/new/second',array('before'=> 'auth','uses'=>'RDMTaskController@validateSecond'));
 
-Route::post('/Task/new/3',array('before'=> 'auth','uses'=>'RDMTaskController@new_third'));
+Route::post('/Task/new/third',array('before'=> 'auth','uses'=>'RDMTaskController@validateThird'));
 
 
 
