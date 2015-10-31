@@ -35,13 +35,6 @@
             {{ Form::label('expertype', 'Tool:') }}
             {{ Form::select('expertype',array('default' => 'Please select one option') + $tasks, 'default', array('class' => 'form-control')) }}
             
-            <!--{{ Form::select('expertype', array(
-                'BART' => 'Balloon Task',
-                'CUPS' => 'Cups Task',
-                'IGT' => 'Iowa Gambling Task',                              
-                'STROOP' => 'Stroop',
-                'NBACK' => 'N Back',                
-                )); }}-->
     </div>
     <div class="form-group">
             {{ Form::label('nooftrials', 'Number of Trials:') }}
@@ -64,7 +57,7 @@
             {{ Form::text('confirmationcode', null, array('placeholder'=>'Confimation Code', 'class' => 'form-control')) }}
     </div>
     <div class="form-group">
-            {{ Form::checkbox('isCustomText', 'selected', false) }}
+            {{ Form::checkbox('isCustomText','selected', false) }}
             {{ Form::label('experend_conf_customtext', 'Custom Text:') }}
             {{ Form::textarea('experend_conf_customtext', null, array('placeholder'=>'Custom Text', 'class' => 'form-control')) }}
     </div>
@@ -72,7 +65,12 @@
     <div class="form-group">
             {{ Form::submit('Submit', array('class' => 'btn btn-success')) }}
             <a href="{{URL::to('experiments')}}" class="btn btn-danger">Cancel</a>
+            <span style="float:right">
+               <h4> {{Form::checkbox('mouse_track', 'yes')}} Enable Mouse Tracking</h4>
+            </span>
+
     </div>
+
 {{ Form::close() }}
 
 @if ($errors->any())

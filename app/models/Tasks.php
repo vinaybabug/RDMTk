@@ -65,3 +65,4 @@ class Tasks extends Eloquent  {
         */        
 
 }
+?>

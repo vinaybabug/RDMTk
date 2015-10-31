@@ -45,6 +45,7 @@
             
         <!-- jQuery -->
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="../../js/track.js"></script>
 
         <!-- Bootstrap Core JavaScript -->
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -324,7 +325,7 @@
                 currentTime = new Date().getTime();               
                                             
                 if(balloonNumber >= <?php echo $_SESSION['totalTrials']; ?>){
-                    
+                        $("#unload").trigger("click");
                         $('#balloonTrialModel').modal('hide');
                         
                         $('#storeDataModel').modal({
@@ -496,7 +497,7 @@
                 basicScene.add(balloon);                
                 });
                 
-                currBalloonSize = BALLOON_MIN_SI
+                currBalloonSize = BALLOON_MIN_SIZE;
                 currBalloonVPos = BALLOON_MIN_VPOS;
             }   
             

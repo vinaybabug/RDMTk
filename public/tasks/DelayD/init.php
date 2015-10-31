@@ -46,8 +46,10 @@ $db->disconnect();
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="author" content="Sherry">
 	<title>Delayed Discounting task</title>
+	
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<link href="css/task_style.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="../../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../js/track.js"></script>
 </head>
 <body onload="nxt()">
 	<div class="container-fluid" >
@@ -66,7 +68,7 @@ $db->disconnect();
     var  ranNums = new Array();
     
     <?php  
-    //order of the questions is randomized if do_random variable is set
+    //order of the questions is randomized if do_random variable is set     
     	if($_POST['do_random']){
 	    	echo 'for(z=0;z<count;z++)
 			nums[z]=z;
@@ -87,8 +89,9 @@ $db->disconnect();
     		
     	function nxt() {			 
 
-			if(clicks>=count)
-				window.location.href="end.html";
+			if(clicks>=count){
+				$("#unload").trigger("click");
+				window.location.href="end.html";}
 	        else {
 	        	document.getElementById("clicks").innerHTML = (clicks+1);
 				z=(clicks)*100/(count);
@@ -102,6 +105,7 @@ $db->disconnect();
    
     </script>
    	</div>
+   	
 		<div class="row" >
 			<div class="col-md-6 text-center" style="padding-top:60px;">
 				<button type="button" disabled ="disabled" class="btn btn-default">A</button>
@@ -124,14 +128,8 @@ $db->disconnect();
         &nbsp; &nbsp; 
         <button type="button" class="btn btn-success" style="width:100px;" onclick="nxt()">B</button>
     <p>question No: <span id="clicks">1</span></p> 
-    <br>
-    
-    
-
-        
-        
-		<br><br>
-		<br><br><br>
+    <br><br><br><br><br><br>
+		
 		<div class="progress">
 			<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="11" area-valuemin="0" area-valuemax="100" id="pro" ><a id="progressdetail">0%Complete</a></div>
 			</div>

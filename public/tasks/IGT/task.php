@@ -64,6 +64,7 @@ if($trialno <= $trials_atttempted)
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Welcome to the Card Gambling </title>
 <script type="text/javascript" src="src/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/track.js"></script>
 
 <link rel="stylesheet" type="text/css" href="src/css/demo.css">
 <style>
@@ -240,6 +241,7 @@ $(document).ready(function(){
 				
 			var json = JSON.stringify(myarr);
 			if(trial==click_val){
+				$("#unload").trigger("click");
 				$('#trail').css('display','none');
 				$('#main_card').css('display','none');
 				$.ajax({ type: 'POST',

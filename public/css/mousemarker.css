@@ -1,0 +1,22 @@
+#circle {
+	position:absolute;
+	z-index:-1;
+	margin-left:0px;
+	margin-top:0px;
+    width: 10px;
+    height: 10px;
+    background: red;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 5px;
+}
+
+body{
+
+	margin:0px;
+}
+
+#coord{
+	position:absolute;
+	z-index:1;
+}

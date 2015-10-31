@@ -78,6 +78,7 @@ ob_start();
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 		<title>Welcome to the Cup game! </title>
 		<script type="text/javascript" src="src/js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/track.js"></script>
 		<link rel="stylesheet" type="text/css" href="src/css/cupgame.css">
 		
 				<script>
@@ -504,6 +505,7 @@ ob_start();
 															
 								
 								if(trial==clicks){
+									$("#unload").trigger("click");
 									var json = JSON.stringify(myarr);			
 									
 									$.ajax({ type: 'POST',
@@ -962,6 +964,7 @@ ob_start();
 		{
 		?>
 			<div id="finishedattemptsscore" style="font-size: 21px;line-height: 30px;padding: 2%;width:80%">
+
 				Thank you for your participation in this task. Your final score was  <strong>$ <?php echo $_SESSION['paytotalses'];?>.00</strong>.<br>
 
 				Please note the confirmation code, <strong><?php echo $random; ?></strong>. Please input this in the survey that directed you to this experiment. That will allow you to continue on with the HIT and get paid for your time.

@@ -86,6 +86,13 @@ Route::get('/experiments/db/DelayD',array('before'=>'auth','uses'=>'DelayDdbCont
 
 Route::get('/experiments/db/DelayD/new',array('as'=>'DelayD/new','uses'=>'DelayDdbController@create'));
 
+//Route::get('/track/show',array('as'=>'retrace','uses'=>'MouseTracker@show'));
+
+//Route::get('dropdwns/expid/track/{exptype}',array('uses'=>'MouseTracker@getExpId'));
+
+//Route::get('dropdwns/userid/track/{expid}',array('uses'=>'MouseTracker@getUserId'));
+
+Route::get('/monitor/select',array('uses'=>'MonitoringDashboardController@select','before'=>'auth'));
 
 /**
  * post related routes
@@ -117,7 +124,9 @@ Route::post('/Task/new/second',array('before'=> 'auth','uses'=>'RDMTaskControlle
 
 Route::post('/Task/new/third',array('before'=> 'auth','uses'=>'RDMTaskController@validateThird'));
 
+Route::post('/track/store',array('uses'=>'MouseTracker@store'));
 
+//Route::post('/track/generate',array('as'=>'generate','uses'=>'MouseTracker@generate'));
 
 /*
  * Resource routes

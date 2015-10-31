@@ -84,7 +84,6 @@ if($trialno <= $trials_atttempted)
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <title>Welcome to the Card Gambling </title>
-<script type="text/javascript" src="src/js/jquery.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="src/css/demo.css">
 <style>
@@ -105,11 +104,13 @@ if($trialno <= $trials_atttempted)
 }
 
 </style>
+<script type="text/javascript" src="src/js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/track.js"></script>
 <script> 
 $(document).ready(function(){
 	var click_val=<?php echo $trialno-1;?>;
 	var char_val='<?php echo $initial_char;?>';
-	var click_val_main='<?php echo $_SESSION['sessionvalue_main'];?>';
+	var click_val_main='<?php echo $_SESSION["sessionvalue_main"];?>';
 	var char_val_main='<?php echo $initial_char_main;?>';
 	if(click_val==0){
 		$('#main_process_bar').css('display', 'none');
@@ -150,6 +151,7 @@ $(document).ready(function(){
 							'result':char_val_main
 						},
 						success:function(result){
+						
 						 $("#main_card_main_test").html(result);						 
 						}
 						});

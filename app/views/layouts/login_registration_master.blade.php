@@ -42,6 +42,8 @@
     {{ HTML::script('js/plugins/metisMenu/metisMenu.min.js') }} 
     <!-- Custom Theme JavaScript -->
     {{ HTML::script('js/sb-admin-2.js') }} 
+    <!-- Script to track mouse movement -->
+    
     <style>
     body{
       background:url({{ URL::asset('img/binding_dark.png') }});

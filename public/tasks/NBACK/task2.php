@@ -58,6 +58,7 @@ $_SESSION['sessionvalue_main'] = $_SESSION['sessionvalue_main'] + 1;
 ?>
 <div id="s_timer" style="display:none;">0<span>3</span>:00</div>
 <?php echo $initial_char_main; ?>
+
 <script>
     $(document).ready(function() {
         var char_present = "<?php echo $initial_char_main; ?>";
@@ -82,9 +83,11 @@ $_SESSION['sessionvalue_main'] = $_SESSION['sessionvalue_main'] + 1;
                         }});
                 }
                 if (trails_attempted == trails_no) {
+                    
                     $.ajax({url: "final_main.php", success: function(result) {
                             $("#main_card").css('display', 'none');
                             $("#main_card_main_test").css('display', 'block');
+                            $("#unload").trigger("click");
                             window.location = "task.php?&exp=<?php echo $experimentid; ?>&MID=<?php echo $participantid; ?>";
                         }});
                 }

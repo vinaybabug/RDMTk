@@ -67,8 +67,11 @@
     <div class="form-group">
             {{ Form::submit('Submit', array('class' => 'btn btn-success')) }}
             <a href="{{URL::to('experiments')}}" class="btn btn-danger">Cancel</a>
+            <span style="float:right">
+               <h4> {{Form::checkbox('mouse_track','yes')}} Enable Mouse Tracking</h4>
+            </span>
             @if($experiment->expertype == 'DelayD')
-            <a href = "{{URL::to('/experiments/db/DelayD') }}" class="btn btn-primary" role="button" style="float:right;display:inline;">
+            <a href = "{{URL::to('/experiments/db/DelayD') }}" class="btn btn-primary" role="button" style="display:inline;">
                 Edit the Task Database</a>
             @endif
     </div>

@@ -37,14 +37,18 @@
     {{ HTML::style('css/sb-admin-2.css') }}
     <!-- Custom Fonts -->
     {{ HTML::style('font-awesome-4.1.0/css/font-awesome.min.css') }}
+
+    {{ HTML::style('css/mousemarker.css') }}
     <!-- jQuery -->
-    {{ HTML::script('js/jquery.js'); }}
+    {{ HTML::script('js/jquery.min.js'); }}
     <!-- Bootstrap Core JavaScript -->
     {{ HTML::script('js/bootstrap.min.js') }} 
     <!-- Metis Menu Plugin JavaScript -->
     {{ HTML::script('js/plugins/metisMenu/metisMenu.min.js') }} 
     <!-- Custom Theme JavaScript -->
     {{ HTML::script('js/sb-admin-2.js') }} 
+    <!-- Script to track mouse movement -->
+    <!--{{ HTML::script('js/track.js') }} -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

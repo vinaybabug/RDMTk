@@ -64,6 +64,7 @@ class RDMExprController extends BaseController {
 	public function store() {
         //
         $input = Input::all();
+        
         $rules = array(
                 'expername' => 'required|unique:experiments',
                 'expertype' =>'required|exists:tasks,id',
@@ -168,9 +169,10 @@ class RDMExprController extends BaseController {
 	public function update($id)
 	{
 		//
-              $input = Input::all();
-              
-               $rules = array(
+        $input = Input::all();
+        //$track="";
+       // $track= Input::get('mouse_track');
+        $rules = array(
                 'expername' => 'required',
                 'expertype' =>'required|exists:tasks,id',
                 'nooftrials' =>'required|digits_between:1,1000',
@@ -181,20 +183,20 @@ class RDMExprController extends BaseController {
                 'urllink' =>'required|url',
             );
                        
-            
-        
+            $absolute_url = url('/tasks');
+            $absolute_url = str_replace("/index.php/","/",$absolute_url). '/' .Input::get('expertype').'/task.php?exp='.$id.'&MID=MID';
             //$absolute_url = $utilities->full_url($_SERVER);
-            $absolute_url = url('/tasks');//+'/'+Input::get('expertype');//+'/task.php';
-            $absolute_url = str_replace("/index.php/","/",$absolute_url). '/' .Input::get('expertype').'/task.php';
+            //+'/'+Input::get('expertype');//+'/task.php';
+           // $absolute_url = str_replace("/index.php/","/",$absolute_url). '/' .Input::get('expertype').'/task.php';
         
-            $inputall = array('id'=>Input::get('expername'),'urllink'=>$absolute_url) + $input;
+            $inputall = array('id'=>$id,'urllink'=>$absolute_url) + $input;
         
             $validation = Validator::make($inputall, $rules);
               
               if ($validation->passes())
               {
                 $expr = Experiments::find($id);
-                $expr->update($input);
+                $expr->update($inputall);
                 return Redirect::route('experiments.index', $id);
                }
                return Redirect::route('experiments.edit', $id)

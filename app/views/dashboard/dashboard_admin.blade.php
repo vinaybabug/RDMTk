@@ -50,6 +50,9 @@
                                  <li>
                                      <a href="{{URL::to('exprRsltsSo')}}"><i class="fa fa-archive fa-fw"></i> Experiment's Result</a>
                                 </li>
+                               <!-- <li>
+                                     <a href="{{URL::to('monitor/select')}}"><i class="glyphicon glyphicon-forward"></i> Monitor Experiments</a>
+                                </li>-->
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>                       
