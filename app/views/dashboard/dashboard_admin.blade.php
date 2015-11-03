@@ -53,6 +53,9 @@
                                <!-- <li>
                                      <a href="{{URL::to('monitor/select')}}"><i class="glyphicon glyphicon-forward"></i> Monitor Experiments</a>
                                 </li>-->
+                                <li>
+                                    <a href="{{URL::to('Task/new/first')}}"><i class="glyphicon glyphicon-forward"></i>Add a New Task</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>                       
@@ -87,20 +90,7 @@
 @section('page-content') 
     <div class="col-lg-12">
     <h1 class="page-header">Welcome</h1>
-        <div class="row">
-            <div class="jumbotron col-lg-4 col-lg-offset-8">
-                <div class="container text-center">
-                    <div style='font-family:cursive;'><h2>Create a new Task</h2></div>
-                    <br>
-                    <div style='color:#000080;'>
-                        <h4>Follow the simple Three Step Procedure to integrate a new Task </h4>
-                        <br>
-                        <a href="{{URL::to('Task/new/first')}}" role="button" class="btn btn-primary btn-lg"> Get Started </a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        
     </div>
 @stop
 

@@ -66,7 +66,7 @@
             {{ Form::submit('Submit', array('class' => 'btn btn-success')) }}
             <a href="{{URL::to('experiments')}}" class="btn btn-danger">Cancel</a>
             <span style="float:right">
-               <h4> {{Form::checkbox('mouse_track', 'yes')}} Enable Mouse Tracking</h4>
+               <h4> {{Form::checkbox('mouse_track',1 )}} Enable Mouse Tracking</h4>
             </span>
 
     </div>

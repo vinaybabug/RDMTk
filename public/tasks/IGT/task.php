@@ -26,6 +26,12 @@ include 'include/class/oe_databasemanager.php';
 include 'users/controller/user_dbo.php';
  $experimentid= $_GET['exp'];
 $participantid= $_GET['MID'];
+$db = new OE_DataBaseManager();
+$db->connect();
+$db->sql('SELECT mouse_track FROM experiments WHERE id="'.$experimentid.'"');
+$trial= $db->getResult();
+$db->disconnect();
+$mouse_track = $trial[0]['mouse_track'];
 $userdbo = new UserDBO();
 $viewusers= $userdbo->viewFieldsExperimentCond('nooftrials,urllink,confirmationcode','id="'.$experimentid.'"');
 $viewusers = json_decode($viewusers);
@@ -241,7 +247,11 @@ $(document).ready(function(){
 				
 			var json = JSON.stringify(myarr);
 			if(trial==click_val){
-				$("#unload").trigger("click");
+				<?php if($mouse_track==1){
+
+                        echo '$("#unload").trigger("click");';
+                    }
+                    ?>
 				$('#trail').css('display','none');
 				$('#main_card').css('display','none');
 				$.ajax({ type: 'POST',

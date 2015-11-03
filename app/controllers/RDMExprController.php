@@ -170,8 +170,6 @@ class RDMExprController extends BaseController {
 	{
 		//
         $input = Input::all();
-        //$track="";
-       // $track= Input::get('mouse_track');
         $rules = array(
                 'expername' => 'required',
                 'expertype' =>'required|exists:tasks,id',
@@ -190,9 +188,9 @@ class RDMExprController extends BaseController {
            // $absolute_url = str_replace("/index.php/","/",$absolute_url). '/' .Input::get('expertype').'/task.php';
         
             $inputall = array('id'=>$id,'urllink'=>$absolute_url) + $input;
-        
+            
             $validation = Validator::make($inputall, $rules);
-              
+            
               if ($validation->passes())
               {
                 $expr = Experiments::find($id);

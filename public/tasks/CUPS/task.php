@@ -26,6 +26,12 @@ ob_start();
 	$_SESSION['theend']="start";
 	$experimentid= $_GET['exp'];
 	$participantid= $_GET['MID'];
+	$db = new OE_DataBaseManager();
+    $db->connect();
+    $db->sql('SELECT mouse_track FROM experiments WHERE id="'.$experimentid.'"');
+    $trial= $db->getResult();
+    $db->disconnect();
+    $mouse_track = $trial[0]['mouse_track'];
 			/* Database call to check whether the experiment in url exists,
 		 if exists fecthing number of trials assigned to this experiment */
 	$userdbo = new UserDBO();
@@ -505,7 +511,11 @@ ob_start();
 															
 								
 								if(trial==clicks){
-									$("#unload").trigger("click");
+									<?php if($mouse_track==1){
+
+                        				echo '$("#unload").trigger("click");';
+                   					}
+                    				?>
 									var json = JSON.stringify(myarr);			
 									
 									$.ajax({ type: 'POST',

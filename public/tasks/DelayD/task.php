@@ -21,7 +21,7 @@
 $experimentid= $_GET['exp'];
 $participantid= $_GET['MID']; 
 
-include 'include/databasemanager.php';
+include 'include/class/oe_databasemanager.php';
 $fields = 'dorandom';
 $table = 'random_table';
 $db = new DataBaseManager();

@@ -55,6 +55,7 @@ class Experiments extends Eloquent  {
             'urllink',
             'created_by',
             'modified_by',  
+            'mouse_track',
             );
         /*
         public static $rules = array(

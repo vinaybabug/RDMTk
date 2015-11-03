@@ -78,16 +78,25 @@
         <script type="text/javascript" src="js/app.js"></script>
         
         <script type="text/javascript" src="js/ThreeScene.js"></script>
-        <script type="text/javascript" src="js/task-code.js"></script>
+        <script type="text/javascript" src="task-code.js"></script>
         
         </head>
     <body>
         <?php
 	include 'include/class/oe_databasemanager.php';
 	include 'users/controller/user_dbo.php';
-        $experimentid= $_GET['exp'];
+    
+
+    $experimentid= $_GET['exp'];
 	$participantid= $_GET['MID'];
-        $userdbo = new UserDBO();
+    $userdbo = new UserDBO();
+    $db = new OE_DataBaseManager();
+    $db->connect();
+    $db->sql('SELECT mouse_track FROM experiments WHERE id="'.$experimentid.'"');
+    $trial= $db->getResult();
+    $db->disconnect();
+    $mouse_track = $trial[0]['mouse_track'];
+    
         /* Database call to check whether the experiment in url exists,
 	 if exists fecthing number of trials assigned to this experiment */
 	$viewusers= $userdbo->viewFieldsExperimentCond('nooftrials,confirmationcode,expertrial_outcome_type,experend_conf_page_type,experend_conf_customtext','id="'.$experimentid.'"');
@@ -325,7 +334,11 @@
                 currentTime = new Date().getTime();               
                                             
                 if(balloonNumber >= <?php echo $_SESSION['totalTrials']; ?>){
-                        $("#unload").trigger("click");
+                    <?php if($mouse_track==1){
+
+                        echo '$("#unload").trigger("click");';
+                    }
+                    ?>
                         $('#balloonTrialModel').modal('hide');
                         
                         $('#storeDataModel').modal({

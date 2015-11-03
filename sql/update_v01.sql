@@ -11,54 +11,7 @@ ALTER TABLE `experiments` ADD `mouse_track` INT NOT NULL DEFAULT '0' AFTER `urll
 
 CREATE TABLE IF NOT EXISTS `delayed_discount_que` (
   `id` int(11) NOT NULL,
-  `option_b` varchar(100) NOT NUL
-
-  -- --------------------------------------------------------
-
---
--- Table structure for table `mouse_offset_coords`
---
-
-CREATE TABLE IF NOT EXISTS `mouse_offset_coords` (
-  `id` int(11) NOT NULL,
-  `exptype` varchar(100) NOT NULL,
-  `coords` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `mouse_track`
---
-
-CREATE TABLE IF NOT EXISTS `mouse_track` (
-  `id` int(11) NOT NULL,
-  `expid` varchar(1000) NOT NULL,
-  `expertype` varchar(100) NOT NULL,
-  `mid` varchar(1000) NOT NULL,
-  `x_coord` int(11) NOT NULL,
-  `y_coord` int(11) NOT NULL,
-  `time_spent` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `random_table`
---
-
-CREATE TABLE IF NOT EXISTS `random_table` (
-  `dorandom` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `random_table`
---
-
-INSERT INTO `random_table` (`dorandom`) VALUES
-(1);L,
+  `option_b` varchar(100) NOT NULL,
   `option_a` varchar(100) NOT NULL,
   `correct_option` int(2) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
@@ -103,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `mouse_offset_coords` (
   `exptype` varchar(100) NOT NULL,
   `coords` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -120,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `mouse_track` (
   `y_coord` int(11) NOT NULL,
   `time_spent` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 

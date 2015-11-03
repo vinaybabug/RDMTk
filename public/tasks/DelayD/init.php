@@ -19,19 +19,20 @@
 */
 
 
-include 'include/databasemanager.php';
+include 'include/class/oe_databasemanager.php';
 $fields = 'id,option_a,option_b';
 $table = 'delayed_discount_que';
 $experimentid= $_GET['exp'];
 $participantid= $_GET['MID'];
 $count = 1;
-$cols='nooftrials';
+$cols='nooftrials,mouse_track';
 
 /*  Fetch all the Questions from the Database */
 $db = new DataBaseManager();
 $db->connect();
 $db->sql('SELECT '.$cols .' FROM experiments WHERE id="'.$experimentid.'"');
 $trial= $db->getResult();
+$mouse_track = $trial[0]['mouse_track'];
 $no_trials = $trial[0]['nooftrials'];
 $db->sql('SELECT '.$fields.' FROM '.$table. ' WHERE id>0 LIMIT '.$no_trials);
 $res = $db->getResult();
@@ -90,7 +91,11 @@ $db->disconnect();
     	function nxt() {			 
 
 			if(clicks>=count){
-				$("#unload").trigger("click");
+				<?php if($mouse_track==1){
+
+                        echo '$("#unload").trigger("click");';
+                    }
+                    ?>
 				window.location.href="end.html";}
 	        else {
 	        	document.getElementById("clicks").innerHTML = (clicks+1);

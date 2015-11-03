@@ -54,6 +54,24 @@ rd /S /Q %CD%\BART\temp
 
 REM END BART
 
+REM DelayD
+
+mkdir %CD%\DelayD\temp
+copy %CD%\DelayD\oe_databasemanager.php %CD%\DelayD\temp\oe_databasemanager.php
+
+echo Configuring: DelayD  oe_databasemanager.php
+
+call jrepl "\b%db_host_c%\b" %db_host_r%  /f %CD%\DelayD\temp\oe_databasemanager.php /o -
+call jrepl "\b%db_user_c%\b" %db_user_r%  /f %CD%\DelayD\temp\oe_databasemanager.php /o -
+call jrepl "\b%db_pass_c%\b" %db_pass_r%  /f %CD%\DelayD\temp\oe_databasemanager.php /o -
+call jrepl "\b%db_name_c%\b" %db_name_r%  /f %CD%\DelayD\temp\oe_databasemanager.php /o -
+
+move %CD%\DelayD\temp\oe_databasemanager.php %RDM%\public\tasks\DelayD\include\class\oe_databasemanager.php
+
+rd /S /Q %CD%\DelayD\temp
+
+REM END DelayD
+
 REM CUPS
 
 mkdir %CD%\CUPS\temp

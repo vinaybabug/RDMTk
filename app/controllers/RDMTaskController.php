@@ -41,7 +41,7 @@ class RDMTaskController extends BaseController{
 	* @description Validates the data entered and redirects to step 2 if no issues found.
 	*/
 	public function validateFirst(){
-		$rules = array('task_name'=>'required|min:2|unique:tasks,taskname','task_id'=>'required|max:10|alpha_dash');
+		$rules = array('task_name'=>'required|min:2|unique:tasks,taskname','task_id'=>'required|max:10|alpha_dash|unique:tasks,id');
 		$validator = Validator::make(Input::all(),$rules);
 
 		if ($validator->fails()) {

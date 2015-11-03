@@ -22,10 +22,18 @@
 error_reporting(1);
 session_start();
 ob_start();
+include 'include/class/oe_databasemanager.php';
 $click_main = $_SESSION['sessionvalue_main'];
 $list_data_main = $_SESSION['list_data_main'];
 $experimentid = $_SESSION['exp'];
 $participantid = $_SESSION['MID'];
+$db = new OE_DataBaseManager();
+$db->connect();
+$db->sql('SELECT mouse_track FROM experiments WHERE id="'.$experimentid.'"');
+$trial= $db->getResult();
+$db->disconnect();
+$mouse_track = $trial[0]['mouse_track'];
+
 $trials_atttempted = $_SESSION['trials_atttempted'];
 $currenttrial = $_GET['currenttrial'];
 $_SESSION['dataparticipant_main'][$click_main]['trail'] = $click;
@@ -87,7 +95,11 @@ $_SESSION['sessionvalue_main'] = $_SESSION['sessionvalue_main'] + 1;
                     $.ajax({url: "final_main.php", success: function(result) {
                             $("#main_card").css('display', 'none');
                             $("#main_card_main_test").css('display', 'block');
-                            $("#unload").trigger("click");
+                            <?php if($mouse_track==1){
+
+                                echo '$("#unload").trigger("click");';
+                            }
+                            ?>
                             window.location = "task.php?&exp=<?php echo $experimentid; ?>&MID=<?php echo $participantid; ?>";
                         }});
                 }

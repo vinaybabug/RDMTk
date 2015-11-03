@@ -72,7 +72,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                {{ HTML::linkAction('dashboard', 'RDMTK', array(), array('class' => 'navbar-brand')) }}
+                {{ HTML::linkAction('dashboard', 'RDMTk', array(), array('class' => 'navbar-brand')) }}
                 
                 <!--<a class="navbar-brand" href="index.html">RDMTK v0.01</a>-->
             </div>
