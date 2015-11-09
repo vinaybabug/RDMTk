@@ -18,7 +18,8 @@
 -->
 
 @section('page-content')
-
+<?php  $addr= explode("/",$_SERVER['PHP_SELF'],3);
+ ?>
 <html>
 <head>
 	
@@ -50,14 +51,16 @@
 			<label> Task CodeBase Input</label>
 			<br>
 			<input type="file" name="task_files">
-			<p class="help-block">Upload the .zip file of the all the files of the new Task</p>
+			<p class="help-block">Upload the .zip file of the all the files of the new Task. The Task files should be able to operate as a standalone application.</p>
 			</div>
 			<br><br>
 			<button type="submit" class="btn btn-info">Next</button>
+			<a type="button" class="btn btn-primary" href="{{$_SERVER['DOCUMENT_ROOT']}}/{{$addr[1]}}/public/sample/Sample_Task.zip" download="sample_task.zip" style="position:block;float:right;">Download The sample zip file</a>
 		</form>
+
 		<br><br>
 		<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>&nbsp;
-		 Kindly Make sure that the index page of your Task is a file named 'Task.php'</div>
+		 Kindly Make sure that the index page of your Task is a file named 'task.php'</div>
 		
 	</div>
 

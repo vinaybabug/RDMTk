@@ -57,6 +57,9 @@ class ExprResultsController extends BaseController {
                 case 'NBACK':
                     return $this->nbackExprRaw($task, $experId);
                     break;
+                case 'DelayD':
+                    return $this->delaydExprRaw($task, $experId);
+                    break;
             }
         } else {
             switch ($task) {
@@ -75,6 +78,22 @@ class ExprResultsController extends BaseController {
     private function bartExprRaw($taskId, $experId) {
 
         $data = BartExprRsltsData::where('experid', '=', $experId)
+                ->orderBy('mid', 'asc')
+                ->orderBy('trialno', 'asc')
+                ->get();
+
+        return Excel::create('ExprParticipantsDataRaw', function($excel) use($data) {
+
+                    $excel->sheet('ExprData', function($sheet) use($data) {
+
+                        $sheet->fromModel($data);
+                    });
+                })->export('xls');
+    }
+
+    private function delaydExprRaw($taskId, $experId) {
+
+        $data = DelayDExprRsltsData::where('experid', '=', $experId)
                 ->orderBy('mid', 'asc')
                 ->orderBy('trialno', 'asc')
                 ->get();

@@ -64,6 +64,16 @@
                  <tr>
                     <td class="col-md-2 info"><b>URL</b></td>                             
                     <td class="col-md-10">{{ $experiment->urllink }}</td>
+                </tr>  
+                <tr>
+                    <td class="col-md-2 info"><b>Mouse Track</b></td>                             
+                    <td class="col-md-10">
+                        @if($experiment->mouse_track)
+                        Enabled
+                        @else
+                        Disabled
+                        @endif
+                    </td>
                 </tr>      
                
                 </tbody>                   

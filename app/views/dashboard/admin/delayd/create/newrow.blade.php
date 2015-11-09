@@ -31,29 +31,36 @@
 	<div class="container col-md-12">
 		<div class="panel panel-default" style="margin-top:30px;">
 			<div class="panel-heading">
-				<h2>Create a New Entry</h2>
+				<h3>Create a New Entry</h3>
 			</div>
 			<div class="panel-body">
+			<form method="POST" action="{{route('DelayD/create')}}">
+				<div class="form-group">
+	            <h4>Choose Dataset</h4>
+	            <select id="dataset" name="dataset" class="form-control">
+	            	@foreach($datasets as $dataset)
+	            	<option value ="{{$dataset->dataset_name}}">{{$dataset->dataset_name}}</option>
+	            	@endforeach
+	            	<option value = "ADD_NEW">Create a new Dataset</option>
+
+	            </select>
+    			</div>
+	  			<br>
+	  			<div id="new_set_text" style="display:none;">
+	  				<h4>Enter the name of the new Dataset:</h4>
+	  			<input type="text"  name="new_set" id="new_set" class="form-control"></input>
+				</div>
 				<h3>What would you prefer:
 				</h3>
 
-				<form method="POST" action="{{route('DelayD/create')}}">
+				
 					<h3>Choice A:</h3>
 					<textarea cols="100" rows="5" placeholder ="Enter question for choice A" name= "option_a"></textarea>
 					<br><br>
 					<h3>Choice B:</h3>
 					<textarea cols="100" rows="5" placeholder = "Enter question for choice B" name= "option_b"></textarea>
-					<br><br>
-                    <h3>Choose Correct Option :</h3>
-                    
-					<select name="correct_option" role="button"  class="btn btn-info" >
-					 
-						<option value="0">Option A</option>
-						<option value="1">Option B</option>
-
-					</select>   
-                    
 					<br><br><br>
+                    
 					<input type="submit" class="btn btn-primary" value="Go"></input>
 					<a href="{{URL::to('/experiments/db/DelayD')}}" class="btn btn-default">Cancel</a>
 				</form>
@@ -62,6 +69,19 @@
 		</div>
 
 	</div>
+	<script type="text/javascript">
+
+	$(document).ready(function(){
+
+			$("#dataset").change(function(){
+
+				if($("#dataset").val()=="ADD_NEW"){
+					$("#new_set_text").css("display","block");
+				}	
+				});
+
+			});
+	</script>
 
 </body>
 </html>

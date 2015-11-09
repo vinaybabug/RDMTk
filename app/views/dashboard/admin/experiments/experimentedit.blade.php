@@ -64,16 +64,28 @@
             {{ Form::label('experend_conf_customtext', 'Custom Text:') }}
             {{ Form::textarea('experend_conf_customtext', null, array('placeholder'=>'Custom Text', 'class' => 'form-control')) }}
     </div>
-  
+    @if($experiment->expertype == 'DelayD')
+            <div class="form-group">
+            {{ Form::label('Choosedataset', 'Choose Question Dataset:') }}
+            {{ Form::select('select_dataset', array(
+                        'DEFAULT' => 'Please select one option',
+                        'DEFAULT' => 'Default',                                                       
+                ) +$datasets, null, array('class' => 'form-control')) }}
+    </div>
+    @endif
+  <br>
+  <div class="form-group">
+            {{ Form::label('addonfeatures', 'Add-On Features:') }}
+        <h5> {{Form::checkbox('mouse_track',1 )}} Enable Mouse Tracking</h5>
+        <p class="help-block">Mouse Tracking is currently not supported with STROOP task.</p>
+    </div>
+    <br><br>
     <div class="form-group">
             {{ Form::submit('Submit', array('class' => 'btn btn-success')) }}
             <a href="{{URL::to('experiments')}}" class="btn btn-danger">Cancel</a>
-            <span style="float:right">
-               <h4> {{Form::checkbox('mouse_track',1)}} Enable Mouse Tracking</h4>
-            </span>
             @if($experiment->expertype == 'DelayD')
             <a href = "{{URL::to('/experiments/db/DelayD') }}" class="btn btn-primary" role="button" style="display:inline;">
-                Edit the Task Database</a>
+                Edit the Database Or Create a New One</a>
             @endif
     </div>
 {{ Form::close() }}

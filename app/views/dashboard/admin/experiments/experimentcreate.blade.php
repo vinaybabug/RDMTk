@@ -62,15 +62,18 @@
             {{ Form::label('experend_conf_customtext', 'Custom Text:') }}
             {{ Form::textarea('experend_conf_customtext', null, array('placeholder'=>'Custom Text', 'class' => 'form-control')) }}
     </div>
-  
+     <div class="form-group">
+            {{ Form::label('addonfeatures', 'Add-On Features:') }}
+        <h5> {{Form::checkbox('mouse_track',1 )}} Enable Mouse Tracking</h5>
+        <p class="help-block">Mouse Tracking is currently not supported with STROOP task.</p>
+    </div>
+    <br>
     <div class="form-group">
             {{ Form::submit('Submit', array('class' => 'btn btn-success')) }}
             <a href="{{URL::to('experiments')}}" class="btn btn-danger">Cancel</a>
-            <span style="float:right">
-               <h4> {{Form::checkbox('mouse_track',1 )}} Enable Mouse Tracking</h4>
-            </span>
 
     </div>
+   
 
 {{ Form::close() }}
 

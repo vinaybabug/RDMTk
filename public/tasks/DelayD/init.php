@@ -26,7 +26,7 @@ $table = 'delayed_discount_que';
 $experimentid= $_GET['exp'];
 $participantid= $_GET['MID'];
 $count = 1;
-$cols='nooftrials,mouse_track';
+$cols='nooftrials,mouse_track,select_dataset';
 
 /*  Fetch all the Questions from the Database */
 $db = new OE_DataBaseManager();
@@ -35,7 +35,8 @@ $db->sql('SELECT '.$cols .' FROM experiments WHERE id="'.$experimentid.'"');
 $trial= $db->getResult();
 $mouse_track = $trial[0]['mouse_track'];
 $no_trials = $trial[0]['nooftrials'];
-$db->sql('SELECT '.$fields.' FROM '.$table);//. ' WHERE id>0 LIMIT '.$no_trials);
+$dataset = $trial[0]['select_dataset'];
+$db->sql('SELECT '.$fields.' FROM '.$table.' WHERE dataset_name="'.$dataset.'"');//. ' WHERE id>0 LIMIT '.$no_trials);
 $res = $db->getResult();
 $total_que= count($res);
 $db->disconnect();

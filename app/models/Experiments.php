@@ -56,6 +56,7 @@ class Experiments extends Eloquent  {
             'created_by',
             'modified_by',  
             'mouse_track',
+            'select_dataset',
             );
         /*
         public static $rules = array(

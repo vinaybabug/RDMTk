@@ -31,8 +31,8 @@ class DelayDdbController extends baseController{
 	* @description Renders a page displaying the current entries in the database
 	*/
 	public function show(){
-
-		$result = DelayDdata::paginate(10);
+		$email=Auth::user()->email;
+		$result = DelayDdata::whereRaw('created_by ="ADMIN" or created_by="'.$email.'"')->paginate(10);
 		$role = Auth::user()->role;
 		return View::make('dashboard.admin.delayd.show.showdb')->with('result',$result)->with('role',$role);
 		
@@ -42,7 +42,11 @@ class DelayDdbController extends baseController{
 	*/
 	public function create(){
 		$role = Auth::user()->role;
-		return View::make('dashboard.admin.delayd.create.newrow')->with('role',$role);     
+		$email = Auth::user()->email;
+            $datasets= array();
+            $datasets = DB::table('delayed_discount_que')->select('dataset_name')->whereRaw('created_by ="ADMIN" or created_by="'.$email.'"')->groupBy('dataset_name')->get();
+            
+		return View::make('dashboard.admin.delayd.create.newrow')->with('role',$role)->with('datasets',$datasets);     
 
 	}
 	/**
@@ -61,7 +65,7 @@ class DelayDdbController extends baseController{
 	*/
 	public function update(){
 
-		$res= DelayDdata::where('id',Input::get('id'))->update(array('option_a'=>Input::get('option_a'),'option_b'=>Input::get('option_b'),'correct_option'=>Input::get('correct_option')));
+		$res= DelayDdata::where('id',Input::get('id'))->update(array('option_a'=>Input::get('option_a'),'option_b'=>Input::get('option_b')));
 		return Redirect::to('/experiments/db/DelayD')->with('message','The entry was successfully updated');
 
 	}
@@ -69,8 +73,14 @@ class DelayDdbController extends baseController{
 	* @description Creates a new entry in the database.  
 	*/
 	public function store(){
-
-			DelayDdata::create(array('option_a'=>Input::get('option_a'),'option_b'=>Input::get('option_b'),'correct_option'=>Input::get('correct_option')));
+			$email = Auth::user()->email;
+			$dataset_name="";
+			if(Input::get('dataset')=="ADD_NEW"){
+				$dataset_name = Input::get('new_set');
+			}else{
+				$dataset_name = Input::get('dataset');
+			}
+			DelayDdata::create(array('option_a'=>Input::get('option_a'),'option_b'=>Input::get('option_b'),'dataset_name'=>$dataset_name,'created_by'=>$email));
 			return Redirect::to('/experiments/db/DelayD')->with('message','A new entry was successfully created');
 
 	}

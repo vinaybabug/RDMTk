@@ -161,11 +161,18 @@ class RDMExprController extends BaseController {
             if (is_null($experiment)) {
                 return Redirect::route('experiments.index');
             }
+            $email = Auth::user()->email;
+            $datasets= array();
+            $sets = DB::table('delayed_discount_que')->select('dataset_name')->whereRaw('created_by ="ADMIN" or created_by="'.$email.'"')->groupBy('dataset_name')->get();
+            foreach($sets as $set){
+                $datasets = $datasets + array($set->dataset_name=>$set->dataset_name);
+            }
             $role = Auth::user()->role;
             return View::make('dashboard.admin.experiments.experimentedit', compact('experiment'))
                  ->with('tasks', $tasks)
                  ->with('exprconfirmpg', $exprconfirmpg)
-                 ->with('role',$role);
+                 ->with('role',$role)
+                 ->with('datasets',$datasets);
         }
 
         /**
@@ -187,6 +194,7 @@ class RDMExprController extends BaseController {
                 'experend_conf_page_type' =>'required||not_in:default',
                 'experend_conf_customtext' =>'required_if:isCustomText,selected',
                 'urllink' =>'required|url',
+                'select_dataset'=>'required',
             );
                        
             $absolute_url = url('/tasks');

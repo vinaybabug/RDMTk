@@ -31,7 +31,7 @@
 		
 			<div class="panel panel-default col-md-12" style="margin-top:20px;padding:0px 0px;">
 				<div class="panel-heading">
-					<h2>Edit the question</h2>
+					<h3>Edit the question</h3>
 				</div>
 				<div class="panel-body">
 					<h3>What would you prefer:</h3>
@@ -43,15 +43,8 @@
 						<br><br>
 						<h3>Choice B:</h3>
 						<textarea cols="100" rows="5" placeholder ="{{$result[0]['option_b']}}" name= "option_b"></textarea>
-						<br>
-	                    <h3>Choose Correct Option :</h3>
-	                    
-	  					<select name="correct_option" role="button"  class="btn btn-info" >
-	 
-			  				<option value="0">Option A</option>
-							<option value="1">Option B</option>
-						</select>   
-	                <br><br>
+						<br><br><br>
+	              
 	                   
 						
 					<input type="submit" class="btn btn-primary" value="Go"></input>

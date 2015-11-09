@@ -1,4 +1,4 @@
-<?php     
+<?php
 /**
 * Copyright (C) 2015  WiSe Lab, Computer Science Department, Western Michigan University
 *Project Members Involved: Ajay Gupta, Aakash Gupta, Baba Shiv, Praneet Soni, Shrey Gupta and Vinay B Gavirangaswamy
@@ -17,16 +17,39 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
-class DelayDdata extends Eloquent{
+class DelayDExprRsltsData extends Eloquent  {
+
+	
+
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table ="delayed_discount_que";
+	protected $table = 'delayd_expr_data';
+        
 
-	public $timestamps = false;  									// tells the ORM not to insert timestamp into the table by default
-	protected $fillable = array('option_a','option_b','dataset_name','created_by');  					 //defines the fields that can be edited
+	/**
+	 * The attributes excluded from the model's JSON form.
+	 *
+	 * @var array
+	 */
+	//protected $hidden = array('password', 'remember_token');
+        
+        
+        /**
+         * Validation
+         */
+        
+        protected $guarded = array('id');
+        protected $fillable = array(   
+              'mid',
+              'experid',  
+              'que_id',
+              'trialno',
+              'option_selected',
+              'created_by',
+              'modified_by'
+            );
+
 }
-
-?>

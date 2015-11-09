@@ -1,48 +1,32 @@
-/**
-* Copyright (C) 2015  WiSe Lab, Computer Science Department, Western Michigan University
-*Project Members Involved: Ajay Gupta, Aakash Gupta, Baba Shiv, Praneet Soni, Shrey Gupta and Vinay B Gavirangaswamy
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see <http://www.gnu.org/licenses/>
-*/
+-- phpMyAdmin SQL Dump
+-- version 4.3.11
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Nov 09, 2015 at 11:48 PM
+-- Server version: 5.6.24
+-- PHP Version: 5.5.24
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `rdmtoolkit`
 --
-#refresh db to make clean slate
 CREATE SCHEMA IF NOT EXISTS `rdmtoolkit` ;
 USE rdmtoolkit;
 -- --------------------------------------------------------
-DROP TABLE IF EXISTS `rdm_user`;
-DROP TABLE IF EXISTS `experiments`;
-DROP TABLE IF EXISTS `experconfirmation`;
-DROP TABLE IF EXISTS `tasks`;
-DROP TABLE IF EXISTS `bart_expr_data`;
-DROP TABLE IF EXISTS `cups_expr_data`;
-DROP TABLE IF EXISTS `igt_score_cards`;
-DROP TABLE IF EXISTS `igt_expr_data`;
-DROP TABLE IF EXISTS `stroop_expr_data`;
-DROP TABLE IF EXISTS `nback_expr_data`;
-DROP TABLE IF EXISTS `nback_score_practice`;
-DROP TABLE IF EXISTS `nback_score_values`;
-DROP TABLE IF EXISTS `delayed_discount_que`;
-DROP TABLE IF EXISTS `mouse_track`;
-DROP TABLE IF EXISTS `mouse_offset_coords`;
-DROP TABLE IF EXISTS `random_table`;
 
 --
 -- Table structure for table `bart_expr_data`
 --
+
 
 CREATE TABLE IF NOT EXISTS `bart_expr_data` (
   `id` int(50) NOT NULL,
@@ -58,7 +42,8 @@ CREATE TABLE IF NOT EXISTS `bart_expr_data` (
   `modified_by` varchar(60) NOT NULL,
   `updated_at` datetime NOT NULL,
   `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
+
 
 -- --------------------------------------------------------
 
@@ -85,7 +70,30 @@ CREATE TABLE IF NOT EXISTS `cups_expr_data` (
   `created_at` datetime NOT NULL,
   `tracktime` double NOT NULL,
   `cup_color` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `delayd_expr_data`
+--
+
+CREATE TABLE IF NOT EXISTS `delayd_expr_data` (
+  `int` int(11) NOT NULL,
+  `mid` varchar(60) NOT NULL,
+  `experid` varchar(50) NOT NULL,
+  `que_id` int(11) NOT NULL,
+  `option_selected` varchar(30) NOT NULL,
+  `trialno` int(11) NOT NULL,
+  `created_by` varchar(60) NOT NULL,
+  `modified_by` varchar(60) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
+
+
 
 -- --------------------------------------------------------
 
@@ -97,36 +105,38 @@ CREATE TABLE IF NOT EXISTS `delayed_discount_que` (
   `id` int(11) NOT NULL,
   `option_b` varchar(100) NOT NULL,
   `option_a` varchar(100) NOT NULL,
-  `correct_option` int(2) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+  `dataset_name` varchar(100) NOT NULL DEFAULT 'DEFAULT',
+  `created_by` varchar(200) NOT NULL DEFAULT 'ADMIN',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `delayed_discount_que`
 --
 
-INSERT INTO `delayed_discount_que` (`id`, `option_b`, `option_a`, `correct_option`) VALUES
-(1, '$44 10 years', '$22 now', 1),
-(5, '$10 with 50% chance', '$3.5 for sure', 0),
-(9, '$10 in 3 Days', '$1 now', 0),
-(10, '$10 in 365 days', '$4.5 now', 0),
-(11, '$10 in 2 days', '$1 now', 0),
-(13, '$10 with 90% chance', '$0.5 for sure', 0),
-(14, '$10 in 180 days', '$1.5 now', 0),
-(15, '$10 in 30 days', '$2 now', 0),
-(16, '$10 with 90% chance', '$0.5 for sure', 0),
-(17, '$10 in 180 days', '$1.5 now', 0),
-(18, '$10 in 30 days', '$2 now', 0),
-(19, '$10 with 90% chance', '$0.5 for sure', 0),
-(20, '$10 in 180 days', '$1.5 now', 0),
-(21, '$10 in 30 days', '$2 now', 0),
-(22, '$10 with 90% chance', '$0.5 for sure', 0),
-(23, '$10 in 180 days', '$1.5 now', 0),
-(24, '$10 in 30 days', '$2 now', 0),
-(25, '$10 with 90% chance', '$0.5 for sure', 0),
-(26, '$10 in 180 days', '$1.5 now', 0),
-(27, '$10 in 30 days', '$2 now', 0),
-(28, '$10 in 7 days', '$1 right now', 0),
-(29, '$100 in 1 year', '$1 right now', 0);
+INSERT INTO `delayed_discount_que` (`id`, `option_b`, `option_a`, `dataset_name`, `created_by`, `created_at`) VALUES
+(1, '$44 10 years', '$22 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(5, '$10 with 50% chance', '$3.5 for sure', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(9, '$10 in 3 Days', '$1 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(10, '$10 in 365 days', '$4.5 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(11, '$10 in 2 days', '$1 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(13, '$10 with 90% chance', '$0.5 for sure', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(14, '$10 in 180 days', '$1.5 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(15, '$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(16, '$10 with 90% chance', '$0.5 for sure', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(17, '$10 in 180 days', '$1.5 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(18, '$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(19, '$10 with 90% chance', '$0.5 for sure', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(20, '$10 in 180 days', '$1.5 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(21, '$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(22, '$10 with 90% chance', '$0.5 for sure', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(23, '$10 in 180 days', '$1.5 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(24, '$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(25, '$10 with 90% chance', '$0.5 for sure', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(26, '$10 in 180 days', '$1.5 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(27, '$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(28, '$10 in 7 days', '$1 right now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+(29, '$100 in 1 year', '$1 right now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00');
 
 -- --------------------------------------------------------
 
@@ -169,15 +179,12 @@ CREATE TABLE IF NOT EXISTS `experiments` (
   `experend_conf_customtext` varchar(1000) DEFAULT NULL,
   `urllink` varchar(350) NOT NULL,
   `mouse_track` int(11) NOT NULL DEFAULT '0',
+  `select_dataset` varchar(100) NOT NULL DEFAULT 'DEFAULT',
   `created_by` varchar(100) NOT NULL,
   `modified_by` varchar(60) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `experiments`
---
 
 
 
@@ -208,7 +215,19 @@ CREATE TABLE IF NOT EXISTS `igt_expr_data` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `tracktime` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf16;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf16;
+
+--
+-- Dumping data for table `igt_expr_data`
+--
+
+INSERT INTO `igt_expr_data` (`id`, `mid`, `experid`, `trialno`, `initial_total`, `cash_A_win`, `cash_A_lose`, `cash_B_win`, `cash_B_lose`, `cash_C_win`, `cash_C_lose`, `cash_D_win`, `cash_D_lose`, `selected_card`, `final_total`, `created_by`, `modified_by`, `created_at`, `updated_at`, `tracktime`) VALUES
+(1, 'MID19865', 'nprbecmkDl', 1, 4000, 80, -350, 100, -1250, 60, -25, 60, -250, 'card_B', 2850, 'admin', 'admin', '2015-10-31 19:25:42', '0000-00-00 00:00:00', 4.078),
+(2, 'MID19865', 'nprbecmkDl', 2, 2850, 90, 0, 80, 0, 50, 0, 55, 0, 'card_B', 2900, 'admin', 'admin', '2015-10-31 19:25:42', '0000-00-00 00:00:00', 2.312),
+(3, 'MID19865', 'nprbecmkDl', 3, 2900, 100, -250, 110, 0, 60, 0, 45, 0, 'card_C', 2945, 'admin', 'admin', '2015-10-31 19:25:42', '0000-00-00 00:00:00', 1.573),
+(4, 'MID19865', 'nprbecmkDl', 4, 2945, 80, -350, 100, -1250, 60, -25, 60, -250, 'card_D', 2755, 'admin', 'admin', '2015-10-31 19:25:42', '0000-00-00 00:00:00', 1.683),
+(5, 'MID19865', 'nprbecmkDl', 5, 2755, 90, 0, 80, 0, 50, 0, 55, 0, 'card_D', 2835, 'admin', 'admin', '2015-10-31 19:25:42', '0000-00-00 00:00:00', 2.837),
+(6, 'MID19865', 'nprbecmkDl', 6, 2835, 100, -250, 110, 0, 60, 0, 45, 0, 'card_B', 2685, 'admin', 'admin', '2015-10-31 19:25:42', '0000-00-00 00:00:00', 2.239);
 
 -- --------------------------------------------------------
 
@@ -233,56 +252,6 @@ CREATE TABLE IF NOT EXISTS `igt_score_cards` (
 --
 
 INSERT INTO `igt_score_cards` (`s.no`, `card_A_win`, `card_A_lose`, `card_B_win`, `card_B_lose`, `card_C_win`, `card_C_lose`, `card_D_win`, `card_D_lose`) VALUES
-(1, 80, -350, 100, -1250, 60, -25, 60, -250),
-(2, 90, 0, 80, 0, 50, 0, 55, 0),
-(3, 100, -250, 110, 0, 60, 0, 45, 0),
-(4, 80, -350, 100, -1250, 60, -25, 60, -250),
-(5, 90, 0, 80, 0, 50, 0, 55, 0),
-(6, 100, -250, 110, 0, 60, 0, 45, 0),
-(7, 120, 0, 120, 0, 45, -25, 55, 0),
-(8, 100, -300, 90, 0, 50, -50, 60, 0),
-(9, 110, 0, 100, 0, 45, 0, 60, 0),
-(10, 80, -200, 90, 0, 55, -50, 40, 0),
-(11, 120, 0, 120, 0, 45, 0, 45, 0),
-(12, 110, 0, 110, 0, 50, -50, 50, 0),
-(13, 90, -150, 80, 0, 40, -50, 40, 0),
-(14, 110, -350, 110, -1500, 70, 0, 55, 0),
-(15, 130, 0, 100, 0, 55, -25, 60, -275),
-(16, 90, -300, 90, 0, 65, -75, 40, 0),
-(17, 100, 0, 130, 0, 45, 0, 40, 0),
-(18, 120, -200, 120, 0, 55, -25, 45, 0),
-(19, 110, 0, 130, 0, 40, 0, 55, 0),
-(20, 90, -250, 110, 0, 70, -25, 65, 0),
-(21, 130, -150, 90, 0, 60, -75, 70, 0),
-(22, 120, -250, 100, 0, 50, 0, 50, 0),
-(23, 100, 0, 120, 0, 40, -50, 70, 0),
-(24, 120, -250, 120, 0, 60, 0, 60, 0),
-(25, 140, -300, 110, -1750, 65, -25, 55, 0),
-(26, 110, 0, 140, 0, 55, 0, 65, 0),
-(27, 110, -350, 130, 0, 80, -50, 80, 0),
-(28, 100, 0, 100, 0, 40, -25, 40, 0),
-(29, 120, -200, 110, 0, 60, -50, 80, 0),
-(30, 130, -250, 120, 0, 55, 0, 40, 0),
-(31, 110, -150, 120, 0, 65, -25, 65, 0),
-(32, 140, -250, 140, 0, 40, -75, 55, -300),
-(33, 120, 0, 110, 0, 80, -50, 60, 0),
-(34, 130, -350, 130, 0, 65, -25, 65, 0),
-(35, 120, -200, 140, 0, 75, 0, 75, 0),
-(36, 140, -250, 120, -2000, 55, -25, 60, 0),
-(37, 130, -250, 110, 0, 60, -25, 65, 0),
-(38, 110, -150, 130, 0, 70, -25, 75, -325),
-(39, 150, 0, 150, 0, 65, 0, 85, 0),
-(40, 140, -150, 110, 0, 55, -75, 45, 0),
-(41, 120, -300, 150, 0, 75, -25, 55, 0),
-(42, 150, -350, 120, 0, 45, -50, 70, 0),
-(43, 110, 0, 140, 0, 85, -75, 55, 0),
-(44, 140, -350, 140, 0, 70, -25, 70, 0),
-(45, 130, -200, 150, 0, 80, 0, 80, 0),
-(46, 150, -250, 130, 0, 60, -25, 65, 0),
-(47, 140, -250, 120, 0, 65, -25, 70, 0),
-(48, 120, -150, 140, 0, 75, -25, 80, -350),
-(49, 160, 0, 160, -2250, 70, -25, 90, 0),
-(50, 150, -150, 120, 0, 60, -75, 50, 0),
 (51, 130, -300, 160, 0, 80, -25, 60, 0),
 (52, 160, -350, 130, 0, 50, -50, 75, 0),
 (53, 120, -250, 150, 0, 90, -75, 60, 0),
@@ -390,11 +359,6 @@ CREATE TABLE IF NOT EXISTS `mouse_offset_coords` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `mouse_offset_coords`
---
-
-
 
 -- --------------------------------------------------------
 
@@ -411,7 +375,7 @@ CREATE TABLE IF NOT EXISTS `mouse_track` (
   `y_coord` int(11) NOT NULL,
   `time_spent` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -433,7 +397,9 @@ CREATE TABLE IF NOT EXISTS `nback_expr_data` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `exp_flag` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf16;
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf16;
+
+
 
 -- --------------------------------------------------------
 
@@ -589,23 +555,6 @@ INSERT INTO `nback_score_values` (`s.no`, `char_value`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `random_table`
---
-
-CREATE TABLE IF NOT EXISTS `random_table` (
-  `dorandom` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `random_table`
---
-
-INSERT INTO `random_table` (`dorandom`) VALUES
-(1);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `rdm_user`
 --
 
@@ -620,11 +569,7 @@ CREATE TABLE IF NOT EXISTS `rdm_user` (
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `rdm_user`
---
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 
 
@@ -693,6 +638,12 @@ ALTER TABLE `bart_expr_data`
 --
 ALTER TABLE `cups_expr_data`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `delayd_expr_data`
+--
+ALTER TABLE `delayd_expr_data`
+  ADD PRIMARY KEY (`int`);
 
 --
 -- Indexes for table `delayed_discount_que`
@@ -774,17 +725,22 @@ ALTER TABLE `tasks`
 -- AUTO_INCREMENT for table `bart_expr_data`
 --
 ALTER TABLE `bart_expr_data`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=60;
 --
 -- AUTO_INCREMENT for table `cups_expr_data`
 --
 ALTER TABLE `cups_expr_data`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `delayd_expr_data`
+--
+ALTER TABLE `delayd_expr_data`
+  MODIFY `int` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT for table `delayed_discount_que`
 --
 ALTER TABLE `delayed_discount_que`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `experconfirmation`
 --
@@ -794,7 +750,7 @@ ALTER TABLE `experconfirmation`
 -- AUTO_INCREMENT for table `igt_expr_data`
 --
 ALTER TABLE `igt_expr_data`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `igt_score_cards`
 --
@@ -804,7 +760,7 @@ ALTER TABLE `igt_score_cards`
 -- AUTO_INCREMENT for table `mouse_offset_coords`
 --
 ALTER TABLE `mouse_offset_coords`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `mouse_track`
 --
@@ -814,7 +770,7 @@ ALTER TABLE `mouse_track`
 -- AUTO_INCREMENT for table `nback_expr_data`
 --
 ALTER TABLE `nback_expr_data`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=73;
 --
 -- AUTO_INCREMENT for table `nback_score_values`
 --
@@ -824,7 +780,7 @@ ALTER TABLE `nback_score_values`
 -- AUTO_INCREMENT for table `rdm_user`
 --
 ALTER TABLE `rdm_user`
-  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `stroop_expr_data`
 --
