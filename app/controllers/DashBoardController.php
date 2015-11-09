@@ -35,13 +35,15 @@ class DashBoardController extends BaseController {
      * Show the admin profile.
      */
     public function showAdminPage() {
-        $this->layout->content = View::make('dashboard.dashboard_admin');
+        $role = Auth::user()->role;
+        $this->layout->content = View::make('dashboard.dashboard_admin')->with('role',$role);
     }
     
     /**
      * Show the profile for a Researcher.
      */
     public function showResearcherPage() {
+        
         $this->layout->content = View::make('dashboard.dashboard_researcher');
     }
 
