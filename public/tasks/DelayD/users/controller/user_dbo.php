@@ -18,23 +18,34 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
+class UserDBO
+{
+ 
+	 protected $db;
 
-/**
- * Description of Dashboard used for Live monitoring of the Experiments
- *
- * @author Praneet Soni praneetsoni.soni@gmail.com
- */
+	  public function viewFieldsExperimentCond($input,$cond)
+     {
+	 
+		$db = new OE_DataBaseManager();
+		$db->connect();
+		$db->sql('SELECT '.$input.' FROM experiments  where '.$cond);
+		$res = $db->getResult();
+                $db->disconnect();
+		return json_encode($res);
 
-class MonitoringDashboardController extends BaseController{
+     }
 
-	/**
-	* @description Renders a page which allows the researcher to select an exp to monitor
-	*/
-	public function select(){
-		$tasks = Tasks::lists('taskname','id');
-		return View::make('dashboard.admin.experiments.Monitor.selectExp')->with('tasks',$tasks);
-	}
-}
-
-
+	public function viewFieldsParticipantCond($fields,$cond)
+     {
+	 
+		$db = new OE_DataBaseManager();
+		$db->connect();
+		$db->sql('SELECT '.$fields.' FROM delayd_expr_data where '.$cond);
+		$res = $db->getResult();
+                $db->disconnect();
+		return json_encode($res); 
+     }	
+     
+} 
 ?>
+

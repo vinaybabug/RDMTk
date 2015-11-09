@@ -39,6 +39,13 @@ class DashBoardController extends BaseController {
     }
     
     /**
+     * Show the profile for a Researcher.
+     */
+    public function showResearcherPage() {
+        $this->layout->content = View::make('dashboard.dashboard_researcher');
+    }
+
+    /**
      * Show the participants profile.
      */
     public function showParticipantsPage() {
@@ -57,8 +64,9 @@ class DashBoardController extends BaseController {
             if(Auth::check() || Auth::viaRemember()){
             $user = Auth::user();
              $tasks = Tasks::all();
+             $role = Auth::user()->role;
             return View::make('dashboard.participants.userprofile', compact('user'))
-                    ->with('tasks', $tasks);
+                    ->with('tasks', $tasks)->with('role',$role);
             }
             return Redirect::route('login');
         }
@@ -71,7 +79,8 @@ class DashBoardController extends BaseController {
 	public function profile() {
             if(Auth::check() || Auth::viaRemember()){
             $user = Auth::user();
-            return View::make('dashboard.userprofile', compact('user'));
+            $role = Auth::user()->role;
+            return View::make('dashboard.userprofile', compact('user'))->with('role',$role);
             }
             return Redirect::route('login');
         }

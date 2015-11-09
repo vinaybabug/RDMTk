@@ -18,6 +18,7 @@
 -->
 
 @section('page-content')
+
 <html>
 <head>
 	
@@ -41,7 +42,7 @@
 				<li role="presentation"><a href="">Step3</a></li>
 			</ul>
 		</div>
-		<h1 class="page-header">Enter Some Basic Info</h1>
+		<h3 class="page-header">Basic Task Information</h3>
 		<br>
 		<form method="POST" action="{{URL::to('/Task/new/first')}}">
 			<div class="form-group">

@@ -334,11 +334,7 @@
                 currentTime = new Date().getTime();               
                                             
                 if(balloonNumber >= <?php echo $_SESSION['totalTrials']; ?>){
-                    <?php if($mouse_track==1){
-
-                        echo '$("#unload").trigger("click");';
-                    }
-                    ?>
+                    
                         $('#balloonTrialModel').modal('hide');
                         
                         $('#storeDataModel').modal({
@@ -361,20 +357,20 @@
                         updated_at: "<?php echo date("Y-m-d H:i:s");?>"
                         });    
                          
-                        $url = "<?php  echo "http://" . $_SERVER['SERVER_NAME'] . substr($_SERVER['REQUEST_URI'],0,strrpos($_SERVER['REQUEST_URI'],"tasks"));  ?>"+"expr/rslts/bart/store";
+                        var url = "<?php  echo 'http://' . $_SERVER['SERVER_NAME'] . substr($_SERVER['REQUEST_URI'],0,strrpos($_SERVER['REQUEST_URI'],'tasks'));  ?>"+"expr/rslts/bart/store";
                         $.ajax({
                         type: "POST",
-                        url: $url,         
+                        url: url,         
                         data: jsonExrData,                                   
                         dataType: "json",
                         success: function(data) { 
                             $('#storeDataModel').modal('hide');
                             //alert(data);
-                            if(data == true){                           
+                            if(data == true){  
+
                               window.location.href = "http://" + "<?php echo $_SERVER['HTTP_HOST'].rtrim(dirname($_SERVER['PHP_SELF']), '/\\');?>"+ "/end.php?exp="+"<?php echo $experimentid; ?>"+"&MID="+"<?php echo $participantid ?>"+"&TOTALPOINTS="+ totalScore;                                                                                                 
                             }
-                            else
-                            if(data == false){
+                            else if(data == false){
                                 
                                 $('#errorModel').modal({
                                               backdrop:'static',
@@ -385,14 +381,20 @@
                         },
                         error: function(xhr, ajaxOptions, thrownError) {
                                         //alert(xhr.status);
+
                                         $('#storeDataModel').modal('hide');
-                                        //alert(xhr.status+": "+thrownError);
+                                        alert(xhr.status+": "+thrownError);
                                         $('#errorModel').modal({
                                               backdrop:'static',
                                               keyboard: false
                                             });
                         }
-                        });              
+                        });  
+                        <?php if($mouse_track==1){
+
+                        echo '$("#unload").trigger("click");';
+                    }
+                    ?>            
                     
                 }
                 else{                           

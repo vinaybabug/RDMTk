@@ -18,6 +18,7 @@
 -->
 
 @section('page-content') 
+
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">Create Experiment</h1>
@@ -32,7 +33,7 @@
             {{ Form::text('expername', null, array('placeholder'=>'Experiment Name', 'class' => 'form-control')) }}                
     </div>
     <div class="form-group">
-            {{ Form::label('expertype', 'Tool:') }}
+            {{ Form::label('expertype', 'Task name:') }}
             {{ Form::select('expertype',array('default' => 'Please select one option') + $tasks, 'default', array('class' => 'form-control')) }}
             
     </div>

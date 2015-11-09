@@ -48,7 +48,8 @@ class MouseTracker extends BaseController{
 
 	public function show(){
 		$tasks = Tasks::lists('taskname','id');
-		return View::make('dashboard.admin.experiments.Track.selectUser')->with('tasks',$tasks);
+		$role = Auth::user()->role;
+		return View::make('dashboard.admin.experiments.Track.selectUser')->with('tasks',$tasks)->with('role',$role);
 
 	}
 
@@ -84,8 +85,8 @@ class MouseTracker extends BaseController{
 
 		$result = MouseTrack::where('expid',$expid)->where('userid',$userid)->first();    //'where' clause returns a list of results..so to access
 																					      //the attributes select one item in list first
-
-		return View::make('dashboard.admin.experiments.Track.mousePathRetrace')->with('result',$result->coordinates);
+		$role = Auth::user()->role;
+		return View::make('dashboard.admin.experiments.Track.mousePathRetrace')->with('result',$result->coordinates)->with('role',$role);
 
 	}
 

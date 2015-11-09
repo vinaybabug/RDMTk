@@ -20,6 +20,7 @@
 
 
 include 'include/class/oe_databasemanager.php';
+include 'users/controller/user_dbo.php';
 $fields = 'id,option_a,option_b';
 $table = 'delayed_discount_que';
 $experimentid= $_GET['exp'];
@@ -28,16 +29,29 @@ $count = 1;
 $cols='nooftrials,mouse_track';
 
 /*  Fetch all the Questions from the Database */
-$db = new DataBaseManager();
+$db = new OE_DataBaseManager();
 $db->connect();
 $db->sql('SELECT '.$cols .' FROM experiments WHERE id="'.$experimentid.'"');
 $trial= $db->getResult();
 $mouse_track = $trial[0]['mouse_track'];
 $no_trials = $trial[0]['nooftrials'];
-$db->sql('SELECT '.$fields.' FROM '.$table. ' WHERE id>0 LIMIT '.$no_trials);
+$db->sql('SELECT '.$fields.' FROM '.$table);//. ' WHERE id>0 LIMIT '.$no_trials);
 $res = $db->getResult();
-
+$total_que= count($res);
 $db->disconnect();
+$userdbo = new UserDBO();
+$viewexpts = $userdbo->viewFieldsParticipantCond('*', 'mid="' . $participantid . '" and experid="' . $experimentid . '" order by trialno');
+$viewexpts = json_decode($viewexpts); 
+$trialAttempted = count($viewexpts);
+if($trialAttempted>0){
+
+ 	$url = 'http://' . $_SERVER['HTTP_HOST'];            // Get the server
+    $url .= rtrim(dirname($_SERVER['PHP_SELF']), '/\\'); // Get the current directory
+    $url .= '/end.php?exp='.$experimentid.'&MID='.$participantid;         
+    header('Location: ' . $url, true, 302);
+}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -61,49 +75,90 @@ $db->disconnect();
 </h3>				
    <!--  The following script iterates through the questions and changes the contents of HTML DOM element holding the question everytime an option is selected -->           
   <script type="text/javascript">
+    var jsonExpData = {data:[]};
     var clicks = 0;
 	var z=0;
     var arr=<?php echo json_encode($res);?>;
     var count=<?php echo $no_trials; ?>;
+    var total_que=<?php echo $total_que;?>;
     var nums = new Array();
-    var  ranNums = new Array();
+    var ranNums = new Array();
     
     <?php  
     //order of the questions is randomized if do_random variable is set     
-    	if($_POST['do_random']){
-	    	echo 'for(z=0;z<count;z++)
+    	if($_POST['do_random']=="RANDOM"){
+	    	echo 'for(z=0;z<total_que;z++)
 			nums[z]=z;
 			var i = count;
 		    var j = 0;
 			while (i--) {
-				j = Math.floor(Math.random() * (i));
+				j = Math.floor(Math.random() * (total_que-1));
 				ranNums.push(nums[j]);
 				nums.splice(j,1);
 				}';
     		}
-    		else{
+    		elseif($_POST['do_random']=="FIXED"){
 
     			echo 'for(z=0;z<count;z++)
 					ranNums[z]=z;';
     		}
     ?>			
-    		
-    	function nxt() {			 
+    	function select_a(){
 
+    		var current = 'a';
+    		nxt(current);
+    	}
+
+    	function select_b(){
+
+    		var current = 'b';
+    		nxt(current);
+    	}
+    		
+    	function nxt(current) {			 
+    		var uri = "<?php  echo 'http://' . $_SERVER['SERVER_NAME'].str_replace('init.php','storedata.php',$_SERVER['PHP_SELF']) ; ?>"; 
 			if(clicks>=count){
 				<?php if($mouse_track==1){
 
                         echo '$("#unload").trigger("click");';
                     }
                     ?>
-				window.location.href="end.html";}
-	        else {
+                jsonExpData.data.push({
+	        		mid: "<?php echo $participantid; ?>",
+                    experid: "<?php echo $experimentid; ?>",
+                    que_id: arr[ranNums[clicks-1]]['id'],
+                   	option_selected:current,
+                   	trialno:clicks
+                });
+
+                $.ajax({
+                        type: "POST",
+                        url: uri,         
+                        data: jsonExpData,                                   
+                        dataType: "json"
+                    }).done(function(){
+
+                    	alert("data sent!");
+                    });
+				window.location.href="end.php?exp=<?php echo $experimentid;?>&MID=<?php echo $participantid;?>";
+			}
+	        else { 
+        
+	        	if(clicks>0){
+	        	jsonExpData.data.push({
+	        		mid: "<?php echo $participantid; ?>",
+                    experid: "<?php echo $experimentid; ?>",
+                    que_id: arr[ranNums[clicks-1]]['id'],
+                   	option_selected:current,
+                   	trialno:clicks
+                });  }
+                
 	        	document.getElementById("clicks").innerHTML = (clicks+1);
 				z=(clicks)*100/(count);
 				document.getElementById("que1").innerHTML =arr[ranNums[clicks]]['option_a'];
 				document.getElementById("que2").innerHTML =arr[ranNums[clicks]]['option_b'];
 				document.getElementById("pro").style.width = z+"%";
-				document.getElementById("progressdetail").innerHTML =Math.floor(z)+" % complete" ;
+				document.getElementById("progressdetail").innerHTML =Math.floor(z)+"% complete" ;
 			} clicks += 1;
     }
 
@@ -129,14 +184,14 @@ $db->disconnect();
         
         
 		<div class="row text-center" >
-        <button type="button" class="btn btn-success" style="width:100px;" onclick="nxt()">A</button>
+        <button type="button" class="btn btn-success" style="width:100px;" onclick="select_a()">A</button>
         &nbsp; &nbsp; 
-        <button type="button" class="btn btn-success" style="width:100px;" onclick="nxt()">B</button>
+        <button type="button" class="btn btn-success" style="width:100px;" onclick="select_b()">B</button>
     <p>question No: <span id="clicks">1</span></p> 
     <br><br><br><br><br><br>
 		
 		<div class="progress">
-			<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="11" area-valuemin="0" area-valuemax="100" id="pro" ><a id="progressdetail">0%Complete</a></div>
+			<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="11" area-valuemin="0" area-valuemax="100" id="pro" ><a id="progressdetail">0% Complete</a></div>
 			</div>
 		</div>
 	</div>

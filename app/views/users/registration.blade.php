@@ -71,7 +71,7 @@
                         </div>
                         <div class="row">            
                             <div class="col-xs-6">                                
-                                {{ Form::checkbox('role', 'ADMIN'); echo ' Admin account'}}     
+                                {{ Form::checkbox('role', 'RDM_RESEARCHER'); echo ' Researcher account'}}     
                             </div> 
                         </div>
                         {{ Form::submit('Register', array('class'=>'btn btn-lg btn-success btn-block')) }}

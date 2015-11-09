@@ -18,6 +18,7 @@
 -->
 
 @section('page-content')
+
 <html>
 <head>
 	
@@ -42,7 +43,7 @@
 				<li role="presentation"><a href="">Step3</a></li>
 			</ul>
 		</div>
-		<h1 class="page-header">Upload The Task code Files</h1>
+		<h3 class="page-header">Upload The Task code Files</h3>
 		<br>
 		<form enctype="multipart/form-data" method="POST" action="{{URL::to('Task/new/second')}}">
 		<div class="form-group">

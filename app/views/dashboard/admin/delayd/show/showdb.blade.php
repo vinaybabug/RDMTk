@@ -18,6 +18,7 @@
 -->
 
 @section('page-content')
+
 <!DOCTYPE html>
 <html>
 <head>

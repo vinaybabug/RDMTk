@@ -32,8 +32,8 @@ class RDMTaskController extends BaseController{
 	* @description Renders a form asking for the Task name and Task ID
 	*/	
 	public function showFirst(){
-
-	    return View::make('dashboard.Tasks.taskcreate_firststep');
+		$role = Auth::user()->role;
+	    return View::make('dashboard.Tasks.taskcreate_firststep')->with('role',$role);
 
 	}
 
@@ -60,8 +60,8 @@ class RDMTaskController extends BaseController{
 	* @description Renders a form to collect the Task files, which need to uploaded by the user as .zip file
 	*/
 	public function showSecond(){
-
-     return View::make('dashboard.Tasks.taskcreate_secondstep');
+	$role = Auth::user()->role;
+    return View::make('dashboard.Tasks.taskcreate_secondstep')->with('role',$role);
 
 	}
 	/**
@@ -82,17 +82,17 @@ class RDMTaskController extends BaseController{
 
 				$data=array('type'=>$type,'ext'=>$name[$len-1], 'size'=>$size,'ext_accepted'=>'zip');
 				$rules= array('type'=>'required_if:ext,zip|in:application/zip,application/x-zip-compressed,multipart/x-zip,application/x-compressed' , 
-					'ext'=>'same:ext_accepted', 'size'=>'numeric|max:2097150','ext_accepted'=>'');
+					'ext'=>'same:ext_accepted', 'size'=>'numeric|max:16777216','ext_accepted'=>'');
 				$messages= array('in'=>'The uploaded file does not have an acceptable .zip type','same'=>'The uploaded file is not a .zip file', 
-					'max'=>'The size of file uploaded exceeds 2M');
+					'max'=>'The size of file uploaded exceeds 16M');
 				$validator  = Validator::make($data,$rules,$messages);
 				if($validator->fails()){
 
 					return Redirect::to('/Task/new/second')->withErrors($validator);
 
 				}else {
-					
-					Session::put('target_path', $_SERVER['DOCUMENT_ROOT']."/RDMToolkit/public/tasks/".$filename);
+					$sub_dir= explode("/",$_SERVER['PHP_SELF']);
+					Session::put('target_path', $_SERVER['DOCUMENT_ROOT']."/".$sub_dir[1]."/public/tasks/".$filename);
 					//Session::put('source',$source);
 					if(move_uploaded_file($source, Session::get('target_path'))) {
 					return Redirect::to('/Task/new/third');
@@ -114,8 +114,8 @@ class RDMTaskController extends BaseController{
 	*				created ,for the functioning of the new Task being added.
 	*/
 	public function showThird(){
-		
-     return View::make('dashboard.Tasks.taskcreate_thirdstep');
+	$role = Auth::user()->role;
+    return View::make('dashboard.Tasks.taskcreate_thirdstep')->with('role',$role);
 
 	}
 	/**
@@ -202,14 +202,16 @@ class RDMTaskController extends BaseController{
 			'created_at'=>date("Y-m-d H:i:s"),'updated_at'=>date("Y-m-d H:i:s")));
 		//Completing the Second step i.e extracting task files to the correct location
 		$target_path = Session::get('target_path');
-		$final_path=$_SERVER['DOCUMENT_ROOT']."/RDMToolkit/public/tasks/".Session::get('task_id');
+		$sub_dir= explode("/",$_SERVER['PHP_SELF']);
+		$final_path=$_SERVER['DOCUMENT_ROOT']."/".$sub_dir[1]."/public/tasks/".Session::get('task_id');
 			$zip = new ZipArchive();
 			$x = $zip->open($target_path);
 			if ($x === true) {
 				$zip->extractTo($final_path); 
 				$zip->close();
 				unlink($target_path);
-			}else{
+			}else{ 
+				// delete all the changes made to the database , if there's some problem with the upload of task files
 					unlink($target_path);
 					Tasks::where('id',Session::get('task_id'))->delete();
 					foreach($tables as $table){
@@ -227,8 +229,13 @@ class RDMTaskController extends BaseController{
 		Session::forget('source');
 		
 		//Session::flush();
-
-    return Redirect::route('dashboard_admin')->with('message','The new Task successfully integrated into the toolkit!');
+		$role = Auth::user()->role;
+		if($role=="RDM_RESEARCHER"){
+			return Redirect::route('dashboard_researcher')->with('message','The new Task successfully integrated into the toolkit!');
+		}elseif ($role=="ADMIN") {
+			return Redirect::route('dashboard_admin')->with('message','The new Task successfully integrated into the toolkit!');
+		}
+    
 
 	}
 

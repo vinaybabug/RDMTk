@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 /**
 * Copyright (C) 2015  WiSe Lab, Computer Science Department, Western Michigan University
@@ -18,41 +18,25 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
 
+include 'include/class/oe_databasemanager.php';
+ $dataObject = $_POST; //Fetching all posts
+$db = new OE_DataBaseManager();
+$db->connect();
+$table = "delayd_expr_data";
+for($trialorder=0;$trialorder<count($dataObject['data']);$trialorder++)
+	{	
 
-/**
- * Description of RegistrationController
- *
- * @author VinayB
- */
-class RegistrationController extends BaseController {
+		
+		$experimentid = $dataObject['data'][$trialorder]['experid'];
+		$mid = $dataObject['data'][$trialorder]['mid'];
+		$option_selected = $dataObject['data'][$trialorder]['option_selected'];
+		$que_id =$dataObject['data'][$trialorder]['que_id'];
+		$trialno = $dataObject['data'][$trialorder]['trialno'];
 
-    /**
-     * The layout that should be used for responses.
-     */
-    protected $layout = 'layouts.login_registration_master';
+		$params= array("mid"=>$mid,"experid"=>$experimentid,"option_selected"=>$option_selected,"que_id"=>$que_id,"trialno"=>$trialno,"created_by"=>$mid,"modified_by"=>$mid);
+		$db->insert($table,$params);
 
-    /**
-     * Show the user profile.
-     */
-    public function showMainPage() {
-        
-        $this->layout->content = View::make('users.registration');
-    }
-    
-       public function onSubmit() {
-           
-        $this->layout->content = View::make('users.registration');
-    }
 
-    public function showLoginPage() {
-        
-        $this->layout->content = View::make('users.login');
-    }
-    
-     public function showForgotPasswordPage() {
-        
-        $this->layout->content = View::make('users.forgotpassword');
-    }
-
-}
-
+		}
+$db->disconnect();
+?>

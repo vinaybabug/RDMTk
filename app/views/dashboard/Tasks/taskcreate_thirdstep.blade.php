@@ -18,6 +18,7 @@
 -->
 
 @section('page-content')
+
 <html>
 <head>
 	
@@ -42,7 +43,7 @@
 				<li role="presentation" class="active"><a href="{{URL::to('Task/new/third')}}">Step3</a></li>
 			</ul>
 		</div>
-		<h1 class="page-header">Upload the config.xml file</h1>
+		<h3 class="page-header">Upload the config.xml file</h3>
 		<br>
 		<form method="POST" enctype="multipart/form-data" action="{{URL::to('Task/new/third')}}">
 		<div class="form-group">

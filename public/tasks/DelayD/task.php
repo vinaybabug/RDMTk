@@ -22,11 +22,11 @@ $experimentid= $_GET['exp'];
 $participantid= $_GET['MID']; 
 
 include 'include/class/oe_databasemanager.php';
-$fields = 'dorandom';
-$table = 'random_table';
-$db = new DataBaseManager();
+$fields = 'expertrial_outcome_type';
+$table = 'experiments';
+$db = new OE_DataBaseManager();
 $db->connect();
-$db->sql('SELECT '.$fields.' FROM '.$table. ' LIMIT 1');
+$db->sql('SELECT '.$fields.' FROM '.$table.' WHERE id="'.$experimentid.'"');
 $res = $db->getResult();
 
 $db->disconnect();
@@ -62,12 +62,11 @@ $db->disconnect();
 			<!--checks the value of do_random field and sends the value retrieved to the nxt page -->
 			<form action=<?php echo "init.php?exp=".$experimentid."&MID=".$participantid ?> method="POST">
 			<input class="btn btn-success active" type="submit" value ="Submit" style ="width:100px;">
-			<input type="hidden" name="do_random" value="<?php echo $res[0]['dorandom'];  ?>">
+			<input type="hidden" name="do_random" value="<?php echo $res[0]['expertrial_outcome_type'];  ?>">
 			</form>
 		</div>
 
 	</div>
-	
 </div>
 
 </body>

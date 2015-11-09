@@ -68,8 +68,8 @@ class ExprResultsController extends BaseController {
                     break;
             }
         }
-
-        return View::make('/hello');
+        $role = Auth::user()->role;
+        return View::make('/hello')->with('role',$role);
     }
 
     private function bartExprRaw($taskId, $experId) {
@@ -341,8 +341,9 @@ class ExprResultsController extends BaseController {
     
     public function soExperRsltDwnldPg() {
         $tasks = Tasks::lists('taskname', 'id');
+        $role = Auth::user()->role;
         return View::make('dashboard.admin.exprRslts.exprRsltsSo')
-                        ->with('tasks', $tasks);
+                        ->with('tasks', $tasks)->with('role',$role);
     }
 
     public function getExprids($id) {

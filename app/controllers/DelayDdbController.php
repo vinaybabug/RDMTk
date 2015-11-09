@@ -33,15 +33,16 @@ class DelayDdbController extends baseController{
 	public function show(){
 
 		$result = DelayDdata::paginate(10);
-		return View::make('dashboard.admin.delayd.show.showdb')->with('result',$result);
+		$role = Auth::user()->role;
+		return View::make('dashboard.admin.delayd.show.showdb')->with('result',$result)->with('role',$role);
 		
 		}
 	/**
 	* @description Renders a form through which data for the new table entry can be entered 
 	*/
 	public function create(){
-
-		return View::make('dashboard.admin.delayd.create.newrow');     
+		$role = Auth::user()->role;
+		return View::make('dashboard.admin.delayd.create.newrow')->with('role',$role);     
 
 	}
 	/**
@@ -51,7 +52,8 @@ class DelayDdbController extends baseController{
 
 		$id = Input::get('id');
 		$result= DelayDdata::where('id',$id)->get();
-		return View::make('dashboard.admin.delayd.edit.editrow')->with('result',$result);
+		$role = Auth::user()->role;
+		return View::make('dashboard.admin.delayd.edit.editrow')->with('result',$result)->with('role',$role);
 
 	}
 	/**
@@ -59,7 +61,6 @@ class DelayDdbController extends baseController{
 	*/
 	public function update(){
 
-			
 		$res= DelayDdata::where('id',Input::get('id'))->update(array('option_a'=>Input::get('option_a'),'option_b'=>Input::get('option_b'),'correct_option'=>Input::get('correct_option')));
 		return Redirect::to('/experiments/db/DelayD')->with('message','The entry was successfully updated');
 

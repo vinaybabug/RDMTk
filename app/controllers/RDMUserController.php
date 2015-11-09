@@ -34,7 +34,8 @@ class RDMUserController extends BaseController {
                         // Commented because trying log when no users in database creates problem.
                          //Log::error("RDMUserController::index()", $users);
                     }
-                    return View::make('dashboard.users.usermanagement', compact('users'));
+                    $role = Auth::user()->role;
+                    return View::make('dashboard.users.usermanagement', compact('users'))->with('role',$role);
                     
 	}
 
@@ -46,8 +47,8 @@ class RDMUserController extends BaseController {
 	 */
 	public function create()
 	{
-		//
-            return View::make('dashboard.users.usercreate');
+		    $role = Auth::user()->role;
+            return View::make('dashboard.users.usercreate')->with('role',$role);
 	}
 
 
@@ -60,17 +61,17 @@ class RDMUserController extends BaseController {
         //
         $input = Input::all();
         $validation = Validator::make($input, User::$rules);
-
+        $role = Auth::user()->role;
         if ($validation->passes()) {
             User::create($input);
 
-            return Redirect::route('users.index');
+            return Redirect::route('users.index')->with('role',$role);
         }
 
         return Redirect::route('users.create')
                         ->withInput()
                         ->withErrors($validation)
-                        ->with('message', 'There were validation errors.');
+                        ->with('message', 'There were validation errors.')->with('role',$role);
         }
 
     /**
@@ -94,10 +95,11 @@ class RDMUserController extends BaseController {
 	public function edit($id) {
         //
             $user = User::find($id);
+            $role = Auth::user()->role;
             if (is_null($user)) {
-                return Redirect::route('users.index');
+                return Redirect::route('users.index')->with('role',$role);
             }
-            return View::make('dashboard.users.useredit', compact('user'));
+            return View::make('dashboard.users.useredit', compact('user'))->with('role',$role);
         }
 
         /**
@@ -111,16 +113,17 @@ class RDMUserController extends BaseController {
 		//
               $input = Input::all();
               $validation = Validator::make($input, User::$rulesUpdate);
+              $role = Auth::user()->role;
               if ($validation->passes())
               {
                 $user = User::find($id);
                 $user->update($input);
-                return Redirect::route('users.index', $id);
+                return Redirect::route('users.index', $id)->with('role',$role);
                }
                return Redirect::route('users.edit', $id)
                 ->withInput()
                 ->withErrors($validation)
-                ->with('message', 'There were validation errors.');
+                ->with('message', 'There were validation errors.')->with('role',$role);
 	}
 
 
@@ -134,7 +137,8 @@ class RDMUserController extends BaseController {
 	{
 		//
             User::find($id)->delete();
-            return Redirect::route('users.index');
+            $role = Auth::user()->role;
+            return Redirect::route('users.index')->with('role',$role);
 	}
         
         /**
@@ -147,6 +151,7 @@ class RDMUserController extends BaseController {
             
             // do validation first
             $input = Input::all();
+            $role = Auth::user()->role;
             $rules = array(
                 'email' => 'required|email',
                 'password' =>'required|same:password_confirmation'
@@ -161,7 +166,7 @@ class RDMUserController extends BaseController {
                 // show error saying that email is not associated with RDM
                 return  Redirect::route('resetPassword')
                         ->withInput()                        
-                        ->with('message', 'No user associated with given email address.');
+                        ->with('message', 'No user associated with given email address.')->with('role',$role);
             }
             
             $user->password = $password;
@@ -173,7 +178,7 @@ class RDMUserController extends BaseController {
             return Redirect::route('resetPassword')
                         ->withInput()
                         ->withErrors($validation)
-                        ->with('message', 'There were validation errors.');            
+                        ->with('message', 'There were validation errors.')->with('role',$role);            
         }
         
         
@@ -208,11 +213,11 @@ class RDMUserController extends BaseController {
             User::create($user);
             return Redirect::route('login');
         }
-
+        $role = Auth::user()->role;
         return Redirect::route('registration')
                         ->withInput()
                         ->withErrors($validation)
-                        ->with('message', 'There were validation errors.');
+                        ->with('message', 'There were validation errors.')->with('role',$role);
         }
         
     

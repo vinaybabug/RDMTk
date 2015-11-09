@@ -86,15 +86,13 @@ Route::filter('role', function()
     switch($user->role)
     {
         case 'ADMIN':
-            return Redirect::action('DashBoardController@showAdminPage');
-            
+            return Redirect::action('DashBoardController@showAdminPage');            
         break;
         case 'RDM_RESEARCHER':
-           return Redirect::action('DashBoardController@showAdminPage');
+           return Redirect::action('DashBoardController@showResearcherPage');
         break;
         case 'END_USER':
-            return Redirect::action('DashBoardController@showParticipantsPage');
-            
+            return Redirect::action('DashBoardController@showParticipantsPage');            
         break;
     
     }

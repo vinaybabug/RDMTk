@@ -38,9 +38,11 @@
 
 
 @section('side-menu') 
-                        <li>
+                    @if($role=="ADMIN")
+                        <li id ="manage_users">
                             <a href="{{URL::to('users')}}"><i class="fa fa-users fa-fw"></i> Manage Users</a>
                         </li>
+                    @endif
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Experiments<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -54,7 +56,7 @@
                                      <a href="{{URL::to('monitor/select')}}"><i class="glyphicon glyphicon-forward"></i> Monitor Experiments</a>
                                 </li>-->
                                 <li>
-                                    <a href="{{URL::to('Task/new/first')}}"><i class="glyphicon glyphicon-forward"></i>Add a New Task</a>
+                                  <a href="{{URL::to('Task/new/first')}}"> <i class="fa fa-pencil fa-fw"></i> Add a New Task</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -90,6 +92,11 @@
 @section('page-content') 
     <div class="col-lg-12">
     <h1 class="page-header">Welcome</h1>
+    <br>
+            <p><h4>RDMTk toolkit used for studying risky decision making. It is developed as a highly extensible web based open source framework. 
+            It will include a range of easy to use functionalities for managing experiments, 
+            users and data collection. RDMTk will support a good number of tasks used to study different aspects of decision making.</h4></p>
+        <p><h4>It provides a free environment to conduct experiment’s globally and hence fosters collaboration.</h4></p>
         
     </div>
 @stop
