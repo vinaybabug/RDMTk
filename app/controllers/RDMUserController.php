@@ -193,8 +193,8 @@ class RDMUserController extends BaseController {
         
         $role = 'END_USER';
         
-        if(Input::get('role') == 'ADMIN'){
-            $role = 'ADMIN';
+        if(Input::get('role') == 'RDM_RESEARCHER'){
+            $role = 'RDM_RESEARCHER';
         }
         
         $user = array(

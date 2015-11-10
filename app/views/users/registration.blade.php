@@ -56,6 +56,7 @@
                         <div class="form-group">
                             {{ Form::email('email', null, array('class'=>'form-control input-sm','placeholder'=>'Email Address')) }}
                         </div>
+                                              
 
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
@@ -77,6 +78,9 @@
                         {{ Form::submit('Register', array('class'=>'btn btn-lg btn-success btn-block')) }}
                          </fieldset>
                         {{Form::close()}}
+                        <br>
+                         <div class="alert alert-warning" role="alert" style="padding:4px;margin:0px;"><h5><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>&nbsp;
+                        Please Note that your email will be used as the Username for Sign in.</h5></div>
 						
                     </div>
                 </div>

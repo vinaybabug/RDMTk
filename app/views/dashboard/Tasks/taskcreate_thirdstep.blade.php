@@ -18,7 +18,8 @@
 -->
 
 @section('page-content')
-
+<?php  $addr= explode("/",$_SERVER['PHP_SELF'],3);
+ ?>
 <html>
 <head>
 	
@@ -56,15 +57,18 @@
 			<br><br>
 			<button type="submit" class="btn btn-info">Finish</button>
 			
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#configModal" style="float:right">
+			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#configModal" style="float:right">
 				Check out the config file's structure&hellip;
-			</button>
+			</button>&nbsp;&nbsp;
+			<a type="button" class="btn btn-primary" target="_blank" href="http://{{$_SERVER['SERVER_NAME']}}/{{$addr[1]}}/public/sample/config.xml" download="config.xml" style="float:right;position:block;margin-right:10px">Download The sample config file</a>
 			<br><br><br>
-			<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>&nbsp;
-				 <strong>Note:</strong> The config.xml only allows you to create new table. It doesn't allow initialisation of table with
-				 any data.</div>
-		
-			</div>
+			<div class="alert alert-info" role="alert">
+				 <strong>Note:</strong> <ul><li>The config.xml only allows you to create new table. It doesn't allow initialisation of table with
+				 any data.</li>
+				 <li>The table name may only contain letters, numbers, and dashes. No spaces allowed</li>
+				</ul>
+				</div>
+			
 
 			<div class="modal fade" id="configModal" tabindex="-1" role="dialog" >
 				<div class="modal-dialog" role="document">

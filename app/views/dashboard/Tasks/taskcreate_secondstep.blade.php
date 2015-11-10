@@ -55,7 +55,7 @@
 			</div>
 			<br><br>
 			<button type="submit" class="btn btn-info">Next</button>
-			<a type="button" class="btn btn-primary" href="{{$_SERVER['DOCUMENT_ROOT']}}/{{$addr[1]}}/public/sample/Sample_Task.zip" download="sample_task.zip" style="position:block;float:right;">Download The sample zip file</a>
+			<a type="button" class="btn btn-primary" target="_blank" href="http://{{$_SERVER['SERVER_NAME']}}/{{$addr[1]}}/public/sample/sample_task.zip" download="sample_task.zip" style="position:block;float:right;">Download The sample zip file</a>
 		</form>
 
 		<br><br>
