@@ -151,7 +151,7 @@ class RDMUserController extends BaseController {
             
             // do validation first
             $input = Input::all();
-            $role = Auth::user()->role;
+            
             $rules = array(
                 'email' => 'required|email',
                 'password' =>'required|same:password_confirmation'
@@ -166,7 +166,7 @@ class RDMUserController extends BaseController {
                 // show error saying that email is not associated with RDM
                 return  Redirect::route('resetPassword')
                         ->withInput()                        
-                        ->with('message', 'No user associated with given email address.')->with('role',$role);
+                        ->with('message', 'No user associated with given email address.');
             }
             
             $user->password = $password;
@@ -178,7 +178,7 @@ class RDMUserController extends BaseController {
             return Redirect::route('resetPassword')
                         ->withInput()
                         ->withErrors($validation)
-                        ->with('message', 'There were validation errors.')->with('role',$role);            
+                        ->with('message', 'There were validation errors.');            
         }
         
         
@@ -213,11 +213,10 @@ class RDMUserController extends BaseController {
             User::create($user);
             return Redirect::route('login');
         }
-        $role = Auth::user()->role;
         return Redirect::route('registration')
                         ->withInput()
                         ->withErrors($validation)
-                        ->with('message', 'There were validation errors.')->with('role',$role);
+                        ->with('message', 'There were validation errors.');
         }
         
     

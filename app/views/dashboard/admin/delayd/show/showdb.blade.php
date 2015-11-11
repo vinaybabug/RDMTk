@@ -38,6 +38,9 @@
 </head>
 <body>
 	<div class="container-fluid">
+		<br>
+		<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>&nbsp;
+		     	You can only edit or delete those questions which have been added by you. DEFAULT questions cannot be modified.</div>
 	  	<div class="panel panel-default" style="margin-top:30px;">
 	  		
 	  		
@@ -59,8 +62,16 @@
 						<td class='col-md-2'>{{$result[$i]['option_a']}}</td>
 						<td class='col-md-2'>{{$result[$i]['option_b']}}</td>
 						<td class='col-md-2'>{{$result[$i]['dataset_name']}}</td>
-						<td class='col-md-2'><form action='{{route("DelayD/edit")}}' method='POST'><input type="hidden" name="id" value={{ $result[$i]['id'] }}><input type='submit' class='btn btn-primary' value='Edit' style='width:100px;'></form></td>
-						<td class='col-md-2'><form action='{{route("DelayD/delete")}}' method='POST'><input type='hidden' name='id' value={{$result[$i]['id']}}><input type='submit' class='btn btn-danger' value='Delete' style='width:100px;'></form></td>
+						@if($result[$i]['dataset_name']=="DEFAULT")
+						<script type="text/javascript">
+						$(document).ready(function(){
+						$("input#edit_{{$i}}").attr("disabled","disabled");
+						$("input#delete_{{$i}}").attr("disabled","disabled");
+						});
+						</script>
+						@endif
+						<td class='col-md-2'><form action='{{route("DelayD/edit")}}' method='POST'><input type="hidden" name="id" value={{ $result[$i]['id'] }}><input type='submit' class='btn btn-primary' value='Edit' style='width:100px;' id ="edit_{{$i}}"></form></td>
+						<td class='col-md-2'><form action='{{route("DelayD/delete")}}' method='POST'><input type='hidden' name='id' value={{$result[$i]['id']}}><input type='submit' class='btn btn-danger' value='Delete' style='width:100px;' id ="delete_{{$i}}"></form></td>
 						</tr>
 						
 					@endfor
