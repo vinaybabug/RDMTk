@@ -46,12 +46,12 @@
 		<br>
 		<form method="POST" action="{{URL::to('/Task/new/first')}}">
 			<div class="form-group">
-				<label>Enter the name of the Task:</label>
+				<label>Enter a name for the task:</label>
 				<input type="text" class="form-control" name="task_name">
 			</div>
 			<br>
 			<div class="form-group">
-				<label>Enter the abbreviated Task name/Task id:</label>
+				<label>Give an abbreviated task name/id:</label>
 				<input type="text" class="form-control" name="task_id">
 			</div><br>
 			<button type="submit" class="btn btn-info">Next</button>

@@ -212,16 +212,14 @@ class RDMTaskController extends BaseController{
 				unlink($target_path);
 			}else{ 
 				// delete all the changes made to the database , if there's some problem with the upload of task files
-					unlink($target_path);
-					Tasks::where('id',Session::get('task_id'))->delete();
-					foreach($tables as $table){
-
-						Schema::dropIfExists($table);
-					}
-					unset($table);
-					return Redirect::to('/Task/new/second')->with('message' , 'There was a problem with the upload. Please try again.');
+				unlink($target_path);
+				Tasks::where('id',Session::get('task_id'))->delete();
+				foreach($tables as $table){
+					Schema::dropIfExists($table);
 				}
-
+				unset($table);
+				return Redirect::to('/Task/new/second')->with('message' , 'There was a problem with the upload. Please try again.');
+			}
 
 		Session::forget('task_name');
 		Session::forget('task_id');
@@ -235,11 +233,9 @@ class RDMTaskController extends BaseController{
 		}elseif ($role=="ADMIN") {
 			return Redirect::route('dashboard_admin')->with('message','The new Task successfully integrated into the toolkit!');
 		}
-    
+ 
 
 	}
-
-
 
 }
 

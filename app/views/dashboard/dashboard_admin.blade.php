@@ -40,29 +40,79 @@
 @section('side-menu') 
                     @if($role=="ADMIN")
                         <li id ="manage_users">
-                            <a href="{{URL::to('users')}}"><i class="fa fa-users fa-fw"></i> Manage Users</a>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Manage Users<span class="fa arrow"></span></a>
+                             <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{{action('RDMUserController@create')}}"><i class="fa fa-user fa-fw"></i> Add User</a>
+                                </li>
+                                <li>
+                                    <a href="{{URL::to('users')}}"><i class="fa fa-user fa-fw"></i> View Users</a>
+                                </li>
+                                
+                               <!-- <li>
+                                     <a href="{{URL::to('monitor/select')}}"><i class="glyphicon glyphicon-forward"></i> Monitor Experiments</a>
+                                </li>-->
+                               
+                            </ul>
                         </li>
                     @endif
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Experiments<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="{{URL::to('experiments')}}"><i class="fa fa-bars fa-fw"></i> View Experiments</a>
-                                </li>
-                                 <li>
-                                     <a href="{{URL::to('exprRsltsSo')}}"><i class="fa fa-archive fa-fw"></i> Experiment's Result</a>
-                                </li>
-                               <!-- <li>
-                                     <a href="{{URL::to('monitor/select')}}"><i class="glyphicon glyphicon-forward"></i> Monitor Experiments</a>
-                                </li>-->
+                                    <a href="{{action('RDMExprController@create')}}"><i class="fa fa-bars fa-fw"></i> Add Experiment</a>
+                                </li>                                 
                                 <li>
-                                  <a href="{{URL::to('Task/new/first')}}"> <i class="fa fa-pencil fa-fw"></i> Add a New Task</a>
-                                </li>
+                                    <a href="{{URL::to('experiments')}}"><i class="fa fa-bars fa-fw"></i> View Experiments</a>
+                                </li>                                          
                             </ul>
                             <!-- /.nav-second-level -->
-                        </li>                       
+                        </li>    
+                                       
+                        <li>
+                            <a href="#"><i class="fa fa-tasks fa-fw"></i> Manage Tasks<span class="fa arrow"></span></a>
+                           <ul class="nav nav-second-level">
+                               <li>
+                                <a href="{{URL::to('Task/new/first')}}"> <i class="fa fa-pencil fa-fw"></i> Add a New Task</a>
+                               </li>
+                                <li>
+                                <a href="#"> <i class="fa fa-pencil fa-fw"></i> View Tasks</a>
+                               </li>
+                           </ul>
+                        </li>
                         
-                       
+                         <li>
+                            <a href="#"><i class="fa fa-database fa-fw"></i> Data Management<span class="fa arrow"></span></a>
+                           <ul class="nav nav-second-level">
+                               <li>
+                                     <a href="{{URL::to('exprRsltsSo')}}"><i class="fa fa-archive fa-fw"></i> Download Results</a>
+                                </li>
+                           </ul>
+                        </li>        
+                        
+                        <li>
+                            <a href="#"><i class="fa fa-gears fa-fw"></i> Analysis Tools<span class="fa arrow"></span></a>
+                           <ul class="nav nav-second-level">
+                               <li>
+                                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Monitor Experiment</a>
+                                </li>
+                                <li>
+                                     <a href="#"><i class="fa fa-gear fa-fw"></i> Sample Results</a>
+                                </li>
+                           </ul>
+                        </li>    
+                        
+                         <li>
+                            <a href="#"><i class="fa fa-info fa-fw"></i> Help<span class="fa arrow"></span></a>
+                           <ul class="nav nav-second-level">
+                               <li>
+                                     <a href="#"><i class="fa fa-info-circle fa-fw"></i> Help Contents</a>
+                                </li>
+                                 <li>
+                                     <a href="#"><i class="fa fa-lightbulb-o fa-fw"></i> About</a>
+                                </li>
+                           </ul>
+                        </li>   
 @stop
 
 @section('flash-content')
@@ -93,10 +143,10 @@
     <div class="col-lg-12">
     <h1 class="page-header">Welcome</h1>
     <br>
-            <p><h4>RDMTk toolkit used for studying risky decision making. It is developed as a highly extensible web based open source framework. 
-            It will include a range of easy to use functionalities for managing experiments, 
-            users and data collection. RDMTk will support a good number of tasks used to study different aspects of decision making.</h4></p>
-        <p><h4>It provides a free environment to conduct experiment’s globally and hence fosters collaboration.</h4></p>
+    <p style="font-family:arial; text-align:justify">RDMTk toolkit used for studying risky decision making. It is developed as a highly extensible web based open source framework. 
+            It includes a range of easy to use functionalities for managing experiments, 
+            users and data collection. RDMTk supports a good number of tasks used to study different aspects of decision making.</p>
+        <p style="font-family:arial; text-align:justify">It provides a free environment to conduct experiment’s globally and hence fosters collaboration.</p>
         
     </div>
 @stop

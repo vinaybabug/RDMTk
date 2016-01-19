@@ -44,23 +44,23 @@
 				<li role="presentation"><a href="">Step3</a></li>
 			</ul>
 		</div>
-		<h3 class="page-header">Upload The Task code Files</h3>
+		<h3 class="page-header">Upload task's code</h3>
 		<br>
 		<form enctype="multipart/form-data" method="POST" action="{{URL::to('Task/new/second')}}">
 		<div class="form-group">
-			<label> Task CodeBase Input</label>
+			<label> Task's codebase </label>
 			<br>
 			<input type="file" name="task_files">
-			<p class="help-block">Upload the .zip file of the all the files of the new Task. The Task files should be able to operate as a standalone application.</p>
+			<p class="help-block">Upload a .zip file consisting of all the files related to new task's code. This codebase should be written in php and be able to operate as a self sufficient web application.</p>
 			</div>
 			<br><br>
 			<button type="submit" class="btn btn-info">Next</button>
-			<a type="button" class="btn btn-primary" target="_blank" href="http://{{$_SERVER['SERVER_NAME']}}/{{$addr[1]}}/public/sample/sample_task.zip" download="sample_task.zip" style="position:block;float:right;">Download The sample zip file</a>
+			<a type="button" class="btn btn-primary" target="_blank" href="http://{{$_SERVER['SERVER_NAME']}}/{{$addr[1]}}/public/sample/sample_task.zip" download="sample_task.zip" style="position:block;float:right;">Download template codebase as zip file</a>
 		</form>
 
 		<br><br>
 		<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>&nbsp;
-		 Kindly Make sure that the index page of your Task is a file named 'task.php'</div>
+		 Please name the index page for the task as 'task.php'</div>
 		
 	</div>
 

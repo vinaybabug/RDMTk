@@ -44,15 +44,14 @@
 				<li role="presentation" class="active"><a href="{{URL::to('Task/new/third')}}">Step3</a></li>
 			</ul>
 		</div>
-		<h3 class="page-header">Upload the config.xml file</h3>
+		<h3 class="page-header">Upload configuration file</h3>
 		<br>
 		<form method="POST" enctype="multipart/form-data" action="{{URL::to('Task/new/third')}}">
 		<div class="form-group">
-			<label> Task Config File</label>
+			<label> Task's configuration file</label>
 			<br>
 			<input type="file" name="task_xml">
-			<p class="help-block">Upload the .xml file which will provide data about the tables to be created in the database, 
-				which are required by Task codebase.</p>
+                        <p class="help-block">Upload a .xml file named <b>config.xml</b> which will be used to configure task's database, user interface etc.</p>
 			</div>
 			<br><br>
 			<button type="submit" class="btn btn-info">Finish</button>
@@ -65,7 +64,7 @@
 			<div class="alert alert-info" role="alert">
 				 <strong>Note:</strong> <ul><li>The config.xml only allows you to create new table. It doesn't allow initialisation of table with
 				 any data.</li>
-				 <li>The table name may only contain letters, numbers, and dashes. No spaces allowed</li>
+				 <li>The table name may only contain letters, numbers, dashes and without any white spaces.</li>
 				</ul>
 				</div>
 			

@@ -21,17 +21,51 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">User Profile</h1>
+        <h1 class="page-header">Profile Information</h1>
     </div>
     <!-- /.col-lg-12 -->
 </div>
 <div class="col-lg-12">
-    <div class="panel panel-info">
+    <div class="panel panel-success">
         <div class="panel-heading">
             
         </div>
         <div class="panel-body">
-            {{ Form::model($user, array('method' => 'PATCH', 'route' => array('users.update', $user->id))) }}
+            
+               <div class="table-responsive">
+            <!--table-striped table-bordered table-hover-->
+            <table class="table ">
+                <tbody>
+                <tr>
+                    <td class="col-md-2 "><b>Username</b></td>                             
+                    <td class="col-md-10">{{ $user->username }}</td>
+                </tr>             
+                <tr>
+                    <td class="col-md-2 "><b>First Name</b></td>                             
+                    <td class="col-md-10">{{ $user->first_name }}</td>
+                </tr>
+                <tr>
+                    <td class="col-md-2 "><b>Last Name</b></td>                             
+                    <td class="col-md-10">{{ $user->last_name }}</td>
+                </tr>
+                <tr>
+                    <td class="col-md-2 "><b>Role</b></td>                             
+                    <td class="col-md-10">{{ $user->role }}</td>
+                </tr>
+                <tr>
+                    <td class="col-md-2 "><b>Email</b></td>                             
+                    <td class="col-md-10">{{ $user->email }}</td>
+                </tr>              
+                <tr>
+                    <td/>
+                    <td/>
+                </tr>   
+                </tbody>                   
+            </table>
+        </div>
+        <!-- /.table-responsive -->
+        
+           <!-- {{ Form::model($user, array('method' => 'PATCH', 'route' => array('users.update', $user->id))) }}
 
             <fieldset disabled>
                <div class="form-group">
@@ -66,6 +100,8 @@
                   
             </fieldset>
             {{ Form::close() }}
+           -->
+           
         </div>
         <div class="panel-footer">
             <a href="{{URL::to('dashboard_admin')}}" class="btn btn-primary">Close</a>
