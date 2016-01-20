@@ -60,10 +60,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
             'first_name' => 'required|min:3',
             'last_name' => 'required|min:3',
             'role' => 'required',            
-            'email' => 'required|email',
-            'password' =>'required|same:password_confirmation'
+            'email' => 'required|email',            
         );
           
+        public static $rulesUpdatePwd = array(
+            'first_name' => 'required|min:3',
+            'last_name' => 'required|min:3',
+            'role' => 'required',            
+            'email' => 'required|email',   
+            'password' =>'same:password_confirmation'
+        );
              
         public function setPasswordAttribute($pass){
             

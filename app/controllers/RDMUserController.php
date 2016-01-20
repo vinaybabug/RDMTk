@@ -110,17 +110,32 @@ class RDMUserController extends BaseController {
 	 */
 	public function update($id)
 	{
-		//
-              $input = Input::all();
-              $validation = Validator::make($input, User::$rulesUpdate);
-              $role = Auth::user()->role;
-              if ($validation->passes())
-              {
+            //
+        $input = Input::all();
+        $validation = Validator::make($input, User::$rulesUpdate);
+        $role = Auth::user()->role;
+        if ($validation->passes()) {
+            if (is_null(Input::get('password'))) {
                 $user = User::find($id);
-                $user->update($input);
-                return Redirect::route('users.index', $id)->with('role',$role);
-               }
-               return Redirect::route('users.edit', $id)
+                $user->update(array('first_name' => Input::get('first_name'), 'last_name' => Input::get('last_name'), 'role' => Input::get('role'), 'email' => Input::get('email'), 'username' => Input::get('username')));
+                return Redirect::route('users.index', $id)->with('role', $role);
+            } else {
+                $validation2 = Validator::make($input, User::$rulesUpdatePwd);
+                if ($validation2->passes()) {
+                     $user = User::find($id);
+                $user->update(array('first_name' => Input::get('first_name'), 'last_name' => Input::get('last_name'), 'role' => Input::get('role'), 'email' => Input::get('email'), 'username' => Input::get('username'), 'password' => Input::get('password')));
+                return Redirect::route('users.index', $id)->with('role', $role);
+                
+                }
+                else{
+                     return Redirect::route('users.edit', $id)
+                ->withInput()
+                ->withErrors($validation2)
+                ->with('message', 'There were validation errors.')->with('role',$role);
+            }
+        }
+        }
+        return Redirect::route('users.edit', $id)
                 ->withInput()
                 ->withErrors($validation)
                 ->with('message', 'There were validation errors.')->with('role',$role);
