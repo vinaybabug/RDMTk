@@ -124,7 +124,7 @@ class RDMTaskController extends BaseController{
 	*/
 	public function validateThird(){
 
-		if($_FILES["task_xml"]){
+		if($_FILES["task_xml"]["name"]!=""){
 				$filename = $_FILES["task_xml"]["name"];
 				$source = $_FILES["task_xml"]["tmp_name"];
 				$size= $_FILES["task_xml"]["size"];
@@ -162,7 +162,7 @@ class RDMTaskController extends BaseController{
 								        		
 								         		return Redirect::to('/Task/new/third')->withErrors($validator);	
 									        }else{
-									         	$fields= $fields + array((string)$col=> (string)$col['type']);
+									         	$fields= $fields + array(trim((string)$col)=> trim((string)$col['type']));
 									        }
 								        }	
 								        unset($col);
@@ -196,30 +196,53 @@ class RDMTaskController extends BaseController{
 
 				return Redirect::to('/Task/new/third')->with('message','No file was selected for upload!');
 		} 
-
+		$target_path = Session::get('target_path');
 		//Completing the First step i.e adding task to table
+		if(Session::get('task_id')!="" && Session::get('task_name')!=""){
 		Tasks::create(array('id'=>Session::get('task_id'),'taskname'=>Session::get('task_name'),'created_by'=>'ADMIN','modified_by'=>'ADMIN',
 			'created_at'=>date("Y-m-d H:i:s"),'updated_at'=>date("Y-m-d H:i:s")));
+
 		//Completing the Second step i.e extracting task files to the correct location
-		$target_path = Session::get('target_path');
+		
 		$sub_dir= explode("/",$_SERVER['PHP_SELF']);
 		$final_path=$_SERVER['DOCUMENT_ROOT']."/".$sub_dir[1]."/public/tasks/".Session::get('task_id');
 			$zip = new ZipArchive();
-			$x = $zip->open($target_path);
+			if($target_path==""){
+				$x=false;
+			}else{
+				$x = $zip->open($target_path);
+		    }
 			if ($x === true) {
 				$zip->extractTo($final_path); 
 				$zip->close();
 				unlink($target_path);
 			}else{ 
 				// delete all the changes made to the database , if there's some problem with the upload of task files
-				unlink($target_path);
-				Tasks::where('id',Session::get('task_id'))->delete();
-				foreach($tables as $table){
-					Schema::dropIfExists($table);
+					if($target_path!=""){
+						unlink($target_path);
+					}
+					Tasks::where('id',Session::get('task_id'))->delete();
+					foreach($tables as $table){
+
+						Schema::dropIfExists($table);
+					}
+					unset($table);
+					return Redirect::to('/Task/new/second')->with('message' , 'There was a problem with the upload. Please try again.');
 				}
-				unset($table);
-				return Redirect::to('/Task/new/second')->with('message' , 'There was a problem with the upload. Please try again.');
+
+			}else{
+				// delete all the changes made to the database , if there's some problem with the upload of task files
+					if(Session::get('target_path')!=""){
+					unlink($target_path);}
+					foreach($tables as $table){
+
+						Schema::dropIfExists($table);
+					}
+					unset($table);
+
+				return Redirect::to('/Task/new/first')->with('message' , 'Complete the fields in Step One');
 			}
+
 
 		Session::forget('task_name');
 		Session::forget('task_id');

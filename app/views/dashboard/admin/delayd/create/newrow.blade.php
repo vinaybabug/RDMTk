@@ -38,17 +38,25 @@
 				<div class="form-group">
 	            <h4>Choose Dataset</h4>
 	            <select id="dataset" name="dataset" class="form-control">
-	            	@foreach($datasets as $dataset)
-	            	<option value ="{{$dataset->dataset_name}}">{{$dataset->dataset_name}}</option>
-	            	@endforeach
+	            	@if (count($datasets)>0)
+		            	@foreach($datasets as $dataset)
+		            	<option value ="{{$dataset->dataset_name}}">{{$dataset->dataset_name}}</option>
+		            	@endforeach
+		            @else
+		            	<option value = "NO_DB">No Database Found</option>
+		            @endif
 	            	<option value = "ADD_NEW">Create a new Dataset</option>
 
 	            </select>
     			</div>
 	  			<br>
-	  			<div id="new_set_text" style="display:none;">
-	  				<h4>Enter the name of the new Dataset:</h4>
-	  			<input type="text"  name="new_set" id="new_set" class="form-control"></input>
+	  			@if (count($datasets)>0)
+		  			<div id="new_set_text" style="display:none;">
+		  		@else
+		  			<div id="new_set_text" style="display:block;">
+		  		@endif
+		  			<h4>Enter the name of the new Dataset:</h4>
+	  				<input type="text"  name="new_set" id="new_set" class="form-control"></input>
 				</div>
 				<h3>What would you prefer:
 				</h3>
@@ -75,7 +83,7 @@
 
 			$("#dataset").change(function(){
 
-				if($("#dataset").val()=="ADD_NEW"){
+				if($("#dataset").val()=="ADD_NEW" || $("#dataset").val()=="NO_DB" ){
 					$("#new_set_text").css("display","block");
 				}	
 				});

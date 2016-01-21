@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS random_table;
 --
 
 CREATE TABLE IF NOT EXISTS `delayd_expr_data` (
-  `int` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `mid` varchar(60) NOT NULL,
   `experid` varchar(50) NOT NULL,
   `que_id` int(11) NOT NULL,
@@ -18,6 +18,16 @@ CREATE TABLE IF NOT EXISTS `delayd_expr_data` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for table `delayd_expr_data`
+--
+ALTER TABLE `delayd_expr_data`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `delayd_expr_data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+
 
 ALTER TABLE `experiments` ADD `select_dataset` VARCHAR(100) NOT NULL DEFAULT 'DEFAULT' AFTER `mouse_track`;
 
@@ -65,3 +75,15 @@ INSERT INTO `delayed_discount_que` (`id`, `option_b`, `option_a`, `dataset_name`
 (27, '$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
 (28, '$10 in 7 days', '$1 right now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
 (29, '$100 in 1 year', '$1 right now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00');
+
+--
+-- Indexes for table `delayed_discount_que`
+--
+ALTER TABLE `delayed_discount_que`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for table `delayed_discount_que`
+--
+ALTER TABLE `delayed_discount_que`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;

@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `cups_expr_data` (
 --
 
 CREATE TABLE IF NOT EXISTS `delayd_expr_data` (
-  `int` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `mid` varchar(60) NOT NULL,
   `experid` varchar(50) NOT NULL,
   `que_id` int(11) NOT NULL,
@@ -643,7 +643,7 @@ ALTER TABLE `cups_expr_data`
 -- Indexes for table `delayd_expr_data`
 --
 ALTER TABLE `delayd_expr_data`
-  ADD PRIMARY KEY (`int`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `delayed_discount_que`
@@ -735,7 +735,7 @@ ALTER TABLE `cups_expr_data`
 -- AUTO_INCREMENT for table `delayd_expr_data`
 --
 ALTER TABLE `delayd_expr_data`
-  MODIFY `int` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT for table `delayed_discount_que`
 --

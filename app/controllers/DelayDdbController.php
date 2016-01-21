@@ -25,7 +25,7 @@
  * @author 	Praneet Soni praneetsoni.soni@gmail.com
  */
 
-class DelayDdbController extends baseController{
+class DelayDdbController extends BaseController{
 
 	/**
 	* @description Renders a page displaying the current entries in the database
@@ -44,7 +44,7 @@ class DelayDdbController extends baseController{
 		$role = Auth::user()->role;
 		$email = Auth::user()->email;
             $datasets= array();
-            $datasets = DB::table('delayed_discount_que')->select('dataset_name')->whereRaw('created_by ="ADMIN" or created_by="'.$email.'"')->groupBy('dataset_name')->get();
+            $datasets = DB::table('delayed_discount_que')->select('dataset_name')->whereRaw('created_by="'.$email.'"')->groupBy('dataset_name')->get();
             
 		return View::make('dashboard.admin.delayd.create.newrow')->with('role',$role)->with('datasets',$datasets);     
 
@@ -75,7 +75,7 @@ class DelayDdbController extends baseController{
 	public function store(){
 			$email = Auth::user()->email;
 			$dataset_name="";
-			if(Input::get('dataset')=="ADD_NEW"){
+			if(Input::get('dataset')=="ADD_NEW" || Input::get('dataset')=="NO_DB"){
 				$dataset_name = Input::get('new_set');
 			}else{
 				$dataset_name = Input::get('dataset');
