@@ -20,6 +20,15 @@
 
 class RDMExprController extends BaseController {
     
+    
+        function __construct() {
+              if(is_null(Auth::user())){
+                return Redirect::route('login')
+                ->with('flash_error', 'Session expire, please login.');           
+            }
+        }
+    
+    
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -35,8 +44,17 @@ class RDMExprController extends BaseController {
                 // Commented because trying log when no users in database creates problem.
                 //Log::error("RDMUserController::index()", $users);
             }
-            $role = Auth::user()->role;
-            return View::make('dashboard.admin.experiments.exprmanagement', compact('expers'))->with("role",$role);        
+// Alternate method to handle session timeout            
+//            if(is_null(Auth::user())){
+//                return View::make('users.login');            
+//            }
+//            else{
+//                $role = Auth::user()->role;
+//                return View::make('dashboard.admin.experiments.exprmanagement', compact('expers'))->with("role",$role);        
+//            }
+            
+             $role = Auth::user()->role;
+             return View::make('dashboard.admin.experiments.exprmanagement', compact('expers'))->with("role",$role);  
                     
 	}
 
@@ -185,6 +203,9 @@ class RDMExprController extends BaseController {
 	{
 		//
         $input = Input::all();
+        
+        
+        if(strcasecmp(Input::get('expertype'), 'DelayD')==0){
         $rules = array(
                 'expername' => 'required',
                 'expertype' =>'required|exists:tasks,id',
@@ -204,16 +225,37 @@ class RDMExprController extends BaseController {
            // $absolute_url = str_replace("/index.php/","/",$absolute_url). '/' .Input::get('expertype').'/task.php';
         
             $inputall = array('id'=>$id,'urllink'=>$absolute_url) + $input;
-            
             $validation = Validator::make($inputall, $rules);
-            
-              if ($validation->passes())
-              {
+        if ($validation->passes())
+        {
+            $expr = Experiments::find($id);
+            $expr->update($inputall);
+            return Redirect::route('experiments.index', $id);
+        }
+        }
+        else{
+             $rules = array(
+                'expername' => 'required',
+                'expertype' =>'required|exists:tasks,id',
+                'nooftrials' =>'required|digits_between:1,1000',
+                'expertrial_outcome_type' =>'required|in:FIXED,RANDOM|not_in:default',
+                'confirmationcode' =>'required_without:isCustomText|alpha_num',
+                'experend_conf_page_type' =>'required||not_in:default',
+                'experend_conf_customtext' =>'required_if:isCustomText,selected'                
+            );
+             $validation = Validator::make( $input, $rules);
+             
+            if ($validation->passes())
+            {
                 $expr = Experiments::find($id);
-                $expr->update($inputall);
+                $expr->update($input);
                 return Redirect::route('experiments.index', $id);
-               }
-               return Redirect::route('experiments.edit', $id)
+            }
+        }
+            
+            
+     
+        return Redirect::route('experiments.edit', $id)
                 ->withInput()
                 ->withErrors($validation)
                 ->with('message', 'There were validation errors.');
