@@ -52,7 +52,6 @@ if($trialAttempted>0){
     header('Location: ' . $url, true, 302);
 }
 
-
 ?>
 
 <!DOCTYPE html>
@@ -91,7 +90,7 @@ if($trialAttempted>0){
 	    	echo 'for(z=0;z<total_que;z++)
 			nums[z]=z;
 			var i = count;
-		    var j = 0;
+            var j = 0;
 			while (i--) {
 				j = Math.floor(Math.random() * (total_que-1));
 				ranNums.push(nums[j]);
@@ -116,9 +115,37 @@ if($trialAttempted>0){
     		nxt(current);
     	}
     		
-    	function nxt(current) {			 
+    	function nxt(current) {	          
+                
+           
     		var uri = "<?php  echo 'http://' . $_SERVER['SERVER_NAME'].str_replace('init.php','storedata.php',$_SERVER['PHP_SELF']) ; ?>"; 
-			if(clicks>=count){
+		
+	        if(clicks <=count-1) { 
+        
+	        	if(clicks>0){
+	        	jsonExpData.data.push({
+	        		mid: "<?php echo $participantid; ?>",
+                    experid: "<?php echo $experimentid; ?>",
+                    que_id: arr[ranNums[clicks-1]]['id'],
+                   	option_selected:current,
+                   	trialno:clicks
+                });  }
+                        
+                       if(ranNums[clicks] <= arr.length-1) {
+	        	document.getElementById("clicks").innerHTML = (clicks+1);
+				z=(clicks)*100/(count);
+                                
+				document.getElementById("que1").innerHTML =arr[ranNums[clicks]]['option_a'];
+				document.getElementById("que2").innerHTML =arr[ranNums[clicks]]['option_b'];
+				document.getElementById("pro").style.width = z+"%";
+				document.getElementById("progressdetail").innerHTML =Math.floor(z)+"% complete" ;
+                                }
+                                
+                                clicks += 1;
+			}
+                        else
+                        if(clicks>=count-1){                     
+                        
 				<?php if($mouse_track==1){
 
                         echo '$("#unload").trigger("click");';
@@ -127,7 +154,7 @@ if($trialAttempted>0){
                 jsonExpData.data.push({
 	        		mid: "<?php echo $participantid; ?>",
                     experid: "<?php echo $experimentid; ?>",
-                    que_id: arr[ranNums[clicks-1]]['id'],
+                    que_id: arr[ranNums[clicks-2]]['id'],
                    	option_selected:current,
                    	trialno:clicks
                 });
@@ -142,25 +169,9 @@ if($trialAttempted>0){
                     	alert("data sent!");
                     });
 				window.location.href="end.php?exp=<?php echo $experimentid;?>&MID=<?php echo $participantid;?>";
-			}
-	        else { 
-        
-	        	if(clicks>0){
-	        	jsonExpData.data.push({
-	        		mid: "<?php echo $participantid; ?>",
-                    experid: "<?php echo $experimentid; ?>",
-                    que_id: arr[ranNums[clicks-1]]['id'],
-                   	option_selected:current,
-                   	trialno:clicks
-                });  }
+		}
+                        
                 
-	        	document.getElementById("clicks").innerHTML = (clicks+1);
-				z=(clicks)*100/(count);
-				document.getElementById("que1").innerHTML =arr[ranNums[clicks]]['option_a'];
-				document.getElementById("que2").innerHTML =arr[ranNums[clicks]]['option_b'];
-				document.getElementById("pro").style.width = z+"%";
-				document.getElementById("progressdetail").innerHTML =Math.floor(z)+"% complete" ;
-			} clicks += 1;
     }
 
    

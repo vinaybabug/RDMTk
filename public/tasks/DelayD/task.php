@@ -54,14 +54,14 @@ $db->disconnect();
 	</div>
 	<div class="row" style="padding-top:5px;padding-bottom:5px;">
 		<div class="col-md-12">
-			<h1>Welcome to Delayed Discount Task</h1>
+			<h1>Welcome to Delayed Discounting Task</h1>
 			<br>
-			<p> You will be presented with a series of choices in which you must indicate preference in a form to receive a given quantity of money, for example, between "R$1.00 now" or "R$10.00 in a year's time."
+			<p> You will be presented with a series of multiple choice questions. Your choices will indicate preference to either receive smaller immediate, or delayed bigger reward. For example, you might be asked to select one among "Receive $1.00 now" or "Receive $10.00 in a year's time" options.
 			</p>
 			
 			<!--checks the value of do_random field and sends the value retrieved to the nxt page -->
 			<form action=<?php echo "init.php?exp=".$experimentid."&MID=".$participantid ?> method="POST">
-			<input class="btn btn-success active" type="submit" value ="Submit" style ="width:100px;">
+			<input class="btn btn-success active" type="submit" value ="Start" style ="width:100px;">
 			<input type="hidden" name="do_random" value="<?php echo $res[0]['expertrial_outcome_type'];  ?>">
 			</form>
 		</div>
