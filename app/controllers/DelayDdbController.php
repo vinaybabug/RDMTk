@@ -30,11 +30,11 @@ class DelayDdbController extends BaseController{
 	/**
 	* @description Renders a page displaying the current entries in the database
 	*/
-	public function show(){
+	public function show($id){
 		$email=Auth::user()->email;
 		$result = DelayDdata::whereRaw('created_by ="ADMIN" or created_by="'.$email.'"')->paginate(10);
 		$role = Auth::user()->role;
-		return View::make('dashboard.admin.delayd.show.showdb')->with('result',$result)->with('role',$role);
+		return View::make('dashboard.admin.delayd.show.showdb')->with('result',$result)->with('role',$role)->with("expr_id",$id);
 		
 		}
 	/**

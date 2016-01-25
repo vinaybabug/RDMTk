@@ -84,19 +84,21 @@
             {{ Form::submit('Submit', array('class' => 'btn btn-success')) }}
             <a href="{{URL::to('experiments')}}" class="btn btn-danger">Cancel</a>
             @if($experiment->expertype == 'DelayD')
-            <a href = "{{URL::to('/experiments/db/DelayD') }}" class="btn btn-primary" role="button" style="display:inline;">
+            
+            <a href = "{{URL::to('/experiments/db/DelayD', array($experiment->id)) }}" class="btn btn-primary" role="button" style="display:inline;">
                 Edit the Database Or Create a New One</a>
             @endif
     </div>
 {{ Form::close() }}
-
+<!--
 @if ($errors->any())
 <div class="alert alert-danger">
     <ul>
         {{ implode('', $errors->all('<li class="error">:message</li>')) }}
     </ul>
 </div>   
-@endif    
+@endif   
+-->
 </div>
 @stop
 

@@ -69,7 +69,7 @@ Route::get('dropdowns/exprs/{id}', 'ExprResultsController@getExprids');
 
 Route::get('participants/exprs/show/{id}', 'RDMExprController@showParticipants');
 
-Route::get('/experiments/db/DelayD',array('before'=>'auth','uses'=>'DelayDdbController@show'));
+Route::get('/experiments/db/DelayD/{id}',array('before'=>'auth','uses'=>'DelayDdbController@show'));
 
 Route::get('/experiments/db/DelayD/new',array('as'=>'DelayD/new','uses'=>'DelayDdbController@create'));
 

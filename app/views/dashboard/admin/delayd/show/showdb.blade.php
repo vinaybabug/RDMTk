@@ -79,9 +79,11 @@
 			</table>
 	   	</div>
 	   	<div class="well well-sm">
-	   			
+                               
+	   			{{ link_to_route('experiments.edit', 'Cancel', array($expr_id), array('class' => 'btn btn-danger', 'style'=>'display:inline;float:right;')) }}
+                                <a style="display:inline;float:right;"> &nbsp; </a>
 	   			<a role="button" class="btn btn-info" style="display:inline;float:right;" href="{{route('DelayD/new')}}"> Add a new entry</a>
-	   			 
+                                <a style="display:inline;float:right;"> &nbsp; </a>	   			
 	   			{{ $result->links() }}
 	   	</div>
 	   	
