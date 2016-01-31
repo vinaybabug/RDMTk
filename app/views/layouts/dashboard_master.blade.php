@@ -58,6 +58,35 @@
     <![endif]-->
 
 </head>
+<script>
+var minsToLogout = 10;
+var secsToLogout= 60* minsToLogout;
+var secondTimer= 0;
+    $(function(){
+
+        $("body").on("click keypress mousemove",function(){
+            ResetThisSession();
+        });
+
+    });
+    function ResetThisSession(){
+        secondTimer=0;
+    }
+
+    function StartTheSession(){
+        secondTimer++;
+        
+        if(secondTimer>secsToLogout){
+            clearTimeout(timer);
+            window.location = "{{URL::to('logout')}}";
+            return;
+        }
+
+        timer=setTimeout("StartTheSession()",1000)
+    }
+
+    StartTheSession();
+</script>
 
 <body>
 

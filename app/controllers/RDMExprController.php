@@ -53,8 +53,7 @@ class RDMExprController extends BaseController {
 //                return View::make('dashboard.admin.experiments.exprmanagement', compact('expers'))->with("role",$role);        
 //            }
             
-             $role = Auth::user()->role;
-             return View::make('dashboard.admin.experiments.exprmanagement', compact('expers'))->with("role",$role);  
+             return View::make('dashboard.admin.experiments.exprmanagement', compact('expers'));  
                     
 	}
 
@@ -69,11 +68,10 @@ class RDMExprController extends BaseController {
 		//
             $tasks = Tasks::lists('taskname', 'id');
             $exprconfirmpg = ExperConfirmation::lists('confirmation_type','confirmation_type');
-            $role = Auth::user()->role;
-            
+                        
             return View::make('dashboard.admin.experiments.experimentcreate')
                     ->with('tasks', $tasks)
-                    ->with('exprconfirmpg', $exprconfirmpg)->with("role",$role);
+                    ->with('exprconfirmpg', $exprconfirmpg);
 	}
 
 
@@ -130,11 +128,11 @@ class RDMExprController extends BaseController {
             if (is_null($experiment)) {
                 return Redirect::route('experiments.index');
             }
-            $role = Auth::user()->role;
+           
             return View::make('dashboard.admin.experiments.experimentshow')
                  ->with('experiment', $experiment)
 //                 ->with('tasks', $tasks)
-                 ->with('exprconfirmpg', $exprconfirmpg)->with('role',$role);
+                 ->with('exprconfirmpg', $exprconfirmpg);
 	}
 
         /**
@@ -154,12 +152,11 @@ class RDMExprController extends BaseController {
 //            if (is_null($experiment)) {
 //                return View::make('dashboard.participants.dashboard_participants');
 //            }
-             $role = Auth::user()->role;
+             
             return View::make('dashboard.participants.experiments.experimentshow')
                  ->with('tasks', $tasks)
                  ->with('currentTask', $currentTask)
-                 ->with('expers', $experiment)
-                 ->with('role',$role);
+                 ->with('expers', $experiment);
 
             
 	}
@@ -185,11 +182,10 @@ class RDMExprController extends BaseController {
             foreach($sets as $set){
                 $datasets = $datasets + array($set->dataset_name=>$set->dataset_name);
             }
-            $role = Auth::user()->role;
+            
             return View::make('dashboard.admin.experiments.experimentedit', compact('experiment'))
                  ->with('tasks', $tasks)
                  ->with('exprconfirmpg', $exprconfirmpg)
-                 ->with('role',$role)
                  ->with('datasets',$datasets);
         }
 

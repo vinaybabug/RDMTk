@@ -24,7 +24,7 @@ session_start();
 ob_start(); 
 include 'include/class/oe_databasemanager.php';
 include 'users/controller/user_dbo.php';
- $experimentid= $_GET['exp'];
+$experimentid= $_GET['exp'];
 $participantid= $_GET['MID'];
 $userdbo = new UserDBO();
 $viewusers= $userdbo->viewFieldsExperimentCond('nooftrials,urllink,confirmationcode','id="'.$experimentid.'"');

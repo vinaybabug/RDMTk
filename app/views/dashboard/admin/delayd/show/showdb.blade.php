@@ -70,8 +70,8 @@
 						});
 						</script>
 						@endif
-						<td class='col-md-2'><form action='{{route("DelayD/edit")}}' method='POST'><input type="hidden" name="id" value={{ $result[$i]['id'] }}><input type='submit' class='btn btn-primary' value='Edit' style='width:100px;' id ="edit_{{$i}}"></form></td>
-						<td class='col-md-2'><form action='{{route("DelayD/delete")}}' method='POST'><input type='hidden' name='id' value={{$result[$i]['id']}}><input type='submit' class='btn btn-danger' value='Delete' style='width:100px;' id ="delete_{{$i}}"></form></td>
+						<td class='col-md-2'><form action='{{route("DelayD/edit",array($expr_id))}}' method='POST'><input type="hidden" name="id" value={{ $result[$i]['id'] }}><input type='submit' class='btn btn-primary' value='Edit' style='width:100px;' id ="edit_{{$i}}"></form></td>
+						<td class='col-md-2'><form action='{{route("DelayD/delete",array($expr_id))}}' method='POST'><input type='hidden' name='id' value={{$result[$i]['id']}}><input type='submit' class='btn btn-danger' value='Delete' style='width:100px;' id ="delete_{{$i}}"></form></td>
 						</tr>
 						
 					@endfor
@@ -82,7 +82,7 @@
                                
 	   			{{ link_to_route('experiments.edit', 'Cancel', array($expr_id), array('class' => 'btn btn-danger', 'style'=>'display:inline;float:right;')) }}
                                 <a style="display:inline;float:right;"> &nbsp; </a>
-	   			<a role="button" class="btn btn-info" style="display:inline;float:right;" href="{{route('DelayD/new')}}"> Add a new entry</a>
+	   			<a role="button" class="btn btn-info" style="display:inline;float:right;" href="{{route('DelayD/new',array($expr_id))}}"> Add a new entry</a>
                                 <a style="display:inline;float:right;"> &nbsp; </a>	   			
 	   			{{ $result->links() }}
 	   	</div>

@@ -71,7 +71,7 @@ Route::get('participants/exprs/show/{id}', 'RDMExprController@showParticipants')
 
 Route::get('/experiments/db/DelayD/{id} ',array('before'=>'auth','uses'=>'DelayDdbController@show'));
 
-Route::get('/experiments/db/DelayD/new',array('as'=>'DelayD/new','uses'=>'DelayDdbController@create'));
+Route::get('/experiments/db/DelayD/new/{id}',array('before' => 'auth','as'=>'DelayD/new','uses'=>'DelayDdbController@create'));
 
 Route::get('/monitor/select',array('uses'=>'MonitoringDashboardController@select','before'=>'auth'));
 
@@ -89,13 +89,13 @@ Route::post('/expr/rslts/download',array('as' => '/expr/rslts/download', 'uses' 
 
 Route::post('/expr/rslts/bart/store',array('as' => '/expr/rslts/bart/store', 'uses' => 'ExprResultsController@storeBart'));
 
-Route::post('/experiments/db/DelayD/edit',array('as'=>'DelayD/edit','uses'=>'DelayDdbController@edit'));
+Route::post('/experiments/db/DelayD/edit/{id}',array('as'=>'DelayD/edit','uses'=>'DelayDdbController@edit'));
 
-Route::post('/experiments/db/DelayD/update',array('as'=>'DelayD/update','uses'=>'DelayDdbController@update'));
+Route::post('/experiments/db/DelayD/update/{id}',array('as'=>'DelayD/update','uses'=>'DelayDdbController@update'));
 
-Route::post('/experiments/db/DelayD/delete',array('as'=>'DelayD/delete','uses'=>'DelayDdbController@destroy'));
+Route::post('/experiments/db/DelayD/delete/{id}',array('as'=>'DelayD/delete','uses'=>'DelayDdbController@destroy'));
 
-Route::post('/experiments/db/DelayD/create',array('as'=>'DelayD/create','uses'=>'DelayDdbController@store'));
+Route::post('/experiments/db/DelayD/create/{id}',array('as'=>'DelayD/create','uses'=>'DelayDdbController@store'));
 
 Route::post('/experiments/db/DelayD/random',array('as'=>'DelayD/random','uses'=>'DelayDdbController@randomize'));
 

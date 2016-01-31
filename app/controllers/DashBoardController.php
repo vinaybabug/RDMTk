@@ -35,8 +35,8 @@ class DashBoardController extends BaseController {
      * Show the admin profile.
      */
     public function showAdminPage() {
-        $role = Auth::user()->role;
-        $this->layout->content = View::make('dashboard.dashboard_admin')->with('role',$role);
+        
+        $this->layout->content = View::make('dashboard.dashboard_admin');
     }
     
     /**
@@ -66,9 +66,9 @@ class DashBoardController extends BaseController {
             if(Auth::check() || Auth::viaRemember()){
             $user = Auth::user();
              $tasks = Tasks::all();
-             $role = Auth::user()->role;
+             
             return View::make('dashboard.participants.userprofile', compact('user'))
-                    ->with('tasks', $tasks)->with('role',$role);
+                    ->with('tasks', $tasks);
             }
             return Redirect::route('login');
         }
@@ -81,8 +81,8 @@ class DashBoardController extends BaseController {
 	public function profile() {
             if(Auth::check() || Auth::viaRemember()){
             $user = Auth::user();
-            $role = Auth::user()->role;
-            return View::make('dashboard.userprofile', compact('user'))->with('role',$role);
+            
+            return View::make('dashboard.userprofile', compact('user'));
             }
             return Redirect::route('login');
         }

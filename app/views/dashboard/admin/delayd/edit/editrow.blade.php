@@ -36,7 +36,7 @@
 				<div class="panel-body">
 					<h3>What would you prefer:</h3>
 
-					<form method="POST" action="{{route('DelayD/update')}}">
+					<form method="POST" action="{{route('DelayD/update',array($expr_id))}}">
 						<input type="hidden" name="id" value={{$result[0]['id']}}>
 	 					<h3>Choice A:</h3>
 						<textarea cols="100" rows="5" placeholder ="{{$result[0]['option_a']}}" name= "option_a"></textarea>
@@ -48,7 +48,7 @@
 	                   
 						
 					<input type="submit" class="btn btn-primary" value="Go"></input>
-					<a href="{{URL::to('/experiments/db/DelayD')}}" class="btn btn-default">Cancel</a>
+					<a href="{{URL::to('/experiments/db/DelayD', array($expr_id))}}" class="btn btn-default">Cancel</a>
 					</form>
 
 				</div>

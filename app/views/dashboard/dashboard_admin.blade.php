@@ -38,7 +38,7 @@
 
 
 @section('side-menu') 
-                    @if($role=="ADMIN")
+                    @if(Auth::user()->role =="ADMIN")
                         <li id ="manage_users">
                             <a href="#"><i class="fa fa-users fa-fw"></i> Manage Users<span class="fa arrow"></span></a>
                              <ul class="nav nav-second-level">

@@ -32,8 +32,8 @@ class RDMTaskController extends BaseController{
 	* @description Renders a form asking for the Task name and Task ID
 	*/	
 	public function showFirst(){
-		$role = Auth::user()->role;
-	    return View::make('dashboard.Tasks.taskcreate_firststep')->with('role',$role);
+		
+	    return View::make('dashboard.Tasks.taskcreate_firststep');
 
 	}
 
@@ -60,8 +60,8 @@ class RDMTaskController extends BaseController{
 	* @description Renders a form to collect the Task files, which need to uploaded by the user as .zip file
 	*/
 	public function showSecond(){
-	$role = Auth::user()->role;
-    return View::make('dashboard.Tasks.taskcreate_secondstep')->with('role',$role);
+	
+    return View::make('dashboard.Tasks.taskcreate_secondstep');
 
 	}
 	/**
@@ -114,8 +114,8 @@ class RDMTaskController extends BaseController{
 	*				created ,for the functioning of the new Task being added.
 	*/
 	public function showThird(){
-	$role = Auth::user()->role;
-    return View::make('dashboard.Tasks.taskcreate_thirdstep')->with('role',$role);
+	
+    return View::make('dashboard.Tasks.taskcreate_thirdstep');
 
 	}
 	/**

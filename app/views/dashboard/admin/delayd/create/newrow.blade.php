@@ -34,7 +34,7 @@
 				<h3>Create a New Entry</h3>
 			</div>
 			<div class="panel-body">
-			<form method="POST" action="{{route('DelayD/create')}}">
+			<form method="POST" action="{{route('DelayD/create',array($expr_id))}}">
 				<div class="form-group">
 	            <h4>Choose Dataset</h4>
 	            <select id="dataset" name="dataset" class="form-control">
@@ -70,7 +70,7 @@
 					<br><br><br>
                     
 					<input type="submit" class="btn btn-primary" value="Go"></input>
-					<a href="{{URL::to('/experiments/db/DelayD')}}" class="btn btn-default">Cancel</a>
+					<a href="{{URL::to('/experiments/db/DelayD', array($expr_id))}}" class="btn btn-default">Cancel</a>
 				</form>
 				
 			</div>

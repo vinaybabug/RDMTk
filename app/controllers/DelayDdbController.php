@@ -30,49 +30,49 @@ class DelayDdbController extends BaseController{
 	/**
 	* @description Renders a page displaying the current entries in the database
 	*/
-	public function show($id){
+	public function show($expr_id){
 		$email=Auth::user()->email;
 		$result = DelayDdata::whereRaw('created_by ="ADMIN" or created_by="'.$email.'"')->paginate(10);
-		$role = Auth::user()->role;
-		return View::make('dashboard.admin.delayd.show.showdb')->with('result',$result)->with('role',$role)->with("expr_id",$id);
+		
+		return View::make('dashboard.admin.delayd.show.showdb')->with('result',$result)->with("expr_id",$expr_id);
 		
 		}
 	/**
 	* @description Renders a form through which data for the new table entry can be entered 
 	*/
-	public function create(){
-		$role = Auth::user()->role;
+	public function create($expr_id){
+		
 		$email = Auth::user()->email;
             $datasets= array();
             $datasets = DB::table('delayed_discount_que')->select('dataset_name')->whereRaw('created_by="'.$email.'"')->groupBy('dataset_name')->get();
             
-		return View::make('dashboard.admin.delayd.create.newrow')->with('role',$role)->with('datasets',$datasets);     
+		return View::make('dashboard.admin.delayd.create.newrow')->with('datasets',$datasets)->with('expr_id',$expr_id);     
 
 	}
 	/**
 	* @description Renders a form through updated values of the entry, to be edited , can be entered.  
 	*/
-	public function edit(){
+	public function edit($expr_id){
 
 		$id = Input::get('id');
 		$result= DelayDdata::where('id',$id)->get();
-		$role = Auth::user()->role;
-		return View::make('dashboard.admin.delayd.edit.editrow')->with('result',$result)->with('role',$role);
+		
+		return View::make('dashboard.admin.delayd.edit.editrow')->with('result',$result)->with('expr_id',$expr_id);
 
 	}
 	/**
 	* @description Updates the corresponding entry in the database.  
 	*/
-	public function update(){
+	public function update($expr_id){
 
 		$res= DelayDdata::where('id',Input::get('id'))->update(array('option_a'=>Input::get('option_a'),'option_b'=>Input::get('option_b')));
-		return Redirect::to('/experiments/db/DelayD')->with('message','The entry was successfully updated');
+		return Redirect::to('/experiments/db/DelayD/'.$expr_id)->with('message','The entry was successfully updated');
 
 	}
 	/**
 	* @description Creates a new entry in the database.  
 	*/
-	public function store(){
+	public function store($expr_id){
 			$email = Auth::user()->email;
 			$dataset_name="";
 			if(Input::get('dataset')=="ADD_NEW" || Input::get('dataset')=="NO_DB"){
@@ -81,7 +81,7 @@ class DelayDdbController extends BaseController{
 				$dataset_name = Input::get('dataset');
 			}
 			DelayDdata::create(array('option_a'=>Input::get('option_a'),'option_b'=>Input::get('option_b'),'dataset_name'=>$dataset_name,'created_by'=>$email));
-			return Redirect::to('/experiments/db/DelayD')->with('message','A new entry was successfully created');
+			return Redirect::to('/experiments/db/DelayD/'.$expr_id)->with('message','A new entry was successfully created');
 
 	}
 	/**
@@ -98,13 +98,13 @@ class DelayDdbController extends BaseController{
 	/**
 	* @description Deletes an entry from the table.
 	*/
-	public function destroy(){
+	public function destroy($expr_id){
 
 		$id = Input::get('id');
 		$affectedRows = DelayDdata::where('id',$id)->delete();
 		if($affectedRows == 1){
 
-			return Redirect::to('/experiments/db/DelayD')->with('message','The entry was successfully deleted');
+			return Redirect::to('/experiments/db/DelayD/'.$expr_id)->with('message','The entry was successfully deleted');
 		}
 	}
 }	
