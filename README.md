@@ -12,6 +12,7 @@ Most of the available alternatives are proprietary, not specifically geared towa
 not built to scale for bigger diverse participants pool. Proposed toolkit RDMTk (a Risky
 Decision Making Toolkit) is an attempt to build such a platform. RDMTk is intended to be a
 one-stop shop for conducting global-scale empirical experiments.
+
 RDMTk toolkit is envisioned to represent collective experience of experts and resources geared
 towards researching in decision-making and, in particular, RDM. Researchers would benefit
 tremendously from incorporating best practices, tools and techniques at one convenient place.
@@ -21,6 +22,7 @@ along with empirical experimentation features will empower researchers and pract
 identify decision patterns with ease. Toolkit is open source, highly extensible and web-based
 solution. It is implemented using latest technologies such as PHP 5.4, Laravel, MySql, javascript
 and runs on Ubuntu based LAMP server.
+
 Current implementation of the toolkit supports a good number of constituent elements. RDMTk
 architecture is split into 2 different components. First component is the dashboard, which aids in
 managing users, experiments, tasks, data managements, and analysis tools. Dashboard is
@@ -34,4 +36,5 @@ feature. Experiments are created based on these tasks and data can be downloaded
 file at the end of the study for further analysis. Downloaded data can either be summary of
 participant’s performance or detailed raw listing. For more details one can try using the
 development version deployed at
+
 http://behaviourtasks.dataanalysis.wsn.cs.wmich.edu/RDMTk/public/index.php/login
