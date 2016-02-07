@@ -107,41 +107,42 @@ class RDMUserController extends BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
-	{
-            //
+	public function update($id) {
+        //
         $input = Input::all();
         $validation = Validator::make($input, User::$rulesUpdate);
+        $validation2 = Validator::make($input, User::$rulesUpdatePwd);
         
-        if ($validation->passes()) {
-            if (is_null(Input::get('password'))) {
+        if (empty(Input::get('password'))) {
+           
+            if ($validation->passes()) {
                 $user = User::find($id);
                 $user->update(array('first_name' => Input::get('first_name'), 'last_name' => Input::get('last_name'), 'role' => Input::get('role'), 'email' => Input::get('email'), 'username' => Input::get('username')));
                 return Redirect::route('users.index', $id);
             } else {
-                $validation2 = Validator::make($input, User::$rulesUpdatePwd);
-                if ($validation2->passes()) {
-                     $user = User::find($id);
+                return Redirect::route('users.edit', $id)
+                                ->withInput()
+                                ->withErrors($validation)
+                                ->with('message', 'There were validation errors.');
+            }
+        } else if (!empty(Input::get('password'))) {
+         
+            if ($validation2->passes()) {
+                $user = User::find($id);
                 $user->update(array('first_name' => Input::get('first_name'), 'last_name' => Input::get('last_name'), 'role' => Input::get('role'), 'email' => Input::get('email'), 'username' => Input::get('username'), 'password' => Input::get('password')));
                 return Redirect::route('users.index', $id);
-                
-                }
-                else{
-                     return Redirect::route('users.edit', $id)
-                ->withInput()
-                ->withErrors($validation2)
-                ->with('message', 'There were validation errors.');
+            } else {
+                return Redirect::route('users.edit', $id)
+                                ->withInput()
+                                ->withErrors($validation2)
+                                ->with('message', 'There were validation errors.');
             }
         }
-        }
-        return Redirect::route('users.edit', $id)
-                ->withInput()
-                ->withErrors($validation)
-                ->with('message', 'There were validation errors.');
-	}
+        
+        $this->index();
+    }
 
-
-	/**
+    /**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id

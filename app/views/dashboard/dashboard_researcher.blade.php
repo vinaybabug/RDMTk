@@ -57,9 +57,9 @@
                                <li>
                                 <a href="{{URL::to('Task/new/first')}}"> <i class="fa fa-pencil fa-fw"></i> Add a New Task</a>
                                </li>
-                                <li>
+<!--                                <li>
                                 <a href="#"> <i class="fa fa-pencil fa-fw"></i> View Tasks</a>
-                               </li>
+                               </li>-->
                            </ul>
                         </li>
                         
