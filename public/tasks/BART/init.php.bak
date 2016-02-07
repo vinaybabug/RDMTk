@@ -88,7 +88,7 @@
     
 
     $experimentid= $_GET['exp'];
-    $participantid= $_GET['MID'];
+	$participantid= $_GET['MID'];
     $userdbo = new UserDBO();
     $db = new OE_DataBaseManager();
     $db->connect();
