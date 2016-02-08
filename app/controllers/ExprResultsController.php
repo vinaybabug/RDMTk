@@ -88,7 +88,7 @@ class ExprResultsController extends BaseController {
 
                         $sheet->fromModel($data);
                     });
-                })->export('xls');
+                })->download('xls');
     }
 
     private function delaydExprRaw($taskId, $experId) {

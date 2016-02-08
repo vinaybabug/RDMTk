@@ -21,7 +21,7 @@
 
 error_reporting(0);
 session_start();
-ob_start(); 
+ob_start();
 include 'include/class/oe_databasemanager.php';
 include 'users/controller/user_dbo.php';
 $experimentid= $_GET['exp'];
@@ -34,7 +34,7 @@ if(($countexists > 0)&&($participantid!==""))
 {
 $_SESSION['exp']=$experimentid;
 $_SESSION['MID']=$participantid;
-$trials_atttempted = $viewusers[0]->nooftrials;
+$total_trials = $viewusers[0]->nooftrials;
 $viewexpts= $userdbo->viewFieldsParticipantCond('*','mid="'.$participantid.'" and experid="'.$experimentid.'" order by trialno');
 $viewexpts = json_decode($viewexpts);
 $trialno = count($viewexpts);
@@ -53,7 +53,7 @@ else
 $random=$_SESSION['random_val'];
 $_SESSION['clicks']=$trialno;
 $trialno = $trialno+1;
-if($trialno <= $trials_atttempted)
+if($trialno <= $total_trials)
 {
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -66,7 +66,6 @@ if($trialno <= $trials_atttempted)
 
 <link rel="stylesheet" type="text/css" href="src/css/demo.css">
 <style>
-
 #pick_text{
 	font-family: Arial;
 	font-size: 300%;
@@ -834,7 +833,7 @@ $(document).ready(function(){
 			myarr.push({word:0,corrResp:0,response:0,correct:0,start_time:new Date().getTime(),time_track:0});
 			var end_time=(parseInt(myarr[click_val+1].start_time)-parseInt(myarr[click_val].start_time))/1000;
 			myarr[click_val+1].time_track=end_time;
-			if(click_val==144){
+			if(click_val==<?php echo $total_trials;?> || click_val==144){
 				$.ajax({ type: 'POST',
 					url:"final_main.php",
 					data: { 
@@ -865,7 +864,7 @@ $(document).ready(function(){
 		<div align="left" style="width:90%;height:90%; margin-top: 3%; padiing:6%" id="welcometext">
 			<p style="font-size: 109%;font-family: Arial;">In this task,you will be asked to name the color of the ink the words are printed in AS FAST AS YOU CAN, ignoring the word that is printed in each item.</p>
 			<p style="font-size: 109%;font-family: Arial;">Now please put your left middlie finger on 'D' ,left index finger on 'F',right index finger on 'J' and right middle finger on 'K'.</p>
-			<p style="font-size: 109%;font-family: Arial;">Please MEMORIZE which button to press in correspondence to different ink colors before you press Spacebar to start a practice.</p>
+                        <p style="font-size: 109%;font-family: Arial;">Please MEMORIZE which button to press in correspondence to different ink colors before you press <b>spacebar</b> to start a practice.</p>
 			
 			<div style="color: #084285;font-size: x-large;">
 			Good luck!
@@ -873,7 +872,7 @@ $(document).ready(function(){
 			<img src="images/color.png" align="center" style="margin-top:5%;margin-left: 14%;" />
 		</div>
 			<div align="left" style="width:90%;height:90%; margin-top: 3%; padiing:6%;display:none" id="break_page">
-			<p style="font-size: 109%;font-family: Arial;">Take a short break and  press Spacebar when you are ready.</p>
+			<p style="font-size: 109%;font-family: Arial;">Take a short break and  press <b>spacebar break_page</b> when you are ready.</p>
 			
 			<div style="color: #084285;font-size: x-large;">
 			Good luck!
@@ -891,12 +890,11 @@ $(document).ready(function(){
 			<input type="hidden" id="previous_char" value="0">
 			<input type="hidden" id="score" value="">
 			
-	<div id="main_card" style="display:none;font-size: 743%;margin-top: 12%;" align="center">
-	
+	<div id="main_card" style="display:none;font-size: 743%;margin-top: 12%;" align="center">	
 	
 	</div>
 	<div id="main_test_text" style="width:100%;margin-top:12%;display:none;font-size:200%;">
-	This is the End of the Practice.Please press Spacebar start main test.
+	This is the End of the Practice.Please press <b>spacebar main_card</b> start main test.
 	<img src="images/color.png" align="center" style="margin-top:5%;margin-left: 14%;" />
 	</div>
 	<div id="main_card_practice" style="display:none;font-size: 743%;margin-top: 12%;" align="center">

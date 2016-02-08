@@ -84,17 +84,36 @@
                            </ul>
                         </li>    
                         
-                         <li>
+                        <li>
                             <a href="#"><i class="fa fa-info fa-fw"></i> Help<span class="fa arrow"></span></a>
                            <ul class="nav nav-second-level">
                                <li>
-                                     <a href="#"><i class="fa fa-info-circle fa-fw"></i> Help Contents</a>
+                                     <a href="#"><i class="fa fa-book fa-fw"></i> Introduction</a>
+                                     <ul class="nav nav-third-level">
+                                         <li>
+                                             <a href="#"><i class="fa fa-question-circle fa-fw"></i> Welcome</a>
+                                         </li>
+                                         <li>
+                                             <a href="#"><i class="fa fa-question-circle fa-fw"></i> What's new</a>
+                                         </li>
+                                     </ul>
+                                </li>
+                                <li>
+                                     <a href="#"><i class="fa fa-book fa-fw"></i> Getting Started</a>
+                                     <ul class="nav nav-third-level">
+                                         <li>
+                                             <a href="#"><i class="fa fa-question-circle fa-fw"></i> System requirements</a>
+                                         </li>
+                                          <li>
+                                             <a href="#"><i class="fa fa-question-circle fa-fw"></i> Getting help</a>
+                                         </li>
+                                     </ul>
                                 </li>
                                  <li>
                                      <a href="#"><i class="fa fa-lightbulb-o fa-fw"></i> About</a>
                                 </li>
                            </ul>
-                        </li>                  
+                        </li>           
                         
                        
 @stop

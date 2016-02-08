@@ -1,4 +1,3 @@
-
 <?php
 
 /**
@@ -107,7 +106,4 @@ class DelayDdbController extends BaseController{
 			return Redirect::to('/experiments/db/DelayD/'.$expr_id)->with('message','The entry was successfully deleted');
 		}
 	}
-}	
-
-
-?>
+}
