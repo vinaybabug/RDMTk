@@ -1,11 +1,11 @@
 <?php
 
+
 /*
  * @Author Rory Standley <rorystandley@gmail.com>
  * @Version 1.3
  * @Package Database
  */
-
 
 class OE_DataBaseManager {
     /*

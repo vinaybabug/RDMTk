@@ -73,8 +73,9 @@ Route::get('/experiments/db/DelayD/{id} ',array('before'=>'auth','uses'=>'DelayD
 
 Route::get('/experiments/db/DelayD/new/{id}',array('before' => 'auth','as'=>'DelayD/new','uses'=>'DelayDdbController@create'));
 
-Route::get('/monitor/select',array('uses'=>'MonitoringDashboardController@select','before'=>'auth'));
+//Route::get('/monitor/select',array('uses'=>'MonitoringDashboardController@select','before'=>'auth'));
 
+Route::get('/dashboard/tools/monitoring/monitorExpr',array('before' => 'auth','as' => '/dashboard/tools/monitoring/monitorExpr','uses'=>'ExprMonitorController@showMasterSelection'));
 /**
  * post related routes
  */

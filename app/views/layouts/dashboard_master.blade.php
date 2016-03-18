@@ -47,6 +47,10 @@
     {{ HTML::script('js/plugins/metisMenu/metisMenu.min.js') }} 
     <!-- Custom Theme JavaScript -->
     {{ HTML::script('js/sb-admin-2.js') }} 
+    
+    <!-- Custom Theme JavaScript -->
+    {{ HTML::script('js/opencpu/opencpu-0.4.js') }} 
+    
     <!-- Script to track mouse movement -->
     <!--{{ HTML::script('js/track.js') }} -->
 

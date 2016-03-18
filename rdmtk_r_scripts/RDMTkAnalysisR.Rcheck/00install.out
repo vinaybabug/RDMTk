@@ -1,0 +1,11 @@
+* installing *source* package 'RDMTkAnalysisR' ...
+** R
+** preparing package for lazy loading
+** help
+Warning: c:/wamp/www/RDMTk/rdmtk_r_scripts/RDMTkAnalysisR/man/RDMTkAnalysisR-package.Rd:29: All text must be in a section
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+*** arch - i386
+*** arch - x64
+* DONE (RDMTkAnalysisR)

@@ -85,7 +85,7 @@
                             <a href="#"><i class="fa fa-database fa-fw"></i> Data Management<span class="fa arrow"></span></a>
                            <ul class="nav nav-second-level">
                                <li>
-                                     <a href="{{URL::to('exprRsltsSo')}}"><i class="fa fa-archive fa-fw"></i> Download Results</a>
+                                     <a href="{{URL::to('exprRsltsSo')}}"><i class="fa fa-save fa-fw"></i> Download Results</a>
                                 </li>
                            </ul>
                         </li>        
@@ -94,7 +94,7 @@
                             <a href="#"><i class="fa fa-gears fa-fw"></i> Analysis Tools<span class="fa arrow"></span></a>
                            <ul class="nav nav-second-level">
                                <li>
-                                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Monitor Experiment</a>
+                                     <a href="{{URL::to('dashboard/tools/monitoring/monitorExpr')}}"><i class="fa fa-bar-chart-o fa-fw"></i> Experiment Monitor</a>
                                 </li>
                                 <li>
                                      <a href="#"><i class="fa fa-gear fa-fw"></i> Sample Results</a>
@@ -106,7 +106,7 @@
                             <a href="#"><i class="fa fa-info fa-fw"></i> Help<span class="fa arrow"></span></a>
                            <ul class="nav nav-second-level">
                                <li>
-                                     <a href="#"><i class="fa fa-book fa-fw"></i> Introduction</a>
+                                     <a href="#"><i class="fa fa-book fa-fw"></i> Introduction<span class="fa arrow"></span></a>
                                      <ul class="nav nav-third-level">
                                          <li>
                                              <a href="#"><i class="fa fa-question-circle fa-fw"></i> Welcome</a>
@@ -117,7 +117,7 @@
                                      </ul>
                                 </li>
                                 <li>
-                                     <a href="#"><i class="fa fa-book fa-fw"></i> Getting Started</a>
+                                     <a href="#"><i class="fa fa-book fa-fw"></i> Getting Started<span class="fa arrow"></span></a>
                                      <ul class="nav nav-third-level">
                                          <li>
                                              <a href="#"><i class="fa fa-question-circle fa-fw"></i> System requirements</a>

@@ -21,7 +21,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header"><i class="fa fa-archive fa-fw"></i> Download Experiment's Data</h1>
+        <h3 class="page-header"><i class="fa fa-save fa-fw"></i> Download Experiment's Data</h3>
     </div> 
     <div class="col-lg-12">
     {{ Form::open(array('action' => '/expr/rslts/download')) }}
@@ -32,8 +32,7 @@
         </div>
         <div class="form-group">
             {{ Form::label('expername', 'Experiment Name:') }} 
-            <select class="form-control" id="exprid" name="exprid" ></select>
-           
+            <select class="form-control" id="exprid" name="exprid" ></select>           
         </div>
         <div class="form-group">
             {{ Form::checkbox('isSummary', 'true') }}

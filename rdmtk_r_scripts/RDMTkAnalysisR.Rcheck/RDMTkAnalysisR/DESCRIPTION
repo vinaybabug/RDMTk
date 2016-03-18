@@ -1,0 +1,10 @@
+Package: RDMTkAnalysisR
+Type: Package
+Title: RDMTk Analysis Backend
+Version: 1.0
+Date: 2016-02-11
+Author: Vinay B Gavirangaswamy
+Maintainer: Vinay B Gavirangaswamy <vinay.b.gavirangaswamy@wmich.edu>
+Description: RDMTk Analysis related tools written in R
+License: GPL
+Built: R 3.1.2; ; 2016-02-11 22:06:27 UTC; windows

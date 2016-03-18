@@ -1,5 +1,4 @@
 <?php
-
 /**
 * Copyright (C) 2015  WiSe Lab, Computer Science Department, Western Michigan University
 *Project Members Involved: Ajay Gupta, Aakash Gupta, Baba Shiv, Praneet Soni, Shrey Gupta and Vinay B Gavirangaswamy
@@ -17,7 +16,6 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>
 */
-
 
 error_reporting(1);
 session_start();
