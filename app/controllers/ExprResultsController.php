@@ -367,8 +367,17 @@ class ExprResultsController extends BaseController {
 
     public function getExprids($id) {
 
-        $exprs = Experiments::where('expertype', '=', $id)->get(); //->lists('expername', 'id');
-        $options = array();
+            $expers;
+            settype($expers, "array"); 
+            if(strcasecmp(Auth::user()->username, "admin") == false){
+                $exprs = Experiments::where('expertype', '=', $id)->get(); //->lists('expername', 'id');
+            }
+            else{
+                $exprs = Experiments::where('expertype', '=', $id)->where('created_by', '=',Auth::user()->username)->get(); //->lists('expername', 'id');
+            }
+        
+        
+            $options = array();
 
         foreach ($exprs as $expr) {
             $options += array($expr->id => $expr->expername);

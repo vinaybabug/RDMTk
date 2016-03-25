@@ -36,8 +36,15 @@ class RDMExprController extends BaseController {
 	 */
 	public function index()
 	{
-		//
-            $expers = Experiments::orderBy('expertype', 'asc')->paginate(5);
+            $expers;
+            settype($expers, "array"); 
+            if(strcasecmp(Auth::user()->username, "admin") == false){
+                $expers = Experiments::orderBy('expertype', 'asc')->paginate(5);
+            }
+            else{
+                $expers = Experiments::where('created_by','=' ,Auth::user()->username)->orderBy('expertype', 'asc')->paginate(5);
+            }
+            
             
             if($expers->isEmpty()){
                         
@@ -82,7 +89,8 @@ class RDMExprController extends BaseController {
 	 */
 	public function store() {
         //
-        $input = Input::all();
+        $input = Input::all();        
+        
         
         $rules = array(
                 'expername' => 'required|unique:experiments',
@@ -100,7 +108,7 @@ class RDMExprController extends BaseController {
         $absolute_url = url('/tasks');//+'/'+Input::get('expertype');//+'/task.php';
         $absolute_url = str_replace("/index.php/","/",$absolute_url). '/' .Input::get('expertype').'/task.php?exp='.$id.'&MID=MID';
         
-        $inputall = array('id'=> $id,'urllink'=>$absolute_url) + $input;
+        $inputall = array('id'=> $id,'urllink'=>$absolute_url,'created_by'=>Auth::user()->username) + $input;
         
         $validation = Validator::make($inputall, $rules);
         
@@ -157,7 +165,6 @@ class RDMExprController extends BaseController {
                  ->with('tasks', $tasks)
                  ->with('currentTask', $currentTask)
                  ->with('expers', $experiment);
-
             
 	}
 
@@ -220,7 +227,7 @@ class RDMExprController extends BaseController {
             //+'/'+Input::get('expertype');//+'/task.php';
            // $absolute_url = str_replace("/index.php/","/",$absolute_url). '/' .Input::get('expertype').'/task.php';
         
-            $inputall = array('id'=>$id,'urllink'=>$absolute_url) + $input;
+            $inputall = array('id'=>$id,'urllink'=>$absolute_url, 'modified_by'=>Auth::user()->username) + $input;
             $validation = Validator::make($inputall, $rules);
         if ($validation->passes())
         {
@@ -243,13 +250,13 @@ class RDMExprController extends BaseController {
              
             if ($validation->passes())
             {
+                $inputall = array('modified_by'=>Auth::user()->username) + $input;
                 $expr = Experiments::find($id);
-                $expr->update($input);
+                $expr->update($inputall);
                 return Redirect::route('experiments.index', $id);
             }
         }
-            
-            
+                   
      
         return Redirect::route('experiments.edit', $id)
                 ->withInput()

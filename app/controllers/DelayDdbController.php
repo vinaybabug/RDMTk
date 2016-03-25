@@ -64,7 +64,7 @@ class DelayDdbController extends BaseController{
 	*/
 	public function update($expr_id){
 
-		$res= DelayDdata::where('id',Input::get('id'))->update(array('option_a'=>Input::get('option_a'),'option_b'=>Input::get('option_b')));
+		$res= DelayDdata::where('id',Input::get('id'))->update(array('option_a'=>Input::get('option_a'),'option_b'=>Input::get('option_b'),'modified_by'=>Auth::user()->username));
 		return Redirect::to('/experiments/db/DelayD/'.$expr_id)->with('message','The entry was successfully updated');
 
 	}

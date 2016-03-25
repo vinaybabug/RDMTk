@@ -115,3 +115,5 @@ Route::post('/track/store',array('uses'=>'MouseTracker@store'));
 Route::resource('users', 'RDMUserController');
 
 Route::resource('experiments', 'RDMExprController');
+
+Route::resource('exprRelns', 'RDMExprRelnController');

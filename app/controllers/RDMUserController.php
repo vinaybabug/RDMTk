@@ -62,7 +62,9 @@ class RDMUserController extends BaseController {
         $validation = Validator::make($input, User::$rules);
         
         if ($validation->passes()) {
-            User::create($input);
+            
+            $inputall = array('created_by'=>Auth::user()->username) + $input;
+            User::create($inputall);
 
             return Redirect::route('users.index');
         }

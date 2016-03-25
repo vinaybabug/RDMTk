@@ -38,7 +38,7 @@
 
 
 @section('side-menu') 
-                                             <li>
+                        <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Experiments<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
@@ -46,7 +46,10 @@
                                 </li>                                 
                                 <li>
                                     <a href="{{URL::to('experiments')}}"><i class="fa fa-bars fa-fw"></i> View Experiments</a>
-                                </li>                                          
+                                </li>  
+                                <li>
+                                    <a href="{{URL::to('exprRelns')}}"><i class="fa fa-bars fa-fw"></i> Experimental Design</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>    

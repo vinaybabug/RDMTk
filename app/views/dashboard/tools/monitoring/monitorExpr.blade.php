@@ -108,7 +108,7 @@
         
         var callLiveSummaryFunc = function liveSummaryFunc() {
             
-        ocpu.seturl("https://192.168.56.101/ocpu/library/RDMTkAnalysisR/R");
+        ocpu.seturl("https://172.16.88.128/ocpu/library/RDMTkAnalysisR/R");
         var req = ocpu.rpc("rdmtkGetParticipantsCntExpr", {
           
         }, function(output){

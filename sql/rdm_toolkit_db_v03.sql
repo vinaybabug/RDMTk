@@ -193,8 +193,60 @@ CREATE TABLE IF NOT EXISTS `experiments` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Table structure for table `expr_design_type`
+--
+
+CREATE TABLE IF NOT EXISTS `expr_design_type` (
+  `id` varchar(50) NOT NULL,
+  `name` varchar(150) NOT NULL,  
+  `created_by` varchar(100) NOT NULL,
+  `modified_by` varchar(60) NOT NULL,
+  `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,  
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `rdmtoolkit`.`expr_design_type`
+(`id`,
+`name`,
+`created_by`
+)
+VALUES
+('IND_MEAS_DSG',
+'Independent Measures Design',
+'ADMIN');
 
 
+INSERT INTO `rdmtoolkit`.`expr_design_type`
+(`id`,
+`name`,
+`created_by`
+)
+VALUES
+('BTW_SUBJ_DSG',
+'Between Subjects Design',
+'ADMIN');
+
+--
+-- Table structure for table `expr_reln`
+--
+
+CREATE TABLE IF NOT EXISTS `expr_reln` (
+  `id` int(50) DEFAULT NULL AUTO_INCREMENT,
+  `expr_design_id` varchar(50) NOT NULL,
+  `exprid1` varchar(50) NOT NULL, 
+  `exprid2` varchar(50) NOT NULL,   
+  `created_by` varchar(100) NOT NULL,
+  `modified_by` varchar(60) NOT NULL,
+  `updated_at` datetime NULL ON UPDATE CURRENT_T
+IMESTAMP,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,  
+  PRIMARY KEY (`id`),
+  foreign key (`expr_design_id`) references expr_design_type(id),
+  foreign key (`exprid1`) references experiments(id),
+  foreign key (`exprid2`) references experiments(id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 -- --------------------------------------------------------
 
 --

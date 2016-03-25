@@ -65,12 +65,15 @@
                                 <li>
                                     <a href="{{URL::to('experiments')}}"><i class="fa fa-bars fa-fw"></i> View Experiments</a>
                                 </li>                                          
+                                 <li>
+                                    <a href="{{URL::to('exprRelns')}}"><i class="fa fa-bars fa-fw"></i> Experimental Design</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>    
                                        
                         <li>
-                            <a href="#"><i class="fa fa-tasks fa-fw"></i> Manage Tasks<span class="fa arrow"></span></a>
+                           <a href="#"><i class="fa fa-tasks fa-fw"></i> Manage Tasks<span class="fa arrow"></span></a>
                            <ul class="nav nav-second-level">
                                <li>
                                 <a href="{{URL::to('Task/new/first')}}"> <i class="fa fa-pencil fa-fw"></i> Add a New Task</a>
