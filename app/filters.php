@@ -35,7 +35,10 @@ App::before(function($request)
 	//
     if( ! Request::secure() && !Request::ajax())
     {
+        // add exception to ajax retuqested by tasks app to store data
+       
         return Redirect::secure(Request::path());
+       
     }
 });
 

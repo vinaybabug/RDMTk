@@ -107,7 +107,7 @@ class RDMExprController extends BaseController {
         $id = $utilities->random_id_gen(10);
         $absolute_url = url('/tasks');//+'/'+Input::get('expertype');//+'/task.php';
         $absolute_url = str_replace("/index.php/","/",$absolute_url). '/' .Input::get('expertype').'/task.php?exp='.$id.'&MID=MID';
-        
+        $absolute_url = str_replace("https:", "http:", $absolute_url);
         $inputall = array('id'=> $id,'urllink'=>$absolute_url,'created_by'=>Auth::user()->username) + $input;
         
         $validation = Validator::make($inputall, $rules);
@@ -273,9 +273,13 @@ class RDMExprController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+            try {
             Experiments::find($id)->delete();
-            return Redirect::route('experiments.index');
+                return Redirect::route('experiments.index');
+            }
+            catch ( Illuminate\Database\QueryException $e) {
+                return Redirect::route('experiments.index');
+            }
 	}       
 
 }

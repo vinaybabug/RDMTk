@@ -1,10 +1,10 @@
-* using log directory 'c:/wamp/www/RDMTk/rdmtk_r_scripts/RDMTkAnalysisR.Rcheck'
-* using R version 3.1.2 (2014-10-31)
-* using platform: i386-w64-mingw32 (32-bit)
-* using session charset: ISO8859-1
-* checking for file 'RDMTkAnalysisR/DESCRIPTION' ... OK
+* using log directory ‘/home/vinaya/NetBeansProjects/RDMTk/rdmtk_r_scripts/RDMTkAnalysisR.Rcheck’
+* using R version 3.2.4 (2016-03-10)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘RDMTkAnalysisR/DESCRIPTION’ ... OK
 * checking extension type ... Package
-* this is package 'RDMTkAnalysisR' version '1.0'
+* this is package ‘RDMTkAnalysisR’ version ‘0.1.0’
 * checking package namespace information ... OK
 * checking package dependencies ... OK
 * checking if this is a source package ... OK
@@ -12,13 +12,15 @@
 * checking for executable files ... OK
 * checking for hidden files and directories ... OK
 * checking for portable file names ... OK
-* checking whether package 'RDMTkAnalysisR' can be installed ... WARNING
-Found the following significant warnings:
-  Warning: c:/wamp/www/RDMTk/rdmtk_r_scripts/RDMTkAnalysisR/man/RDMTkAnalysisR-package.Rd:29: All text must be in a section
-See 'c:/wamp/www/RDMTk/rdmtk_r_scripts/RDMTkAnalysisR.Rcheck/00install.out' for details.
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘RDMTkAnalysisR’ can be installed ... OK
 * checking installed package size ... OK
 * checking package directory ... OK
-* checking DESCRIPTION meta-information ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Malformed Description field: should contain one or more complete sentences.
+Non-standard license specification:
+  What license is it under?
+Standardizable: FALSE
 * checking top-level files ... OK
 * checking for left-over files ... OK
 * checking index information ... OK
@@ -31,44 +33,42 @@ See 'c:/wamp/www/RDMTk/rdmtk_r_scripts/RDMTkAnalysisR.Rcheck/00install.out' for 
 * checking whether the namespace can be loaded with stated dependencies ... OK
 * checking whether the namespace can be unloaded cleanly ... OK
 * checking loading without being on the library search path ... OK
-* checking dependencies in R code ... OK
+* checking dependencies in R code ... WARNING
+'::' or ':::' import not declared from: ‘RMySQL’
+'library' or 'require' calls not declared from:
+  ‘DBI’ ‘pwr’
+'library' or 'require' calls in package code:
+  ‘DBI’ ‘pwr’
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
-* checking R code for possible problems ... OK
-* checking Rd files ... WARNING
-prepare_Rd: RDMTkAnalysisR-package.Rd:29: All text must be in a section
-prepare_Rd: rdmtkGetParticipantsCntExpr.Rd:8-10: Dropping empty section \description
-prepare_Rd: rdmtkGetParticipantsCntExpr.Rd:15-17: Dropping empty section \details
-prepare_Rd: rdmtkGetParticipantsCntExpr.Rd:18-24: Dropping empty section \value
-prepare_Rd: rdmtkGetParticipantsCntExpr.Rd:32-34: Dropping empty section \note
-prepare_Rd: rdmtkGetParticipantsCntExpr.Rd:25-27: Dropping empty section \references
-prepare_Rd: rdmtkGetParticipantsCntExpr.Rd:38-40: Dropping empty section \seealso
-checkRd: (5) rdmtkGetParticipantsCntExpr.Rd:0-56: Must have a \description
-* checking Rd metadata ... OK
-* checking Rd cross-references ... WARNING
-Unknown package '<pkg>' in Rd xrefs
-* checking for missing documentation entries ... OK
-* checking for code/documentation mismatches ... OK
-* checking Rd \usage sections ... OK
-* checking Rd contents ... OK
-* checking for unstated dependencies in examples ... WARNING
-Warning: parse error in file 'RDMTkAnalysisR-Ex.R':
-21:11: unexpected symbol
-20: 
-21: ~~ simple examples
-              ^
-* checking examples ... ERROR
-Running examples in 'RDMTkAnalysisR-Ex.R' failed
-The error most likely occurred in:
-
-> ### Name: RDMTkAnalysisR-package
-> ### Title: RDMTk Analysis Backend
-> ### Aliases: RDMTkAnalysisR-package RDMTkAnalysisR
-> ### Keywords: package
-> 
-> ### ** Examples
-> 
-> ~~ simple examples of the most important functions ~~
-Error: unexpected symbol in "~~ simple examples"
-Execution halted
+* checking R code for possible problems ... NOTE
+rdmtkExprLiveStats: no visible global function definition for
+  ‘dbConnect’
+rdmtkExprLiveStats: no visible global function definition for
+  ‘dbSendQuery’
+rdmtkExprLiveStats: no visible global function definition for ‘dbFetch’
+rdmtkExprLiveStats: no visible global function definition for
+  ‘dbClearResult’
+rdmtkExprLiveStats: no visible global function definition for
+  ‘pwr.t2n.test’
+rdmtkExprLiveStats: no visible global function definition for
+  ‘pwr.t.test’
+rdmtkExprLiveStats: no visible global function definition for
+  ‘dbDisconnect’
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  ‘rdmtkExprLiveStats’ ‘rdmtkGetParticipantsCntExpr’
+All user-level objects in a package should have documentation entries.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking examples ... NONE
+* checking PDF version of manual ... WARNING
+LaTeX errors when creating PDF version.
+This typically indicates Rd problems.
+* checking PDF version of manual without hyperrefs or index ... ERROR
+Re-running with no redirection of stdout/stderr.
+* DONE
+Status: 1 ERROR, 3 WARNINGs, 2 NOTEs

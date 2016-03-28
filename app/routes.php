@@ -67,6 +67,11 @@ Route::get('/logout', array('before' => 'auth','as' => 'logout', 'uses' => 'Dash
 
 Route::get('dropdowns/exprs/{id}', 'ExprResultsController@getExprids');
 
+Route::get('dropdowns/exprRelns/{expertype}/{expr_design_id}', 'ExprMonitorController@getExprRelns');
+
+Route::get('dropdowns/exprReln/{expertype}/{expr_design_id}/{expr_reln_id}', 'ExprMonitorController@getExprReln');
+
+
 Route::get('participants/exprs/show/{id}', 'RDMExprController@showParticipants');
 
 Route::get('/experiments/db/DelayD/{id} ',array('before'=>'auth','uses'=>'DelayDdbController@show'));
