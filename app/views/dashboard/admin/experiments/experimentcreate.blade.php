@@ -42,7 +42,7 @@
             {{ Form::text('nooftrials', null, array('placeholder'=>'Trial#', 'class' => 'form-control')) }}
     </div>
     <div class="form-group">
-            {{ Form::label('expertrial_outcome_type', 'Trial End Type:') }}
+            {{ Form::label('expertrial_outcome_type', 'Trial Duration Type:') }}
             {{ Form::select('expertrial_outcome_type', array(
                         'default' => 'Please select one option',
                         'FIXED' => 'Fixed',

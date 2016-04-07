@@ -46,7 +46,7 @@
                     <td class="col-md-10">{{ $experiment->nooftrials }}</td>
                 </tr>
                 <tr>
-                    <td class="col-md-2 info"><b>Trial End (Random / Fixed)</b></td>                             
+                    <td class="col-md-2 info"><b>Trial Duration (Random / Fixed)</b></td>                             
                     <td class="col-md-10">{{ $experiment->expertrial_outcome_type }}</td>
                 </tr>
                 <tr>

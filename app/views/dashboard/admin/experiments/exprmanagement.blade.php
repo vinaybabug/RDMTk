@@ -41,7 +41,7 @@
                             <th class="col-sm-1">Experiment Name</th>
                             <th class="col-sm-1">Tool</th>
                             <th class="col-sm-1">#Trials</th>
-                            <th class="col-sm-1">Trial End (Random / Fixed)</th>
+                            <th class="col-sm-1">Trial Duration (Random / Fixed)</th>
                             <th class="col-sm-1">Confirmation Code</th>
                             <th class="col-sm-1">Confirmation Type</th>
                             <th class="col-sm-1">Confirmation Text</th>
