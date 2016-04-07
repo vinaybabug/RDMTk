@@ -34,6 +34,12 @@
  * Get related routes
  */
 
+ // show a static view for the home page (app/views/home.blade.php)
+Route::get('/', function()
+{
+    return View::make('home');
+});
+
 
 Route::get('/helloworld', 'HomeController@showWelcome');
 
