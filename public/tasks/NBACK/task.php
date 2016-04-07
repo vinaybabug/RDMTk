@@ -203,7 +203,7 @@ $(document.body).keyup(function (evt) {
 	?>
 		<div align="left" style="width:90%;height:90%; margin-top: 3%; padiing:6%" id="welcometext">
 			<p style="font-size: 109%;font-family: Arial;">Using your right hand, put your thumb on the spacebar.</p>
-			<p style="font-size: 109%;font-family: Arial;">You will see a string of letters presented one at a time.if the letters you saw is the same as the letter before the last one,press the spacebar as soon as you can.</p>
+			<p style="font-size: 109%;font-family: Arial;">You will see a string of letters presented one at a time.if the letter you see is the same as the letter before the last one,press the spacebar as soon as you can.</p>
 			<p style="font-size: 109%;font-family: Arial;">For example,if you see a sequence line '...m k h k p...',then you should press the spacebar on the second 'k'.</p>
 			<p style="font-size: 109%;font-family: Arial;">Press on Start button when you are ready to start a short practice.</p>
 			<div style="color: #084285;font-size: x-large;">

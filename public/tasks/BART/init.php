@@ -78,7 +78,7 @@
         <script type="text/javascript" src="js/app.js"></script>
         
         <script type="text/javascript" src="js/ThreeScene.js"></script>
-        <script type="text/javascript" src="task-code.js"></script>
+        
         
         </head>
     <body>
@@ -195,71 +195,28 @@
                     <div class="row">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-<!--                                <div class="row">                                
+                                <div class="row">                                
                                     <div class="col-xs-6 text-left">                                    
-                                        <div class="">Legend</div>                           
+                                        <div class="">Trial Progress</div>                           
                                     </div>                               
-                                </div>-->
+                                </div>
                             </div>
                             <div class="panel-footer">
                                 <div class="row">
                                     <!--<div class="col-xs-2">-->
-                                    <p>&nbsp;<i class="fa fa-smile-o fa-2x"></i>&nbsp; Balloon Collected</p>
-                                    <p>&nbsp;<i class="fa fa-frown-o fa-2x"></i>&nbsp; Balloon Popped</p>
+                                    <p>&nbsp;<i class="fa fa-smile-o fa-2x"></i>&nbsp; Balloon Collected&nbsp;<i class="huge">#</i><i class="huge" id="b_collected">0</i> <i class="huge">#</i></p>
+                                    <p>&nbsp;<i class="fa fa-frown-o fa-2x"></i>&nbsp; Balloon Popped&nbsp;<i class="huge">#</i><i class="huge" id="b_popped">0</i> <i class="huge" >#</i></p>
                                     <!--</div>-->                                                           
                                 </div>
-
+                                <div class="progress">
+			<div class="progress-bar progress-bar-success" role="progressbar" area-valuenow="11" area-valuemin="0" area-valuemax="100" id="progress_bar" ><a id="progressdetail">0% Complete</a></div>
+			</div>		
                                 <div class="clearfix"></div>
                             </div>
 
                         </div>
                     </div>
-                    <!--Balloons -->
-                    <div class="row">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">                                
-                                <div class="col-xs-6 text-left">                                    
-                                    <div class="">Trials</div>                           
-                                </div>                               
-                            </div>
-                        </div>
-                        
-                            <div class="panel-footer">
-                                <?php 
-                                    $row = floor($totalTrials/5);
-                                    $remainder = $totalTrials%5;
-                                    $balloonCount = 0;
-                                    for ($rc = 0; $rc < $row; $rc++) {
-                                        
-                                        echo "<div class=\"row\">";
-                                        for ($cc = 0; $cc < 5; $cc++) {
-                                            
-                                            echo "<div class=\"col-xs-2\" id=\"B".($balloonCount = $balloonCount+1)."\"><i class=\"fa fa-ban fa-3x\"></i></div>";                                           
-                                            
-                                        } 
-                                        echo  "</div>";
-                                    }
-                                      echo "<div class=\"row\">";
-                                        for ($cc = 0; $cc < $remainder; $cc++) {
-                                            
-                                            echo "<div class=\"col-xs-2\" id=\"B".($balloonCount = $balloonCount+1)."\"><i class=\"fa fa-ban fa-3x\"></i></div>";                                           
-                                            
-                                        } 
-                                        echo  "</div>";
-                                ?>
-<!--                                <div class="row">
-                                    <div class="col-xs-2" id="B1">
-                                        <i class="fa fa-ban fa-3x"></i>
-                                    </div>                                                           
-                                </div>-->
-                                                                                    
-                                <div class="clearfix"></div>
-                            </div>
-                        
-                    </div>
-                    </div>
-                    <!--End Balloons -->
+
                 </div>         
        
                 <div class="col-lg-9 col-md-18">
@@ -315,6 +272,9 @@
             var currentScore = 0;
             var totalScore = 0;
             var balloonNumber = 1;
+            var balloon_popped = 0;
+            var balloon_collected = 0;
+            var percentComplete = 0;
             var balloonMaxNoPump = 100;
             var BALLOON_MAX_SIZE = 220;
             var BALLOON_MIN_SIZE = 20;
@@ -416,6 +376,7 @@
                         updated_at: "<?php echo date("Y-m-d H:i:s");?>"
                         });      
                 
+                percentComplete = balloonNumber / <?php echo $_SESSION['totalTrials']; ?> *100;
                 balloonNumber++;
                 var balloonTxt = "<div class=\"huge\">"+balloonNumber+"/"+<?php echo $_SESSION['totalTrials']; ?>+"</div>";                               
                 $('#BalloonNumber').html(balloonTxt);
@@ -432,6 +393,10 @@
                 
                 var pumpTxt = "<span class=\"pull-left small\">Pump:"+pumpNo+"</span>";               
                 $('#Pump').html(pumpTxt);
+                
+                document.getElementById("progress_bar").style.width = percentComplete+"%";
+		document.getElementById("progressdetail").innerHTML = Math.floor(percentComplete)+"% complete" ;
+                
                 }                              
                 
                 //console.log(jsonExrData);
@@ -545,12 +510,11 @@
              else{
                 var audioElement = document.createElement('audio');
                 audioElement.setAttribute('src', 'audio/explosion.wav');
-		audioElement.setAttribute('autoplay', 'autoplay');
+		audioElement.setAttribute('autoplay', 'autoplay');              
                
-                
-                var bNumber = "B"+balloonNumber;     
-                document.getElementById(bNumber).innerHTML = "<i class=\"fa fa-frown-o fa-3x\"></i>";
+                balloon_popped++;
                                 
+                document.getElementById("b_popped").innerHTML =balloon_popped ;                                
                 basicScene.remove(balloon);
                 
                 document.getElementById("balloonTrialModelLabel").innerHTML =  "<span class=\"glyphicon glyphicon-info-sign\" aria-hidden=\"true\"></span> Balloon Popped"; 
@@ -569,10 +533,10 @@
             
              function collect() {  
                 
-                totalScore += currentScore;
-                
-                var bNumber = "B"+balloonNumber;     
-                document.getElementById(bNumber).innerHTML = "<i class=\"fa fa-smile-o fa-3x\"></i>";
+                totalScore += currentScore;               
+               
+                balloon_collected++;
+                document.getElementById("b_collected").innerHTML =balloon_collected ;
                                 
                 basicScene.remove(balloon);
                 

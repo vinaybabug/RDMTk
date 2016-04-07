@@ -863,8 +863,8 @@ $(document).ready(function(){
 	?>
 		<div align="left" style="width:90%;height:90%; margin-top: 3%; padiing:6%" id="welcometext">
 			<p style="font-size: 109%;font-family: Arial;">In this task,you will be asked to name the color of the ink the words are printed in AS FAST AS YOU CAN, ignoring the word that is printed in each item.</p>
-			<p style="font-size: 109%;font-family: Arial;">Now please put your left middlie finger on 'D' ,left index finger on 'F',right index finger on 'J' and right middle finger on 'K'.</p>
-                        <p style="font-size: 109%;font-family: Arial;">Please MEMORIZE which button to press in correspondence to different ink colors before you press <b>spacebar</b> to start a practice.</p>
+			<p style="font-size: 109%;font-family: Arial;">Now please put your left middle finger on 'D' ,left index finger on 'F',right index finger on 'J' and right middle finger on 'K'.</p>
+                        <p style="font-size: 109%;font-family: Arial;">Please MEMORIZE which button to press in correspondence to different ink colors before you press <b>spacebar</b> to start a practice session.</p>
 			
 			<div style="color: #084285;font-size: x-large;">
 			Good luck!

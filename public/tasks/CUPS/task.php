@@ -558,7 +558,7 @@ ob_start();
 						Welcome to <b>Cups </b> game ! During this game, you are going to choose cups to get the highest score.
 						</p> 
 						<p>
-						On each side of the screen, you will see certain number of cups (either 2, 3, or 5). The cups will have a return value over them, either positive or negative:
+						On each side of the screen, you will see a certain number of cups (either 2, 3, or 5). The cups will have a return value over them, either positive or negative:
 						</p>
 						<div style="width:100%;">
 						<div style="width:15%;float:left;padding-left:20%;padding-right:15%;">
@@ -578,7 +578,7 @@ ob_start();
 						For each trial, you will be given the option of choosing a cup from either side by clicking on your choice. The side with multiple cups has one cup with the return value under it. The other cups have nothing under them.
 						</p>
 						<p>
-						So your goal is to choose the right cups to maximize your score.
+						So your goal is to choose the best cups to maximize your score.
 						</p>
 						<p>
 						Please read the payouts for each trial carefully.

@@ -45,16 +45,16 @@ call jrepl "\b%db_name_c%\b" %db_name_r%  /f %CD%\BART\temp\oe_databasemanager.p
 
 move %CD%\BART\temp\oe_databasemanager.php %RDM%\public\tasks\BART\include\class\oe_databasemanager.php
 
-echo Configuring: BART  storedata.php
+echo Configuring: BART  score.php
 
-copy %CD%\BART\storedata.php %CD%\BART\temp\storedata.php
+copy %CD%\BART\score.php %CD%\BART\temp\score.php
 
-call jrepl "\b%db_host_c%\b" %db_host_r%  /f %CD%\BART\temp\storedata.php /o -
-call jrepl "\b%db_user_c%\b" %db_user_r%  /f %CD%\BART\temp\storedata.php /o -
-call jrepl "\b%db_pass_c%\b" %db_pass_r%  /f %CD%\BART\temp\storedata.php /o -
-call jrepl "\b%db_name_c%\b" %db_name_r%  /f %CD%\BART\temp\storedata.php /o -
+call jrepl "\b%db_host_c%\b" %db_host_r%  /f %CD%\BART\temp\score.php /o -
+call jrepl "\b%db_user_c%\b" %db_user_r%  /f %CD%\BART\temp\score.php /o -
+call jrepl "\b%db_pass_c%\b" %db_pass_r%  /f %CD%\BART\temp\score.php /o -
+call jrepl "\b%db_name_c%\b" %db_name_r%  /f %CD%\BART\temp\score.php /o -
 
-move %CD%\BART\temp\storedata.php %RDM%\public\tasks\BART\storedata.php
+move %CD%\BART\temp\score.php %RDM%\public\tasks\BART\score.php
 
 rd /S /Q %CD%\BART\temp
 
