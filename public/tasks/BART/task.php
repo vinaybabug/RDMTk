@@ -75,7 +75,7 @@
         <div class="carousel-inner">
             <div class="item active">
                 <!-- Set the first background image using inline CSS below. -->
-                <div class="fill"><p align="middle"><img src="img/screen.PNG" alt="Start img"/></p></div>
+                <div class="fill"><p align="middle"><img src="img/screen.PNG" /></p></div>
                 <div class="carousel-caption">
                     <h2></h2>
                 </div>
@@ -135,7 +135,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Nirnayi Toolkit</h4>
+        <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>RDMTk</h4>
       </div>
       <div class="modal-body">          
           <p class="text-justify">

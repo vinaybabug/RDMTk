@@ -15,6 +15,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+DROP DATABASE `rdmtoolkit`;
 
 --
 -- Database: `rdmtoolkit`
@@ -28,8 +29,7 @@ USE rdmtoolkit;
 --
 
 
-CREATE TABLE IF NOT EXISTS `bart_expr_data` (
-  `id` int(50) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `bart_expr_data` (  
   `mid` varchar(60) NOT NULL,
   `experid` varchar(50) NOT NULL,
   `trialstopindex` int(5) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `bart_expr_data` (
   `modified_by` varchar(60) NOT NULL,
   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)  
+  PRIMARY KEY (`mid`,`experid`,`trialno` )  
 ) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
 
 
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `bart_expr_data` (
 --
 
 CREATE TABLE IF NOT EXISTS `cups_expr_data` (
-  `id` int(50) NOT NULL AUTO_INCREMENT,
+  
   `mid` varchar(60) NOT NULL,
   `experid` varchar(50) NOT NULL,
   `cupsnumber` int(5) NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `cups_expr_data` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `tracktime` double NOT NULL,
   `cup_color` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`mid`,`experid`,`trialno` )
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `cups_expr_data` (
 --
 
 CREATE TABLE IF NOT EXISTS `delayd_expr_data` (  
-  `id` int(50) NOT NULL AUTO_INCREMENT,
+  
   `mid` varchar(60) NOT NULL,
   `experid` varchar(50) NOT NULL,
   `que_id` int(11) NOT NULL,
@@ -93,7 +93,8 @@ CREATE TABLE IF NOT EXISTS `delayd_expr_data` (
   `modified_by` varchar(60) NOT NULL,
   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+
+	PRIMARY KEY (`mid`,`experid`,`trialno` )
 ) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
 
 
@@ -239,8 +240,7 @@ CREATE TABLE IF NOT EXISTS `expr_reln` (
   `exprid2` varchar(50) NOT NULL,   
   `created_by` varchar(100) NOT NULL,
   `modified_by` varchar(60) NOT NULL,
-  `updated_at` datetime NULL ON UPDATE CURRENT_T
-IMESTAMP,
+  `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,  
   PRIMARY KEY (`id`),
   foreign key (`expr_design_id`) references expr_design_type(id),
@@ -253,8 +253,7 @@ IMESTAMP,
 -- Table structure for table `igt_expr_data`
 --
 
-CREATE TABLE IF NOT EXISTS `igt_expr_data` (
-  `id` int(50) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `igt_expr_data` (  
   `mid` varchar(100) NOT NULL,
   `experid` char(36) NOT NULL,
   `trialno` int(100) NOT NULL,
@@ -274,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `igt_expr_data` (
   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `tracktime` double NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`mid`,`experid`,`trialno` )
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf16;
 
 
@@ -439,8 +438,7 @@ CREATE TABLE IF NOT EXISTS `mouse_track` (
 -- Table structure for table `nback_expr_data`
 --
 
-CREATE TABLE IF NOT EXISTS `nback_expr_data` (
-  `id` int(50) NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `nback_expr_data` (  
   `mid` varchar(100) NOT NULL,
   `experid` char(36) NOT NULL,
   `trialno` int(100) NOT NULL,
@@ -453,7 +451,7 @@ CREATE TABLE IF NOT EXISTS `nback_expr_data` (
   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `exp_flag` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`mid`,`experid`,`trialno` )
 ) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf16;
 
 
@@ -642,7 +640,7 @@ CREATE TABLE IF NOT EXISTS `rdm_user` (
 --
 
 CREATE TABLE IF NOT EXISTS `stroop_expr_data` (
-  `id` int(50) NOT NULL AUTO_INCREMENT,
+  
   `mid` varchar(100) NOT NULL,
   `experid` char(36) NOT NULL,
   `trialno` int(100) NOT NULL,
@@ -656,7 +654,7 @@ CREATE TABLE IF NOT EXISTS `stroop_expr_data` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `exp_flag` varchar(50) NOT NULL,
   `tracktime` double NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`mid`,`experid`,`trialno` )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16;
 
 -- --------------------------------------------------------

@@ -66,13 +66,25 @@ class ExprResultsController extends BaseController {
                 case 'BART':
                     return $this->bartExprSummary($task, $experId);
                     break;
-                case 'CUPS':
-                    return $this->cupsExprSummary($task, $experId);
+                 case 'CUPS':
+                    return $this->cupsExprRaw($task, $experId);
+                    break;
+                case 'IGT':
+                    return $this->igtExprRaw($task, $experId);
+                    break;
+                case 'STROOP':
+                    return $this->stroopExprRaw($task, $experId);
+                    break;
+                case 'NBACK':
+                    return $this->nbackExprRaw($task, $experId);
+                    break;
+                case 'DelayD':
+                    return $this->delaydExprRaw($task, $experId);
                     break;
             }
         }
         
-        return View::make('/hello');
+//        return View::make('/expr/rslts/download');
     }
 
     private function bartExprRaw($taskId, $experId) {
@@ -93,10 +105,15 @@ class ExprResultsController extends BaseController {
 
     private function delaydExprRaw($taskId, $experId) {
 
-        $data = DelayDExprRsltsData::where('experid', '=', $experId)
-                ->orderBy('mid', 'asc')
-                ->orderBy('trialno', 'asc')
-                ->get();
+                $data = DB::select(DB::raw("select t1.mid, t1.experid, t1.que_id, t2.option_a, t2.option_b, t1.option_selected, t1.trialno  from delayd_expr_data as t1 inner join delayed_discount_que as t2 on t1.que_id = t2.id where t1.experid= :experId order by t1.experid, t1.trialno "), array('experId' => $experId,
+                ));
+                
+                $data = json_decode(json_encode((array) $data), true);
+        
+//        $data = DelayDExprRsltsData::where('experid', '=', $experId)
+//                ->orderBy('mid', 'asc')
+//                ->orderBy('trialno', 'asc')
+//                ->get();
 
         return Excel::create('ExprParticipantsDataRaw', function($excel) use($data) {
 
@@ -294,66 +311,66 @@ class ExprResultsController extends BaseController {
     
     private function cupsExprSummary($taskId, $experId) {
         
-
-        $results = DB::select(DB::raw("SELECT 
-                                                expername, 
-                                                mid, 
-                                                confirmationcode,
-                                                cup_color,
-                                                cupsnumber,
-                                                count(trialno) as trials,
-                                                amountshown,
-                                                avg(trial_pts) as avgTrialPts,
-                                                avg(tracktime) as avgtracktime,
-                                                sum(trial_pts) as totalPts,
-                                                cups.created_at 
-                                        FROM 
-                                                cups_expr_data as cups
-                                        JOIN experiments as exper
-                                        ON exper.id = cups.experid
-                                        WHERE exper.id = :experId group by mid, cup_color, cupsnumber, amountshown"), array('experId' => $experId));
-        $summaryRow = 0;
-        $summary[$summaryRow] = array(                          
-                          'expername' => 'Experiment Name',
-                          'mid' => 'MID',
-                          'confirmationcode' => 'Confirmation Code',   
-                          'cupcolor' => 'Cup Color',
-                          'cupsnumber'=> 'Cups No',
-                           'trialno' => 'No of Trial',
-                           'amountshown' => 'Amount Shown',
-                           'avgTrialPts' => 'Avg. Trial Pts',
-                           'avgtracktime' => 'Avg Track Time',
-                           'sumtrialpts' => 'Total Trial Pts',
-                           'created_at' =>'DateTime' 
-                        );
-        $count_exp_raw = count($results);
-        
-        for ($rowCount = 0; $rowCount < $count_exp_raw; $rowCount++, $summaryRow++) {
-            
-            $summary[$summaryRow] = array(                          
-                          'expername' => $results[$rowCount]->expername,
-                          'mid' => $results[$rowCount]->mid,
-                          'confirmationcode' => $results[$rowCount]->confirmationcode,   
-                          'cupcolor' => $results[$rowCount]->cup_color,
-                          'cupsnumber'=> $results[$rowCount]->cupsnumber,
-                           'trialno' => $results[$rowCount]->trials,
-                           'amountshown' => $results[$rowCount]->amountshown,
-                           'avgTrialPts' => $results[$rowCount]->avgTrialPts,
-                           'avgtracktime' => $results[$rowCount]->avgtracktime,
-                           'sumtrialpts' => $results[$rowCount]->totalPts,
-                           'created_at' =>$results[$rowCount]->created_at 
-                        );
-            
-        }
-    //    return $results;
-     return Excel::create('ExprParticipantsDataRaw', function($excel) use($summary) {
-
-                    $excel->sheet('ExprData', function($sheet) use($summary) {
-
-                        //$sheet->fromModel($results);
-                        $sheet->fromArray($summary, null, 'A1', false);//, false);
-                    });
-                })->export('xls');
+//
+//        $results = DB::select(DB::raw("SELECT 
+//                                                expername, 
+//                                                mid, 
+//                                                confirmationcode,
+//                                                cup_color,
+//                                                cupsnumber,
+//                                                count(trialno) as trials,
+//                                                amountshown,
+//                                                avg(trial_pts) as avgTrialPts,
+//                                                avg(tracktime) as avgtracktime,
+//                                                sum(trial_pts) as totalPts,
+//                                                cups.created_at 
+//                                        FROM 
+//                                                cups_expr_data as cups
+//                                        JOIN experiments as exper
+//                                        ON exper.id = cups.experid
+//                                        WHERE exper.id = :experId group by mid, cup_color, cupsnumber, amountshown"), array('experId' => $experId));
+//        $summaryRow = 0;
+//        $summary[$summaryRow] = array(                          
+//                          'expername' => 'Experiment Name',
+//                          'mid' => 'MID',
+//                          'confirmationcode' => 'Confirmation Code',   
+//                          'cupcolor' => 'Cup Color',
+//                          'cupsnumber'=> 'Cups No',
+//                           'trialno' => 'No of Trial',
+//                           'amountshown' => 'Amount Shown',
+//                           'avgTrialPts' => 'Avg. Trial Pts',
+//                           'avgtracktime' => 'Avg Track Time',
+//                           'sumtrialpts' => 'Total Trial Pts',
+//                           'created_at' =>'DateTime' 
+//                        );
+//        $count_exp_raw = count($results);
+//        
+//        for ($rowCount = 0; $rowCount < $count_exp_raw; $rowCount++, $summaryRow++) {
+//            
+//            $summary[$summaryRow] = array(                          
+//                          'expername' => $results[$rowCount]->expername,
+//                          'mid' => $results[$rowCount]->mid,
+//                          'confirmationcode' => $results[$rowCount]->confirmationcode,   
+//                          'cupcolor' => $results[$rowCount]->cup_color,
+//                          'cupsnumber'=> $results[$rowCount]->cupsnumber,
+//                           'trialno' => $results[$rowCount]->trials,
+//                           'amountshown' => $results[$rowCount]->amountshown,
+//                           'avgTrialPts' => $results[$rowCount]->avgTrialPts,
+//                           'avgtracktime' => $results[$rowCount]->avgtracktime,
+//                           'sumtrialpts' => $results[$rowCount]->totalPts,
+//                           'created_at' =>$results[$rowCount]->created_at 
+//                        );
+//            
+//        }
+//    //    return $results;
+//     return Excel::create('ExprParticipantsDataRaw', function($excel) use($summary) {
+//
+//                    $excel->sheet('ExprData', function($sheet) use($summary) {
+//
+//                        //$sheet->fromModel($results);
+//                        $sheet->fromArray($summary, null, 'A1', false);//, false);
+//                    });
+//                })->export('xls');
         
         
     }

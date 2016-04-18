@@ -59,18 +59,15 @@ ob_start();
 		$urllink=$realurlstring .'?exp='.$experimentid.'&MID='.$participantid;
 		$_SESSION['currenturlink']=$urllink;
 		/* if participant already done trials no need of confirmation coode for them */
-		if($trialno > 0)
-			{				
-				$paytotalses=$viewexpts[$paytot]->total_pts;
-				$_SESSION['paytotalses']=$paytotalses;
-			}
-			else
-			{
-				$paytotalses=0.0;
-				$_SESSION['paytotalses']=$paytotalses;				
-			}
-		
-		$trialno = $trialno+1;
+		if ($trialno > 0) {
+                $paytotalses = $viewexpts[$paytot]->total_pts;
+                $_SESSION['paytotalses'] = $paytotalses;
+                } else {
+                $paytotalses = 0.0;
+                $_SESSION['paytotalses'] = $paytotalses;
+                }
+
+                $trialno = $trialno+1;
 		if($trialno <= $trials_atttempted)
 		{
 
@@ -84,7 +81,7 @@ ob_start();
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 		<title>Welcome to the Cup game! </title>
 		<script type="text/javascript" src="src/js/jquery.min.js"></script>
-		<script type="text/javascript" src="../../js/track.js"></script>
+                <script type="text/javascript" src="../../js/track.js"></script>		
 		<link rel="stylesheet" type="text/css" href="src/css/cupgame.css">
 		
 				<script>
@@ -381,20 +378,22 @@ ob_start();
 							if(trial>=clicks){							
 							
 							
-							var data_v=[];
-							$.ajax({ type: 'POST',
-										url:"data.php",
-										data: { 
-											'click': clicks,
-											'id':id
-										},
-							success:function(result){
-							data_v=result.split(',');
-							
-							final_win=data_v[0];
-							final_win = final_win.replace(/\r\n/,"");
-							final_lose=data_v[1];
-							
+//							var data_v=[];
+//							$.ajax({ type: 'POST',
+//								 url:"data.php",
+//								data: { 
+//								'click': clicks,
+//								'id':id
+//							},
+//							success:function(result){
+//							data_v=result.split(',');
+//							
+//							final_win=data_v[0];
+//							final_win = final_win.replace(/\r\n/,"");
+//							final_lose=data_v[1];
+//							
+//                                                        alert(final_win);
+//                                                        alert(final_lose);
 							
 							//var color_rand = color[Math.floor(Math.random() * color.length)];
 							var side_rand = side[Math.floor(Math.random() * side.length)];
@@ -533,8 +532,8 @@ ob_start();
 										}
 									});
 								}
-								}
-								});
+//								}
+//								});
 							}else{
 								//alert(trial+" IN ELSE "+clicks);
 								window.location="task.php?&exp=<?php echo $experimentid;?>&MID=<?php echo $participantid;?>";

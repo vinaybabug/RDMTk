@@ -894,7 +894,7 @@ $(document).ready(function(){
 	
 	</div>
 	<div id="main_test_text" style="width:100%;margin-top:12%;display:none;font-size:200%;">
-	This is the End of the Practice.Please press <b>spacebar main_card</b> start main test.
+	This is the End of the Practice.Please press <b>spacebar</b> start main test.
 	<img src="images/color.png" align="center" style="margin-top:5%;margin-left: 14%;" />
 	</div>
 	<div id="main_card_practice" style="display:none;font-size: 743%;margin-top: 12%;" align="center">

@@ -36,7 +36,7 @@ if (mysqli_connect_errno()) {
 
 
 
-for($trialorder=0;$trialorder<count($myarr)-1;$trialorder++)
+for($trialorder=0;$trialorder<count($myarr);$trialorder++)
 {
 	
 	$str.="('"
