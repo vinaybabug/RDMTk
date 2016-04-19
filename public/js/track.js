@@ -56,7 +56,10 @@ function generateData(){
 
 		var tmp_url= $(location).attr('pathname').split('/',4);
 //		var url= $(location).attr('protocol')+"//"+$(location).attr('hostname')+"/"+tmp_url[1]+"/"+tmp_url[2]+"/index.php/track/store";
-                var url= $(location).attr('protocol')+"//"+$(location).attr('hostname')+"/"+"index.php/track/store";
+                // Uncomment on localhost for developing
+                var url= $(location).attr('protocol')+"//"+$(location).attr('hostname')+"/index.php/track/store";
+                // Uncomment on live server
+//                var url= "https://"+$(location).attr('hostname')+"/"+"index.php/track/store";
 		var data = new Array();
 		data[0]=expid;
 		data[1]=userid;
