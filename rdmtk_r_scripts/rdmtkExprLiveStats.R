@@ -5,7 +5,7 @@ rdmtkExprLiveStats<-function(taskType, exprAID, exprBID, exprReln, riskLvl, sig_
  effect_size <- 0.0;
  power <- 0.0;
  library(DBI);
- library(pwr)
+ library(pwr);
  # Connect to my-db as defined in ~/.my.cnf
  con <- dbConnect(RMySQL::MySQL(), group = "my-db");
 
@@ -295,7 +295,7 @@ rdmtkExprLiveStats<-function(taskType, exprAID, exprBID, exprReln, riskLvl, sig_
  }
 
  # Disconnect from the database
- dbDisconnect(con)
+ dbDisconnect(con);
  returnList <- list("exprA_participants_cnt" = exprA_participants_cnt, "exprB_participants_cnt" = exprB_participants_cnt, "effect_size" = effect_size, "power" = power);
  return(returnList);
 
