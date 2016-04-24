@@ -3,10 +3,10 @@ Install Package ‘RMySQL’
 Dependecnies:
 sudo apt-get install libmariadbclient-dev
 
-install.packages('RMySQL', type = 'source')
+install.packages('RMySQL', type = 'source', lib="/usr/lib/R/library/")
 
 Install Package ‘pwr’
-install.packages("pwr", repos="http://cran.r-project.org")
+install.packages("pwr", repos="http://cran.r-project.org", lib="/usr/lib/R/library/")
 
 
 Install OpenCPU
@@ -23,4 +23,4 @@ sudo apt-get install -y opencpu
 R CMD build RDMTkAnalysisR
 
 #to insall package
-install.packages(path_to_file, repos = NULL, type="source")
+install.packages(path_to_file, repos = NULL, type="source", lib="/usr/lib/R/library/")

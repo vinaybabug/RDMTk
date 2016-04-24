@@ -100,7 +100,14 @@
                                      <a href="{{URL::to('dashboard/tools/monitoring/monitorExpr')}}"><i class="fa fa-bar-chart-o fa-fw"></i> Experiment Monitor</a>
                                 </li>
                                 <li>
-                                     <a href="#"><i class="fa fa-gear fa-fw"></i> Sample Results</a>
+                                     <a href="#"><i class="fa fa-gear fa-fw"></i> IGT</a>
+                                     <ul class="nav nav-third-level">
+                                         <li>
+                                        <a href="{{URL::to('dashboard/tools/monitoring/expr/anlys/list/base/IGT')}}"><i class="fa fa-gear fa-fw"></i> Baseline Model</a>
+                                        <a href="{{URL::to('dashboard/tools/monitoring/expr/anlys/list/rnd/IGT')}}"><i class="fa fa-gear fa-fw"></i> Random Model</a>
+                                        <a href="{{URL::to('dashboard/tools/monitoring/expr/anlys/list/evl/IGT')}}"><i class="fa fa-gear fa-fw"></i> EVL Model</a>
+                                         </li>
+                                     </ul>
                                 </li>
                            </ul>
                         </li>    

@@ -87,6 +87,21 @@ Route::get('/experiments/db/DelayD/new/{id}',array('before' => 'auth','as'=>'Del
 //Route::get('/monitor/select',array('uses'=>'MonitoringDashboardController@select','before'=>'auth'));
 
 Route::get('/dashboard/tools/monitoring/monitorExpr',array('before' => 'auth','as' => '/dashboard/tools/monitoring/monitorExpr','uses'=>'ExprMonitorController@showMasterSelection'));
+
+Route::get('/dashboard/tools/monitoring/expr/anlys/list/base/{exprType}', array('before' => 'auth','as'=>'/dashboard/tools/monitoring/expr/anlys/list/base','uses'=>'ExprAnlysController@showBaseMdlList'));
+
+Route::get('/dashboard/tools/monitoring/expr/anlys/list/rnd/{exprType}', array('before' => 'auth','as'=>'/dashboard/tools/monitoring/expr/anlys/list/rnd','uses'=>'ExprAnlysController@showRNDMdlList'));
+
+Route::get('/dashboard/tools/monitoring/expr/anlys/list/evl/{exprType}', array('before' => 'auth','as'=>'/dashboard/tools/monitoring/expr/anlys/list/evl','uses'=>'ExprAnlysController@showEVLMdlList'));
+
+Route::get('/dashboard/tools/monitoring/expr/anlys/exprs/{id}', 'ExprAnlysController@getExprEnabled');
+
+Route::get('/dashboard/tools/monitoring/expr/anlys/exprs/baseMdlView/{type}/{id}/{mdl}', 'ExprAnlysController@baseMdlView');
+
+Route::get('/dashboard/tools/monitoring/expr/anlys/exprs/rndMdlView/{type}/{id}/{mdl}', 'ExprAnlysController@rndMdlView');
+
+Route::get('/dashboard/tools/monitoring/expr/anlys/exprs/evlMdlView/{type}/{id}/{mdl}', 'ExprAnlysController@evlMdlView');
+
 /**
  * post related routes
  */

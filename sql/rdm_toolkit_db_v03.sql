@@ -674,7 +674,7 @@ PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tasks`
+-- data for table `tasks`
 --
 
 INSERT INTO `tasks` (`id`, `taskname`, `created_by`, `modified_by`) VALUES
@@ -685,3 +685,20 @@ INSERT INTO `tasks` (`id`, `taskname`, `created_by`, `modified_by`) VALUES
 ('NBACK', 'N Back', 'ADMIN', 'ADMIN'),
 ('STROOP', 'Stroop', 'ADMIN', 'ADMIN');
 
+--
+-- Table structure for table `tasks`
+--
+-- anlys_mdl : Analysis Models are
+-- FOR IGT: BASE_MDL, RND_MDL, EVL_MDL
+
+CREATE TABLE IF NOT EXISTS `expr_anlys_data` (  
+  `experid` char(36) NOT NULL, 
+  `expertype` varchar(100) NOT NULL,
+  `anlys_mdl` char(36) NOT NULL,   
+  `anlys_rslt` mediumblob default NULL,   
+  `created_by` varchar(50) NOT NULL,
+  `modified_by` varchar(50) NOT NULL,
+  `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,  
+  PRIMARY KEY (`experid`,`expertype`,`anlys_mdl` )
+) ENGINE=InnoDB DEFAULT CHARSET=utf16;

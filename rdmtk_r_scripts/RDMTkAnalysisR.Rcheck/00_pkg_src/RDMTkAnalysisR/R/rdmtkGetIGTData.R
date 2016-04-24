@@ -1,5 +1,5 @@
 rdmtkGetIGTData<-function(taskType, exprID, ...){
-  cat(sprintf("taskType: %s exprID: %s \n", taskType,exprID));
+  #cat(sprintf("taskType: %s exprID: %s \n", taskType,exprID));
   library(DBI);
   library(pwr);
   # Connect to my-db as defined in ~/.my.cnf
@@ -12,7 +12,7 @@ rdmtkGetIGTData<-function(taskType, exprID, ...){
   dbClearResult(res);
 
   rows <- dim(tempRslt)[1];
-  cat(sprintf("Result count: %d \n", rows));
+  #cat(sprintf("Result count: %d \n", rows));
   # Data Frames
   returnIGTExprData<-data.frame(trial=integer(rows), deck=integer(rows), na=integer(rows), wins=character(rows), losses=character(rows), subj=character(rows), stringsAsFactors = FALSE);
   for(row in seq(rows)) {

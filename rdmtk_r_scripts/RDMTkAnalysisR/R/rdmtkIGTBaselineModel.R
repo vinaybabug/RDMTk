@@ -21,7 +21,7 @@ rdmtkIGTBaselineModel <- function(taskType, exprID,  ...) {
   #5) Select all the text in this document (ctrl+a), then copy and paste into R
   #6) The output file is labelled "EVLresults_" plus the name of the data file.
 
-  rm(list=ls(all=TRUE))  					#This clears memory
+  #rm(list=ls(all=TRUE))  					#This clears memory
 
   #-------------------------------------Modify this section for modeling your dataset-----------------------------------
   #dataname="fakedatasubj11and12.txt"
@@ -33,7 +33,7 @@ rdmtkIGTBaselineModel <- function(taskType, exprID,  ...) {
   #-----------------Modify this section for calculating proportion advantageous for your dataset----------------
   trialsperblock=20		#This is most commonly 20
   blocks=6			#This is most commonly 5
-  advdecks=c(3,4)		#advantagous decks should be listed inside the parentheses
+  advdecks=c(2,4)		#advantagous decks should be listed inside the parentheses
   #advdecks=advdecksArg		#advantagous decks should be listed inside the parentheses
   #-----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -111,6 +111,54 @@ rdmtkIGTBaselineModel <- function(taskType, exprID,  ...) {
     #g2rand[cursubj]=-2*loglikerand
   }
 
-  returnList <- list("loglikebase" = loglikebase, "g2base" = g2base, "subjnumvec" = subjnumvec);
-  return(returnList);
+  outputmat=matrix(c(subjnumvec,numtrialsvec,g2base),nrow=numsubj,ncol=3)
+
+  colnames(outputmat)=c("subject","numtrials","g2base")
+  # create temprory file
+  #write.table(outputmat,file=tempFile,row.names=FALSE, fileEncoding = "utf8")
+
+  ## read temp file as a binary string
+  #txt_binary <-  data.frame(g = I(lapply(outputmat, function(x) { rawToChar(serialize(x, NULL, ascii=TRUE))})) )
+
+  txt_binary <-  serialize(outputmat, NULL, ascii=TRUE)
+  txt_binary <- rawToChar(txt_binary)
+
+
+
+  #Insert results in the database
+  library(DBI);
+  library(pwr);
+  # Connect to my-db as defined in ~/.my.cnf
+  con <- dbConnect(RMySQL::MySQL(), group = "my-db");
+
+  # Count number of records in bart_expr_data for given exprAID and exprBID:
+  SQL <- paste("SELECT EXISTS(SELECT * FROM expr_anlys_data WHERE experid ='", exprID, "' and expertype = '", taskType,"' and anlys_mdl = 'BASE_MDL');", sep = "");
+  res <- dbSendQuery(con, SQL);
+  tempRslt <- dbFetch(res);
+  dbClearResult(res);
+
+  if(tempRslt[1] == 0){
+    SQL <- sprintf("INSERT INTO `rdmtoolkit`.`expr_anlys_data`(`experid`, `expertype`, `anlys_mdl`, `anlys_rslt`, `created_by`, `modified_by`)
+    VALUES ( '%s', '%s', '%s', '%s', '%s', '%s');", exprID, taskType, 'BASE_MDL', txt_binary, "R", "R");
+    ## insert binary sting into a table
+    res <- dbSendQuery(con, SQL);
+    dbClearResult(res);
+  }
+  else{
+
+    SQL <- sprintf("UPDATE `rdmtoolkit`.`expr_anlys_data`
+                    SET
+                    `anlys_rslt` = '%s',
+                    `modified_by` = '%s'
+                    WHERE `experid` = '%s' AND `expertype` = '%s' AND `anlys_mdl` = '%s';", txt_binary, "R", exprID, taskType, 'BASE_MDL');
+    res <- dbSendQuery(con, SQL);
+    dbClearResult(res);
+
+  }
+
+
+  # Disconnect from the database
+  dbDisconnect(con);
+  #returnList <- list("loglikebase" = loglikebase, "g2base" = g2base, "subjnumvec" = subjnumvec);
+  #return(returnList);
 }

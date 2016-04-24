@@ -1,4 +1,4 @@
-rdmtkIGTEVLModel <- function(taskType, exprID,  ...) {
+rdmtkIGTEVLModel <- function(taskType, exprID,...) {
   #This program does the EVL (expectancy-valance learning model), Baseline, & Random Models for the IGT
   #EVL is the 3-parameter interference version
   #This program automatically handles data files where the number of trials varies by subject.
@@ -21,7 +21,7 @@ rdmtkIGTEVLModel <- function(taskType, exprID,  ...) {
   #5) Select all the text in this document (ctrl+a), then copy and paste into R
   #6) The output file is labelled "EVLresults_" plus the name of the data file.
 
-  rm(list=ls(all=TRUE))  					#This clears memory
+  #rm(list=ls(all=TRUE))  					#This clears memory
 
   #-------------------------------------Modify this section for modeling your dataset-----------------------------------
   #dataname="fakedatasubj11and12.txt"
@@ -33,7 +33,7 @@ rdmtkIGTEVLModel <- function(taskType, exprID,  ...) {
   #-----------------Modify this section for calculating proportion advantageous for your dataset----------------
   trialsperblock=20		#This is most commonly 20
   blocks=6			#This is most commonly 5
-  advdecks=c(3,4)		#advantagous decks should be listed inside the parentheses
+  advdecks=c(2,4)		#advantagous decks should be listed inside the parentheses
   #advdecks=advdecksArg		#advantagous decks should be listed inside the parentheses
   #-----------------------------------------------------------------------------------------------------------------------------------------
 
@@ -44,7 +44,7 @@ rdmtkIGTEVLModel <- function(taskType, exprID,  ...) {
   numdecks=4  							#This option isn’t quite ready yet; keep it at 4.
   starttime=Sys.time()						#store the time
   #dat=read.table(dataname,sep="\t")				#load data file into dataframe named dat
-  dat=rdmtkGetIGTData("IGT","jviGo1iyiE");			#load data file into dataframe named dat
+  dat=rdmtkGetIGTData(taskType, exprID);			#load data file into dataframe named dat
 
   standcolnames= c("trial","deck","na","wins","losses","subj")	#standard column labels for dat
   numcolumns=length(colnames(dat))				#number of columns in dat
@@ -140,7 +140,58 @@ rdmtkIGTEVLModel <- function(taskType, exprID,  ...) {
     parsevl[cursubj,]=unscalepars(rlcmod$par,parbounds[1:3],parbounds[4:6])
   }
 
+  #tempFile= tempfile(pattern = "EVLresults_", tmpdir = tempdir(), fileext = ".txt")
 
-  returnList <- list("parsevl" = parsevl, "g2evl" = g2evl, "subjnumvec" = subjnumvec);
-  return(returnList);
+  outputmat=matrix(c(subjnumvec,numtrialsvec,g2evl),nrow=numsubj,ncol=3)
+  outputmat=cbind(outputmat,parsevl)
+  colnames(outputmat)=c("subject","numtrials","g2evl","recenc","attloss","consist")
+  # create temprory file
+  #write.table(outputmat,file=tempFile,row.names=FALSE, fileEncoding = "utf8")
+
+  ## read temp file as a binary string
+  #txt_binary <-  data.frame(g = I(lapply(outputmat, function(x) { rawToChar(serialize(x, NULL, ascii=TRUE))})) )
+
+  txt_binary <-  serialize(outputmat, NULL, ascii=TRUE)
+  txt_binary <- rawToChar(txt_binary)
+
+
+
+  #Insert results in the database
+  library(DBI);
+  library(pwr);
+  # Connect to my-db as defined in ~/.my.cnf
+  con <- dbConnect(RMySQL::MySQL(), group = "my-db");
+
+  # Count number of records in bart_expr_data for given exprAID and exprBID:
+  SQL <- paste("SELECT EXISTS(SELECT * FROM expr_anlys_data WHERE experid ='", exprID, "' and expertype = '", taskType,"' and anlys_mdl = 'EVL_MDL');", sep = "");
+  res <- dbSendQuery(con, SQL);
+  tempRslt <- dbFetch(res);
+  dbClearResult(res);
+
+  if(tempRslt[1] == 0){
+    SQL <- sprintf("INSERT INTO `rdmtoolkit`.`expr_anlys_data`(`experid`, `expertype`, `anlys_mdl`, `anlys_rslt`, `created_by`, `modified_by`)
+    VALUES ( '%s', '%s', '%s', '%s', '%s', '%s');", exprID, taskType, 'EVL_MDL', txt_binary, "R", "R");
+    ## insert binary sting into a table
+    res <- dbSendQuery(con, SQL);
+    dbClearResult(res);
+  }
+  else{
+
+    SQL <- sprintf("UPDATE `rdmtoolkit`.`expr_anlys_data`
+                    SET
+                    `anlys_rslt` = '%s',
+                    `modified_by` = '%s'
+                    WHERE `experid` = '%s' AND `expertype` = '%s' AND `anlys_mdl` = '%s';", txt_binary, "R", exprID, taskType, 'EVL_MDL');
+    res <- dbSendQuery(con, SQL);
+    dbClearResult(res);
+
+  }
+
+
+  # Disconnect from the database
+  dbDisconnect(con);
+  #delelte the file
+  #unlink(tempFile, recursive = FALSE, force = FALSE)
+  #returnList <- list("parsevl" = parsevl, "g2evl" = g2evl, "subjnumvec" = subjnumvec);
+  #return(txt_binary);
 }

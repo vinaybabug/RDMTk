@@ -45,12 +45,6 @@ Standardizable: FALSE
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
 * checking R code for possible problems ... NOTE
-rdmtkIGTBaselineModel: warning in ls(all = TRUE): partial argument
-  match of 'all' to 'all.names'
-rdmtkIGTEVLModel: warning in ls(all = TRUE): partial argument match of
-  'all' to 'all.names'
-rdmtkIGTRandomModel: warning in ls(all = TRUE): partial argument match
-  of 'all' to 'all.names'
 Filterrlcpredpfun: no visible binding for global variable ‘parbounds’
 Filterrlcpredpfun: no visible binding for global variable ‘payscale’
 rdmtkExprLiveStats: no visible global function definition for
@@ -76,16 +70,48 @@ rdmtkGetIGTData: no visible global function definition for
   ‘dbDisconnect’
 rdmtkIGTBaselineModel: no visible global function definition for
   ‘runif.sobol’
+rdmtkIGTBaselineModel: no visible global function definition for
+  ‘dbConnect’
+rdmtkIGTBaselineModel: no visible global function definition for
+  ‘dbSendQuery’
+rdmtkIGTBaselineModel: no visible global function definition for
+  ‘dbFetch’
+rdmtkIGTBaselineModel: no visible global function definition for
+  ‘dbClearResult’
+rdmtkIGTBaselineModel: no visible global function definition for
+  ‘dbDisconnect’
 rdmtkIGTEVLModel: no visible global function definition for
   ‘runif.sobol’
+rdmtkIGTEVLModel: no visible global function definition for ‘dbConnect’
+rdmtkIGTEVLModel: no visible global function definition for
+  ‘dbSendQuery’
+rdmtkIGTEVLModel: no visible global function definition for ‘dbFetch’
+rdmtkIGTEVLModel: no visible global function definition for
+  ‘dbClearResult’
+rdmtkIGTEVLModel: no visible global function definition for
+  ‘dbDisconnect’
+rdmtkIGTMdlRslts: no visible global function definition for ‘dbConnect’
+rdmtkIGTMdlRslts: no visible global function definition for
+  ‘dbSendQuery’
+rdmtkIGTMdlRslts: no visible global function definition for ‘dbFetch’
 rdmtkIGTRandomModel: no visible global function definition for
   ‘runif.sobol’
+rdmtkIGTRandomModel: no visible global function definition for
+  ‘dbConnect’
+rdmtkIGTRandomModel: no visible global function definition for
+  ‘dbSendQuery’
+rdmtkIGTRandomModel: no visible global function definition for
+  ‘dbFetch’
+rdmtkIGTRandomModel: no visible global function definition for
+  ‘dbClearResult’
+rdmtkIGTRandomModel: no visible global function definition for
+  ‘dbDisconnect’
 * checking for missing documentation entries ... WARNING
 Undocumented code objects:
   ‘Filterrlcpredpfun’ ‘filternarmed’ ‘rdmtkExprLiveStats’
   ‘rdmtkGetIGTData’ ‘rdmtkGetParticipantsCntExpr’
-  ‘rdmtkIGTBaselineModel’ ‘rdmtkIGTEVLModel’ ‘rdmtkIGTRandomModel’
-  ‘rlcG2fun’ ‘scalepars’ ‘unscalepars’
+  ‘rdmtkIGTBaselineModel’ ‘rdmtkIGTEVLModel’ ‘rdmtkIGTMdlRslts’
+  ‘rdmtkIGTRandomModel’ ‘rlcG2fun’ ‘scalepars’ ‘unscalepars’
 All user-level objects in a package should have documentation entries.
 See chapter ‘Writing R documentation files’ in the ‘Writing R
 Extensions’ manual.
