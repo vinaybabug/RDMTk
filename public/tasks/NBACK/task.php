@@ -83,7 +83,7 @@ if($trialno <= $trials_atttempted)
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Welcome to the Card Gambling </title>
+<title>Welcome to N-Back</title>
 
 <link rel="stylesheet" type="text/css" href="src/css/demo.css">
 <style>
@@ -244,9 +244,7 @@ $(document.body).keyup(function (evt) {
  else
  {
  ?>
-<div style="width:100%;height:10%;" id="bartappheading">
-	<h1 style="color: rgb(8, 66, 133)">Welcome to the Card Gambling</h1>
-</div>
+
 <div align="left" style="width:90%;height:90%; margin-top: 3%; padiing:6%;font-family: arial;" id="welcometext">
  Thank you for your participation in this task.<br> 
 

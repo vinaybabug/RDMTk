@@ -906,9 +906,7 @@ $(document).ready(function(){
  else
  {
  ?>
-<div style="width:100%;height:10%;" id="bartappheading">
-	<h1 style="color: rgb(8, 66, 133)">Welcome to the Stroop</h1>
-</div>
+
 <div align="left" style="width:90%;height:90%; margin-top: 3%; padiing:6%;font-family: arial;" id="welcometext">
  Thank you for your participation in this task.<br> 
 
