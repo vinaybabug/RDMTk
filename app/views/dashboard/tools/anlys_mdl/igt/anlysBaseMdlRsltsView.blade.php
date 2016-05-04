@@ -35,7 +35,7 @@
                     <thead class="thead-inverse">
                         <tr>
                             <th class=" col-sm-1">#</th>
-                            <th class=" col-sm-1">Experiment Name</th>                            
+                            <th class=" col-sm-1">Participant id</th>                            
                             <th class="col-sm-1">#Trials</th>
                             <th class="col-sm-1">G2Base</th>                            
                         </tr>

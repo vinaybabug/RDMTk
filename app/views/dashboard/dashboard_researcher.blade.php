@@ -75,48 +75,60 @@
                            </ul>
                         </li>        
                         
-                        <li>
+                      <li>
                             <a href="#"><i class="fa fa-gears fa-fw"></i> Analysis Tools<span class="fa arrow"></span></a>
                            <ul class="nav nav-second-level">
                                <li>
-                                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Monitor Experiment</a>
+                                     <a href="{{URL::to('dashboard/tools/monitoring/monitorExpr')}}"><i class="fa fa-bar-chart-o fa-fw"></i> Experiment Monitor</a>
                                 </li>
                                 <li>
-                                     <a href="#"><i class="fa fa-gear fa-fw"></i> Sample Results</a>
+                                     <a href="#"><i class="fa fa-gear fa-fw"></i> IGT</a>
+                                     <ul class="nav nav-third-level">
+                                         <li>
+                                        <a href="{{URL::to('dashboard/tools/monitoring/expr/anlys/list/base/IGT')}}"><i class="fa fa-gear fa-fw"></i> Baseline Model</a>
+                                        <a href="{{URL::to('dashboard/tools/monitoring/expr/anlys/list/rnd/IGT')}}"><i class="fa fa-gear fa-fw"></i> Random Model</a>
+                                        <a href="{{URL::to('dashboard/tools/monitoring/expr/anlys/list/evl/IGT')}}"><i class="fa fa-gear fa-fw"></i> EVL Model</a>
+                                         </li>
+                                     </ul>
                                 </li>
                            </ul>
                         </li>    
                         
-                        <li>
-                            <a href="#"><i class="fa fa-info fa-fw"></i> Help<span class="fa arrow"></span></a>
+                      <li>
+                           <a href="#"><i class="fa fa-info fa-fw"></i> Help<span class="fa arrow"></span></a>                          
+                           
                            <ul class="nav nav-second-level">
+                                <li>
+                                     <a href="{{URL::to('/dashboard/help/intro')}}"><i class="fa fa-book fa-fw"></i> Introduction</a>                                     
+                                </li>                                                          
+                           
                                <li>
-                                     <a href="#"><i class="fa fa-book fa-fw"></i> Introduction</a>
-                                     <ul class="nav nav-third-level">
-                                         <li>
-                                             <a href="#"><i class="fa fa-question-circle fa-fw"></i> Welcome</a>
-                                         </li>
-                                         <li>
-                                             <a href="#"><i class="fa fa-question-circle fa-fw"></i> What's new</a>
-                                         </li>
-                                     </ul>
+                                     <a href="{{URL::to('/dashboard/help/accts')}}"><i class="fa fa-book fa-fw"></i> RDMTk Toolkit Accounts</a>                                        
                                 </li>
                                 <li>
-                                     <a href="#"><i class="fa fa-book fa-fw"></i> Getting Started</a>
-                                     <ul class="nav nav-third-level">
-                                         <li>
-                                             <a href="#"><i class="fa fa-question-circle fa-fw"></i> System requirements</a>
-                                         </li>
-                                          <li>
-                                             <a href="#"><i class="fa fa-question-circle fa-fw"></i> Getting help</a>
-                                         </li>
-                                     </ul>
+                                     <a href="{{URL::to('/dashboard/help/dashboard')}}"><i class="fa fa-book fa-fw"></i> Dashboard</a>                                        
                                 </li>
+                                <li><a href="{{URL::to('/dashboard/help/tasks')}}"><i class="fa fa-book fa-fw"></i> Tasks</a></li>
+                                <li>
+                                     <a href="{{URL::to('/dashboard/help/exprs')}}"><i class="fa fa-book fa-fw"></i> Experiments</a>                                       
+                                </li>
+                                <li><a href="{{URL::to('/dashboard/help/expr_dsgn')}}"><i class="fa fa-book fa-fw"></i> Experimental Design</a></li>
+                                <li>
+                                     <a href="{{URL::to('/dashboard/help/data_mngmnt')}}"><i class="fa fa-book fa-fw"></i> Data Management</a>  
+                               
+                                </li>
+                                <li><a href="{{URL::to('/dashboard/help/add_task')}}"><i class="fa fa-book fa-fw"></i> Adding New Task to RDMTk</a></li>                               
                                  <li>
-                                     <a href="#"><i class="fa fa-lightbulb-o fa-fw"></i> About</a>
-                                </li>
+                                     <a href="#"><i class="fa fa-book fa-fw"></i> Analysis Tools</a>   
+                                     <ul class="nav nav-third-level">
+                                         <li><a href="{{URL::to('/dashboard/help/expr_mntr')}}"><i class="fa fa-book fa-fw"></i> Experiment Monitor</a></li>        
+                                          <li>
+                                         <a href="{{URL::to('/dashboard/help/igt_anlys')}}"><i class="fa fa-book fa-fw"></i> Analysis Models for IGT</a>                                               
+                                        </li>
+                                     </ul>
+                                 </li>                          
                            </ul>
-                        </li>           
+                        </li>            
                         
                        
 @stop

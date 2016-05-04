@@ -102,6 +102,135 @@ Route::get('/dashboard/tools/monitoring/expr/anlys/exprs/rndMdlView/{type}/{id}/
 
 Route::get('/dashboard/tools/monitoring/expr/anlys/exprs/evlMdlView/{type}/{id}/{mdl}', 'ExprAnlysController@evlMdlView');
 
+Route::get('/dashboard/help/intro', function()
+{
+    if (Auth::check())
+{
+    // The user is logged in...
+        return View::make('dashboard.help_docs.intro_help');
+}
+else{
+    return View::make('users.login');
+}
+    
+});
+
+Route::get('/dashboard/help/accts', function()
+{
+     if (Auth::check())
+{
+    // The user is logged in...
+       return View::make('dashboard.help_docs.accts_help');
+}
+else{
+    return View::make('users.login');
+}
+    
+});
+
+Route::get('/dashboard/help/dashboard', function()
+{
+     if (Auth::check())
+{
+    // The user is logged in...
+      return View::make('dashboard.help_docs.dashboard_help');
+}
+else{
+    return View::make('users.login');
+}
+    
+});
+
+Route::get('/dashboard/help/tasks', function()
+{
+     if (Auth::check())
+{
+    // The user is logged in...
+      return View::make('dashboard.help_docs.tasks_help');
+}
+else{
+    return View::make('users.login');
+}
+    
+});
+
+Route::get('/dashboard/help/exprs', function()
+{
+     if (Auth::check())
+{
+    // The user is logged in...
+      return View::make('dashboard.help_docs.exprs_help');
+}
+else{
+    return View::make('users.login');
+}
+    
+});
+
+Route::get('/dashboard/help/expr_dsgn', function()
+{
+     if (Auth::check())
+{
+    // The user is logged in...
+      return View::make('dashboard.help_docs.expr_dsgn_help');
+}
+else{
+    return View::make('users.login');
+}
+    
+});
+Route::get('/dashboard/help/data_mngmnt', function()
+{
+     if (Auth::check())
+{
+    // The user is logged in...
+      return View::make('dashboard.help_docs.data_mngmnt_help');
+}
+else{
+    return View::make('users.login');
+}
+    
+});
+
+Route::get('/dashboard/help/add_task', function()
+{
+     if (Auth::check())
+{
+    // The user is logged in...
+      return View::make('dashboard.help_docs.add_tasks_help');
+}
+else{
+    return View::make('users.login');
+}
+    
+});
+
+Route::get('/dashboard/help/expr_mntr', function()
+{
+     if (Auth::check())
+{
+    // The user is logged in...
+    return View::make('dashboard.help_docs.expr_mntr_help');
+}
+else{
+    return View::make('users.login');
+}
+    
+});
+
+Route::get('/dashboard/help/igt_anlys', function()
+{
+     if (Auth::check())
+{
+    // The user is logged in...
+    return View::make('dashboard.help_docs.igt_anlys_help');
+}
+else{
+    return View::make('users.login');
+}
+    
+});
+
 /**
  * post related routes
  */
