@@ -37,4 +37,4 @@ file at the end of the study for further analysis. Downloaded data can either be
 participant’s performance or detailed raw listing. For more details one can try using the
 development version deployed at
 
-http://behaviourtasks.dataanalysis.wsn.cs.wmich.edu/RDMTk/public/index.php/login
+https://rdmtk.wise.cs.wmich.edu/
