@@ -97,7 +97,8 @@
                             <a href="#"><i class="fa fa-gears fa-fw"></i> Analysis Tools<span class="fa arrow"></span></a>
                            <ul class="nav nav-second-level">
                                <li>
-                                     <a href="{{URL::to('dashboard/tools/monitoring/monitorExpr')}}"><i class="fa fa-bar-chart-o fa-fw"></i> Experiment Monitor</a>
+                                   <a href="{{URL::to('dashboard/tools/configaws')}}"><i class="fa fa-cloud fa-fw"></i> Configure AWS EC2</a>
+                                   <a href="{{URL::to('dashboard/tools/monitoring/monitorExpr')}}"><i class="fa fa-bar-chart-o fa-fw"></i> Experiment Monitor</a>
                                 </li>
                                 <li>
                                      <a href="#"><i class="fa fa-gear fa-fw"></i> IGT</a>
@@ -178,10 +179,12 @@
     <div class="col-lg-12">
     <h1 class="page-header">Welcome</h1>
     <br>
-    <p style="font-family:arial; text-align:justify">RDMTk toolkit used for studying risky decision making. It is developed as a highly extensible web based open source framework. 
+    <p style="font-family:arial; text-align:justify">RDMTk toolkit is used for studying risky decision making. It is developed as a highly extensible web based open source framework. 
             It includes a range of easy to use functionalities for managing experiments, 
-            users and data collection. RDMTk supports a good number of tasks used to study different aspects of decision making.</p>
-        <p style="font-family:arial; text-align:justify">It provides a free environment to conduct experiment’s globally and hence fosters collaboration.</p>
+            users and data collection. RDMTk supports a good number of tasks developed by psychology researcher's to study different aspects of decision making.
+            These include Balloon Task, Iowa Gambling Task, CUPS Task, Delayed Discounting Task, STROOP Task, and N-BACK Task</p>
+        <p style="font-family:arial; text-align:justify">It provides a web-based environment to researchers for conducting experiments
+            that are not restricted to a geographic location, can be scaled easily, foster collaboration, and thus gain better insights into decision making processes.</p>
         
     </div>
 @stop

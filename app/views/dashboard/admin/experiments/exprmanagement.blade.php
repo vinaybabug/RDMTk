@@ -60,16 +60,12 @@
                             <td class="setWidth concat"><div>{{ $exper->confirmationcode }}</div></td>
                             <td class="setWidth concat"><div>{{ $exper->experend_conf_page_type }}</div></td>
                             <td class="setWidth concat"><div>{{ $exper->experend_conf_customtext }}</div></td>
-                            <td class="setWidth concat"><div>{{ $exper->urllink }}</div></td>
-                            <td class="text-center">{{ link_to_route('experiments.show', 'So',
- array($exper->id), array('class' => 'btn btn-info')) }}</td>
-                            <td class="text-center">{{ link_to_route('experiments.edit', 'Ed',
- array($exper->id), array('class' => 'btn btn-info')) }}</td>
-                            <td class="text-center">{{ Form::open(array('method' 
-=> 'DELETE', 'route' => array('experiments.destroy', $exper->id))) }}                       
-                                {{ Form::submit('Dlt', array('class'
- => 'btn btn-danger')) }}
-                                {{ Form::close() }}
+                            <td class="setWidth concat"><div>{{ $exper->urllink }}</div></td>                           
+                            <td class="text-center"><a href="{{ URL::to('experiments', array($exper->id)) }}" class="btn btn-info"><i class="fa fa-lg fa-eye" aria-hidden="true"></i></a></td>
+                            <td class="text-center"><a href="{{ URL::to('experiments', array($exper->id, 'edit')) }}" class="btn btn-info"><i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i></a></td>                            
+                            <td class="text-center">{{ Form::open(array('method' => 'DELETE', 'route' => array('experiments.destroy', $exper->id))) }}                       
+                               {{ Form::button('<i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>', array('type' => 'submit','class'=> 'btn btn-danger', 'onclick'=>'return confirm("Are you sure?")' )); }}                               
+                               {{ Form::close() }}
                             </td>
                         </tr>
                         @endforeach

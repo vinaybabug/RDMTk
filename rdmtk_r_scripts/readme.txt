@@ -28,3 +28,9 @@ R CMD build RDMTkAnalysisR
 
 #to insall package
 install.packages(path_to_file, repos = NULL, type="source", lib="/usr/lib/R/library/")
+
+
+# to add aws bootstrap on the ubuntu machine do
+
+1. Edit corn job sudo crontab -e
+2. Add this to end of the file @reboot /home/ubuntu/startup_rdmtk.sh

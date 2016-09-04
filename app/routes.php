@@ -88,6 +88,10 @@ Route::get('/experiments/db/DelayD/new/{id}',array('before' => 'auth','as'=>'Del
 
 Route::get('/dashboard/tools/monitoring/monitorExpr',array('before' => 'auth','as' => '/dashboard/tools/monitoring/monitorExpr','uses'=>'ExprMonitorController@showMasterSelection'));
 
+Route::get('/dashboard/tools/configaws',array('before' => 'auth','as' => '/dashboard/tools/configaws','uses'=>'ConfigAWSController@show'));
+
+Route::get('/dashboard/tools/configaws/edit',array('before' => 'auth','as' => '/dashboard/tools/configaws','uses'=>'ConfigAWSController@edit'));
+
 Route::get('/dashboard/tools/monitoring/expr/anlys/list/base/{exprType}', array('before' => 'auth','as'=>'/dashboard/tools/monitoring/expr/anlys/list/base','uses'=>'ExprAnlysController@showBaseMdlList'));
 
 Route::get('/dashboard/tools/monitoring/expr/anlys/list/rnd/{exprType}', array('before' => 'auth','as'=>'/dashboard/tools/monitoring/expr/anlys/list/rnd','uses'=>'ExprAnlysController@showRNDMdlList'));
@@ -263,9 +267,13 @@ Route::post('/Task/new/third',array('before'=> 'auth','uses'=>'RDMTaskController
 
 Route::post('/track/store',array('uses'=>'MouseTracker@store'));
 
+Route::post('/dashboard/tools/monitoring/expr/anlys/job/submit/{id}/{type}/{model}', array('uses'=>'ExprAnlysController@submitAnlysJob'));
+
 /*
  * Resource routes
  */
+
+Route::resource('awsconfig', 'ConfigAWSController');
 
 Route::resource('users', 'RDMUserController');
 

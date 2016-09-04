@@ -25,21 +25,33 @@
             $("#"+exprId+'-view'+"").addClass('disabled');
 //            
             $("#"+exprId+'-dwnld'+"").addClass('disabled');
+            $url = '{{url('/')}}/dashboard/tools/monitoring/expr/anlys/job/submit'.replace("https", "http");
+            alert($url);
+            $.ajax({
+                method: 'POST',
+                url: $url,
+                data: {
+                    userID: 76,
+                    userName: 'Jimmy'
+                },
+            });
             
-        
-            ocpu.seturl("https://172.16.88.128/ocpu/library/RDMTkAnalysisR/R");
-            var req = ocpu.rpc("rdmtkIGTBaselineModel", {
-                taskType:"IGT",
-                exprID:exprId,              
-            }, function(output){          
            
             
-            });
         
-            //if R returns an error, alert the error message
-            req.fail(function(){
-            //alert("Server error: " + req.responseText);
-            });
+//            ocpu.seturl("https://172.16.88.128/ocpu/library/RDMTkAnalysisR/R");
+//            var req = ocpu.rpc("rdmtkIGTBaselineModel", {
+//                taskType:"IGT",
+//                exprID:exprId,              
+//            }, function(output){          
+//           
+//            
+//            });
+//        
+//            //if R returns an error, alert the error message
+//            req.fail(function(){
+//            //alert("Server error: " + req.responseText);
+//            });
         
     }
     
@@ -174,9 +186,14 @@
                            <td class="setWidth concat"><div>{{ $exper->expertrial_outcome_type }}</div></td>                   
                             
                           
-                           <td class="text-center col-sm-1"><a href="{{ url('/dashboard/tools/monitoring/expr/anlys/exprs/baseMdlView/')}}/{{$exper->expertype}}/{{$exper->id}}/{{'BASE_MDL'}}" id="{{$exper->id}}-view" class="btn btn-info disabled">View</a></td>
-                           <td class="text-center col-sm-1"><a href="javascript:void(0);" onclick="dwnldMdl('{{$exper->id}}');" id="{{$exper->id}}-dwnld" class="btn btn-info disabled">Dwnld</a></td>
-                           <td class="text-center col-sm-1"><a href="javascript:void(0);" onclick="execMdl('{{$exper->id}}');" id="{{$exper->id}}-exec" class="btn btn-danger">Exec</a></td>
+                           <td class="text-center col-sm-1"><a href="{{ url('/dashboard/tools/monitoring/expr/anlys/exprs/baseMdlView/')}}/{{$exper->expertype}}/{{$exper->id}}/{{'BASE_MDL'}}" id="{{$exper->id}}-view" class="btn btn-info disabled"><i class="fa fa-lg fa-eye" aria-hidden="true"></i></a></td>
+                           <td class="text-center col-sm-1"><a href="javascript:void(0);" onclick="dwnldMdl('{{$exper->id}}');" id="{{$exper->id}}-dwnld" class="btn btn-info disabled"><i class="fa fa-lg fa-cloud-download" aria-hidden="true"></i></a></td>
+                           <td class="text-center col-sm-1">
+                               {{ Form::open(array('action' => array('ExprAnlysController@submitAnlysJob', $exper->id, "IGT", "BASE_MDL")))}}                                
+                               {{ Form::button('<i class="fa fa-lg fa-flash" aria-hidden="true"></i>', array('type' => 'submit','class'=> 'btn btn-danger')); }}                               
+                               {{ Form::close() }}
+                               <!--<a href="javascript:void(0);" onclick="execMdl('{{$exper->id}}');" id="{{$exper->id}}-exec" class="btn btn-danger">Exec</a>-->
+                           </td>
 
                         </tr>
                         @endforeach

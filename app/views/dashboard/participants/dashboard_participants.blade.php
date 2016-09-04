@@ -56,13 +56,15 @@
 
 @section('page-content') 
     <div class="col-lg-12">
-        <h1 class="page-header">Welcome</h1>
-            <p><h4>RDMTk toolkit used for studying risky decision making. It is developed as a highly extensible web based open source framework. 
-            It will include a range of easy to use functionalities for managing experiments, ers and data collection.
-             RDMTk will support a good number of tasks used to study different aspects of decision making.</h4>
-        <p><h4>It provides a free environment to conduct experiment’s globally and hence fosters collaboration.</h4></p>
+    <h1 class="page-header">Welcome</h1>
+    <br>
+    <p style="font-family:arial; text-align:justify">RDMTk toolkit is used for studying risky decision making. It is developed as a highly extensible web based open source framework. 
+            It includes a range of easy to use functionalities for managing experiments, 
+            users and data collection. RDMTk supports a good number of tasks developed by psychology researcher's to study different aspects of decision making.
+            These include Balloon Task, Iowa Gambling Task, CUPS Task, Delayed Discounting Task, STROOP Task, and N-BACK Task</p>
+        <p style="font-family:arial; text-align:justify">It provides a web-based environment to researchers for conducting experiments
+            that are not restricted to a geographic location, can be scaled easily, foster collaboration, and thus gain better insights into decision making processes.</p>
         
-
     </div>
 @stop
 

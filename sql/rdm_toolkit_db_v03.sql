@@ -636,6 +636,26 @@ CREATE TABLE IF NOT EXISTS `rdm_user` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `rdm_user`
+--
+
+CREATE TABLE IF NOT EXISTS `aws_rdmtk_config` (
+  `id` int(50) unsigned NOT NULL AUTO_INCREMENT,  
+  `username` varchar(100) NOT NULL,
+  `aws_instanceid` varchar(200) NOT NULL,  
+  `aws_key` varchar(500) NOT NULL,
+  `aws_secret` varchar(500) NOT NULL,
+  `aws_region` varchar(500) NOT NULL,
+  `created_by` varchar(50) NOT NULL,
+  `modified_by` varchar(50) NOT NULL,
+  `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `stroop_expr_data`
 --
 
@@ -686,12 +706,12 @@ INSERT INTO `tasks` (`id`, `taskname`, `created_by`, `modified_by`) VALUES
 ('STROOP', 'Stroop', 'ADMIN', 'ADMIN');
 
 --
--- Table structure for table `tasks`
+-- Table structure for table storing analysis model`results
 --
 -- anlys_mdl : Analysis Models are
 -- FOR IGT: BASE_MDL, RND_MDL, EVL_MDL
 
-CREATE TABLE IF NOT EXISTS `expr_anlys_data` (  
+CREATE TABLE IF NOT EXISTS `expr_anlys_data` (
   `experid` char(36) NOT NULL, 
   `expertype` varchar(100) NOT NULL,
   `anlys_mdl` char(36) NOT NULL,   
@@ -702,3 +722,24 @@ CREATE TABLE IF NOT EXISTS `expr_anlys_data` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,  
   PRIMARY KEY (`experid`,`expertype`,`anlys_mdl` )
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16;
+
+--
+-- Table structure for table submitting analysis model`for execution by AWS
+--
+-- anlys_mdl : Analysis Models are
+-- FOR IGT: BASE_MDL, RND_MDL, EVL_MDL
+
+CREATE TABLE IF NOT EXISTS `expr_anlys_job` (
+  `id` int(50) unsigned NOT NULL AUTO_INCREMENT,
+  `experid` char(36) NOT NULL, 
+  `expertype` varchar(100) NOT NULL,
+  `anlys_mdl` char(36) NOT NULL,   
+  `doExec` TINYINT default 0,   
+  `owner` varchar(50) NOT NULL,
+  `created_by` varchar(50) NOT NULL,
+  `modified_by` varchar(50) NOT NULL,
+  `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,  
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf16;
+

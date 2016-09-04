@@ -6,6 +6,9 @@
  * and open the template in the editor.
  */
 
+
+use Illuminate\Http\Request;
+
 /**
  * Description of ExprAnlysController
  *
@@ -93,9 +96,7 @@ class ExprAnlysController extends BaseController {
                 // Commented because trying log when no users in database creates problem.
                 //Log::error("RDMUserController::index()", $users);
             }
-
-           
-             
+       
            
              return View::make('dashboard.tools.anlys_mdl.igt.anlysEVLMdlLstExpr', compact('expers')); 
 	}
@@ -139,5 +140,89 @@ class ExprAnlysController extends BaseController {
                 ->with('exprId', $exprId)
                 ->with('mdlType', $mdlType);  
     }    
+    
+    public function submitAnlysJob($exprId, $expertype, $model){       
+     
+        //Insert job in the database
+                
+        $awsjob = ExprAnalysisJob::where('experid','=',$exprId)->where('expertype','=',$expertype)->where('anlys_mdl','=',$model)->first();
+                
+        if (is_null($awsjob)) {
+            
+            $input = array('experid'=> $exprId, 'owner'=>Auth::user()->username, 'expertype'=>$expertype, 'anlys_mdl'=> $model, 'doExec' => 1, 'created_by'=>Auth::user()->username);
+            ExprAnalysisJob::create($input);            
+        }
+        else{
+            
+            $awsjob->update(array('doExec' => 1, 'modified_by' => Auth::user()->username));
+        }   
+                
+        // For redirecting
+        if(strcmp("BASE_MDL", $model) == 0){
+            $expers;
+            settype($expers, "array"); 
+            if(strcasecmp(Auth::user()->username, "admin") == false){
+                $expers = Experiments::where('expertype','=' ,$expertype)->orderBy('expertype', 'asc')->paginate(5);
+            }
+            else{
+                $expers = Experiments::where('expertype','=' ,$expertype)->where('created_by','=' ,Auth::user()->username)->orderBy('expertype', 'asc')->paginate(5);
+            }            
+            
+            if($expers->isEmpty()){
+                        
+                // Commented because trying log when no users in database creates problem.
+                //Log::error("RDMUserController::index()", $users);
+            }
+
+           
+           return View::make('dashboard.tools.anlys_mdl.igt.anlysBaseMdlLstExpr', compact('expers'));  
+        }
+        else if(strcmp("RND_MDL", $model) == 0){
+        
+              $expers;
+            settype($expers, "array"); 
+            if(strcasecmp(Auth::user()->username, "admin") == false){
+                $expers = Experiments::where('expertype','=' ,$expertype)->orderBy('expertype', 'asc')->paginate(5);
+            }
+            else{
+                $expers = Experiments::where('expertype','=' ,$expertype)->where('created_by','=' ,Auth::user()->username)->orderBy('expertype', 'asc')->paginate(5);
+            }
+            
+            
+            if($expers->isEmpty()){
+                        
+                // Commented because trying log when no users in database creates problem.
+                //Log::error("RDMUserController::index()", $users);
+            } 
+             
+           
+            return View::make('dashboard.tools.anlys_mdl.igt.anlysRNDMdlLstExpr', compact('expers')); 
+             
+        }
+        else if(strcmp("EVL_MDL", $model) == 0){
+            
+            
+            $expers;
+            settype($expers, "array"); 
+            if(strcasecmp(Auth::user()->username, "admin") == false){
+                $expers = Experiments::where('expertype','=' ,$expertype)->orderBy('expertype', 'asc')->paginate(5);
+            }
+            else{
+                $expers = Experiments::where('expertype','=' ,$expertype)->where('created_by','=' ,Auth::user()->username)->orderBy('expertype', 'asc')->paginate(5);
+            }
+            
+            
+            if($expers->isEmpty()){
+                        
+                // Commented because trying log when no users in database creates problem.
+                //Log::error("RDMUserController::index()", $users);
+            } 
+             
+           
+            return View::make('dashboard.tools.anlys_mdl.igt.anlysEVLMdlLstExpr', compact('expers')); 
+            
+        }
+        
+    }
         
 }
