@@ -6,6 +6,7 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
+                "aws/aws-sdk-php-laravel": "1.*",
                 "maatwebsite/excel": "~1.3"
                 
 	},

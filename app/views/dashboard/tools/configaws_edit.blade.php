@@ -52,7 +52,7 @@
       
             
         <div class="form-group">
-            {{ Form::submit('Submit', array('class' => 'btn btn-success')) }}
+            {{ Form::submit('Save', array('class' => 'btn btn-success')) }}
             <a href="{{URL::to('dashboard/tools/configaws')}}" class="btn btn-danger">Cancel</a>
                       
         </div>

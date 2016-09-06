@@ -28,8 +28,8 @@
 <div class="col-lg-12">
 {{ Form::open(array('route' => 'awsconfig.store')) }}
     <div class="form-group">
-            {{ Form::label('ec2_instance_id', 'EC2 Instance ID:') }}
-            {{ Form::text('ec2_instance_id', null, array('placeholder'=>'EC2 Instance is listed on AWS console', 'class' => 'form-control')) }}                
+            {{ Form::label('aws_instanceid', 'EC2 Instance ID:') }}
+            {{ Form::text('aws_instanceid', null, array('placeholder'=>'EC2 Instance is listed on AWS console', 'class' => 'form-control')) }}                
             </div>
     <div class="form-group">
             {{ Form::label('aws_key', 'AWS User Account Key:') }}

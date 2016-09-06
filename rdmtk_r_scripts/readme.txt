@@ -34,3 +34,5 @@ install.packages(path_to_file, repos = NULL, type="source", lib="/usr/lib/R/libr
 
 1. Edit corn job sudo crontab -e
 2. Add this to end of the file @reboot /home/ubuntu/startup_rdmtk.sh
+3. halt system after (2)
+
