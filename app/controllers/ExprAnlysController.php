@@ -8,6 +8,7 @@
 
 
 use Illuminate\Http\Request;
+use  Aws\Ec2\Ec2Client;
 
 /**
  * Description of ExprAnlysController
