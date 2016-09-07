@@ -51,7 +51,7 @@ class ExprAnlysController extends BaseController {
             }
 
            
-             return View::make('dashboard.tools.anlys_mdl.igt.anlysBaseMdlLstExpr', compact('expers'));  
+            return View::make('dashboard.tools.anlys_mdl.igt.anlysBaseMdlLstExpr', compact('expers'));  
                       
 	}
         
@@ -71,16 +71,14 @@ class ExprAnlysController extends BaseController {
                         
                 // Commented because trying log when no users in database creates problem.
                 //Log::error("RDMUserController::index()", $users);
-            }
-
-           
+            }     
              
            
-             return View::make('dashboard.tools.anlys_mdl.igt.anlysRNDMdlLstExpr', compact('expers')); 
+            return View::make('dashboard.tools.anlys_mdl.igt.anlysRNDMdlLstExpr', compact('expers')); 
 	}
         
         
-              public function showEVLMdlList($exprType)
+        public function showEVLMdlList($exprType)
 	{
             $expers;
             settype($expers, "array"); 
@@ -99,7 +97,7 @@ class ExprAnlysController extends BaseController {
             }
        
            
-             return View::make('dashboard.tools.anlys_mdl.igt.anlysEVLMdlLstExpr', compact('expers')); 
+            return View::make('dashboard.tools.anlys_mdl.igt.anlysEVLMdlLstExpr', compact('expers')); 
 	}
         
         public function getExprEnabled($expertype) {
@@ -185,15 +183,16 @@ class ExprAnlysController extends BaseController {
                 //Log::error("RDMUserController::index()", $users);
             }
 
+         $error = $this->startAnlysJobOnAWS($awsconfig);
+         
          // If AWS is not configured return error asking to configure aws account first
-         if (is_null($awsconfig) and $awsconfig_validator->fails()) {
+         if ((is_null($awsconfig) and $awsconfig_validator->fails()) or $error == 1) {
                
              
             return View::make('dashboard.tools.anlys_mdl.igt.anlysBaseMdlLstExpr', compact('expers'))->withErrors($awsconfig_validator);
          }
-         else{
-             
-         $this->startAnlysJobOnAWS($awsconfig);
+         else{             
+         
          return View::make('dashboard.tools.anlys_mdl.igt.anlysBaseMdlLstExpr', compact('expers'));  
          }
          
@@ -216,18 +215,19 @@ class ExprAnlysController extends BaseController {
                 //Log::error("RDMUserController::index()", $users);
             } 
              
-             // If AWS is not configured return error asking to configure aws account first
-        if (is_null($awsconfig) and $awsconfig_validator->fails()) {
+         $error = $this->startAnlysJobOnAWS($awsconfig);
+         
+         // If AWS is not configured return error asking to configure aws account first
+         if ((is_null($awsconfig) and $awsconfig_validator->fails()) or $error == 1) {
                 return View::make('dashboard.tools.anlys_mdl.igt.anlysRNDMdlLstExpr', compact('expers'))->withErrors($awsconfig_validator);
          }else{
             
-            $this->startAnlysJobOnAWS($awsconfig);
+            
             return View::make('dashboard.tools.anlys_mdl.igt.anlysRNDMdlLstExpr', compact('expers')); 
          }
              
         }
-        else if(strcmp("EVL_MDL", $model) == 0){
-            
+        else if(strcmp("EVL_MDL", $model) == 0){            
             
             $expers;
             settype($expers, "array"); 
@@ -245,13 +245,14 @@ class ExprAnlysController extends BaseController {
                 //Log::error("RDMUserController::index()", $users);
             } 
              
-           // If AWS is not configured return error asking to configure aws account first
-         if (is_null($awsconfig) and $awsconfig_validator->fails()){
+          $error = $this->startAnlysJobOnAWS($awsconfig);
+         
+         // If AWS is not configured return error asking to configure aws account first
+         if ((is_null($awsconfig) and $awsconfig_validator->fails()) or $error == 1){
                 return View::make('dashboard.tools.anlys_mdl.igt.anlysEVLMdlLstExpr', compact('expers'))->withErrors($awsconfig_validator);
          }
-         else{
-             
-             $this->startAnlysJobOnAWS($awsconfig);
+         else{             
+           
              return View::make('dashboard.tools.anlys_mdl.igt.anlysEVLMdlLstExpr', compact('expers')); 
          }
             
@@ -270,16 +271,22 @@ class ExprAnlysController extends BaseController {
 //    'credentials' => $credentials,
 //]);
 // Instantiate the S3 client with your AWS credentials
-        //$creds = array('key' => 'AKIAJMIVCBXUZMTPWP6A', 'secret' => 'NoB7cimX9PlcgHE+MWJdr7/23U30VOzb4Y1nV5rc', 'region' => 'us-east-1');
-        $creds = array('key' => $awsconfig->aws_key, 'secret' => $awsconfig->aws_secret, 'region' => $awsconfig->aws_region);
-        $ec2client = Ec2Client::factory($creds);
-        $result = $ec2client->describeInstances(array());
-// TO START AN INSTANCE
+        //$creds = array('key' => 'AKIAJMIVCBXUZMTPWP6A-THIS IS DUMMY', 'secret' => 'NoB7cimX9PlcgHE+MWJdr7/23U30VOzb4Y1nV5rc -THIS IS DUMMY', 'region' => 'us-east-1 -THIS IS DUMMY');
+        try {
+                $creds = array('key' => $awsconfig->aws_key, 'secret' => $awsconfig->aws_secret, 'region' => $awsconfig->aws_region);
+                $ec2client = Ec2Client::factory($creds);
+                $result = $ec2client->describeInstances(array());
+                // TO START AN INSTANCE
 
-        $result = $ec2client->startInstances(array(
-            'InstanceIds' => array($awsconfig->aws_instanceid,),
-            'DryRun' => false,
-        ));
+                $result = $ec2client->startInstances(array(
+                'InstanceIds' => array($awsconfig->aws_instanceid,),
+                'DryRun' => false,
+                ));
+                return 0;
+        }catch(Exception $e) {
+            return 1;
+        }
+       
     }
 
 }

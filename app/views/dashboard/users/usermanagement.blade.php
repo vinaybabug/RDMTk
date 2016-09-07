@@ -33,10 +33,7 @@
             <p>{{ link_to_route('users.create', 'Add new user') }}</p>
              @if ($users->count())
             <div class="table-responsive">
-                
-                
-
-               
+              
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>

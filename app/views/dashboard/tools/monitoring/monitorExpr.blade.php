@@ -152,13 +152,12 @@
     var sig_level = 0.05;
     
     $(document).ready(function() {      
-  
-    
-        
+          
         var callLiveSummaryFunc = function liveSummaryFunc() {
         
-        if(exprAId !== 'NA' && exprBId !=='NA' && taskType !=='NA' && exprReln !== 'NA'){
-            ocpu.seturl("https://172.16.88.128/ocpu/library/RDMTkAnalysisR/R");
+        if(exprAId !== 'NA' && exprBId !=='NA' && taskType !=='NA' && exprReln !== 'NA'){            
+            
+            ocpu.seturl('{{Config::get('app.opencpu_url')}}');
         
             var req = ocpu.rpc("rdmtkExprLiveStats", {
                 taskType:taskType,

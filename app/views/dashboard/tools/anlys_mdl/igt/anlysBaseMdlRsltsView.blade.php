@@ -73,7 +73,7 @@
         
         //alert($expertype +' '+ $exprId+' '+$mdlType);
         
-         ocpu.seturl("https://172.16.88.128/ocpu/library/RDMTkAnalysisR/R");
+         ocpu.seturl('{{Config::get('app.opencpu_url')}}');
             var req = ocpu.rpc("rdmtkIGTMdlRslts", {
                 taskType:$expertype,
                 exprID:$exprId,

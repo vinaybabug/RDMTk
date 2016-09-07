@@ -210,5 +210,8 @@ return array(
                 'Excel'             => 'Maatwebsite\Excel\Facades\Excel',
 
 	),
+    
+    'opencpu_url' => 'https://172.16.88.128/ocpu/library/RDMTkAnalysisR/R',
+    
 
 );
