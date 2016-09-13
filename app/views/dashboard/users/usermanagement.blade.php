@@ -45,7 +45,6 @@
                             <th class="col-sm-2">Password</th>         
                         </tr>
                     </thead>
-
                     <tbody>
                         @foreach ($users as $user)
                         <tr>
@@ -54,9 +53,9 @@
                             <td class="setWidth concat"><div>{{ $user->last_name }}</div></td>
                             <td class="setWidth concat"><div>{{ $user->email }}</div></td>                   
                             <td class="setWidth concat"><div>{{ $user->role }}</div></td>
-                            <td class="setWidth concat"><div>{{ $user->password }}</div></td>                   
+                            <td class="setWidth concat"><div>{{ $user->password }}</div></td>
                            
-                             <td class="text-center"><a href="{{ URL::to('users', array($user->id, 'edit')) }}" class="btn btn-info"><i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i></a></td>                            
+                            <td class="text-center"><a href="{{ URL::to('users', array($user->id, 'edit')) }}" class="btn btn-info"><i class="fa fa-lg fa-pencil-square-o" aria-hidden="true"></i></a></td>                            
                             <td class="text-center">{{ Form::open(array('method' => 'DELETE', 'route' => array('users.destroy', $user->id))) }}                       
                                {{ Form::button('<i class="fa fa-lg fa-trash-o" aria-hidden="true"></i>', array('type' => 'submit','class'=> 'btn btn-danger', 'onclick'=>'return confirm("Are you sure?")' )); }}                               
                                {{ Form::close() }}
@@ -77,7 +76,7 @@
             <div class="well">                                
                 <p> There are no users</p>                                
             </div>
-             @endif
+            @endif
         </div>
         <!-- /.panel-body -->
     </div>

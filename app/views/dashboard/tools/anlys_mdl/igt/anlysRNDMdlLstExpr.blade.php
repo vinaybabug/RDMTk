@@ -174,11 +174,11 @@
                            <td class="setWidth concat"><div>{{ $exper->expertrial_outcome_type }}</div></td>                   
                             
                           
-                           <td class="text-center col-sm-1"><a href="{{ url('/dashboard/tools/monitoring/expr/anlys/exprs/rndMdlView/')}}/{{$exper->expertype}}/{{$exper->id}}/{{'RND_MDL'}}" id="{{$exper->id}}-view" class="btn btn-info disabled">View</a></td>
+                           <td class="text-center col-sm-1"><a href="{{ url('/dashboard/tools/monitoring/expr/anlys/exprs/rndMdlView/')}}/{{$exper->expertype}}/{{$exper->id}}/{{'RND_MDL'}}" id="{{$exper->id}}-view" class="btn btn-info disabled"><i class="fa fa-lg fa-eye" aria-hidden="true"></i></a></td>
                            <td class="text-center col-sm-1"><a href="javascript:void(0);" onclick="dwnldMdl('{{$exper->id}}');" id="{{$exper->id}}-dwnld" class="btn btn-info disabled"><i class="fa fa-lg fa-cloud-download" aria-hidden="true"></i></a></td>
-                            <td class="text-center col-sm-1">
+                           <td class="text-center col-sm-1">
                                {{ Form::open(array('action' => array('ExprAnlysController@submitAnlysJob', $exper->id, "IGT", "RND_MDL")))}}                                
-                               {{ Form::button('<i class="fa fa-lg fa-flash" aria-hidden="true"></i>', array('type' => 'submit','class'=> 'btn btn-danger')); }}                               
+                               {{ Form::button('<i class="fa fa-lg fa-flash" aria-hidden="true"></i>', array('type' => 'submit','class'=> 'btn btn-danger')); }}
                                {{ Form::close() }}
                                <!--<a href="javascript:void(0);" onclick="execMdl('{{$exper->id}}');" id="{{$exper->id}}-exec" class="btn btn-danger">Exec</a>-->
                            </td>
@@ -207,7 +207,7 @@
     </div>
 </div>
 
-    <script type="text/javascript">
+<script type="text/javascript">
         
     
     
