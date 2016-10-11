@@ -90,6 +90,8 @@ Route::get('/dashboard/tools/monitoring/monitorExpr',array('before' => 'auth','a
 
 Route::get('/dashboard/tools/configaws',array('before' => 'auth','as' => '/dashboard/tools/configaws','uses'=>'ConfigAWSController@show'));
 
+Route::get('/dashboard/tools/firstlook',array('before' => 'auth','as' => '/dashboard/tools/firstlook','uses'=>'AnalysisFirstLook@show'));
+
 Route::get('/dashboard/tools/configaws/edit',array('before' => 'auth','as' => '/dashboard/tools/configaws','uses'=>'ConfigAWSController@edit'));
 
 Route::get('/dashboard/tools/monitoring/expr/anlys/list/base/{exprType}', array('before' => 'auth','as'=>'/dashboard/tools/monitoring/expr/anlys/list/base','uses'=>'ExprAnlysController@showBaseMdlList'));

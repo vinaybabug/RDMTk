@@ -47,6 +47,11 @@ Standardizable: FALSE
 * checking R code for possible problems ... NOTE
 Filterrlcpredpfun: no visible binding for global variable ‘parbounds’
 Filterrlcpredpfun: no visible binding for global variable ‘payscale’
+rdmtkBoxPlot: no visible global function definition for ‘dbConnect’
+rdmtkBoxPlot: no visible global function definition for ‘dbSendQuery’
+rdmtkBoxPlot: no visible global function definition for ‘dbFetch’
+rdmtkBoxPlot: no visible global function definition for ‘dbClearResult’
+rdmtkBoxPlot: no visible global function definition for ‘dbDisconnect’
 rdmtkExprLiveStats: no visible global function definition for
   ‘dbConnect’
 rdmtkExprLiveStats: no visible global function definition for
@@ -60,6 +65,11 @@ rdmtkExprLiveStats: no visible global function definition for
   ‘pwr.t.test’
 rdmtkExprLiveStats: no visible global function definition for
   ‘dbDisconnect’
+rdmtkGetData: no visible global function definition for ‘dbConnect’
+rdmtkGetData: no visible global function definition for ‘dbSendQuery’
+rdmtkGetData: no visible global function definition for ‘dbFetch’
+rdmtkGetData: no visible global function definition for ‘dbClearResult’
+rdmtkGetData: no visible global function definition for ‘dbDisconnect’
 rdmtkGetIGTData: no visible global function definition for ‘dbConnect’
 rdmtkGetIGTData: no visible global function definition for
   ‘dbSendQuery’
@@ -113,11 +123,11 @@ rdmtkRunJobs: no visible global function definition for ‘dbDisconnect’
 rdmtkRunJobs: no visible global function definition for ‘dbClearResult’
 * checking for missing documentation entries ... WARNING
 Undocumented code objects:
-  ‘Filterrlcpredpfun’ ‘filternarmed’ ‘rdmtkExprLiveStats’
-  ‘rdmtkGetIGTData’ ‘rdmtkGetParticipantsCntExpr’
-  ‘rdmtkIGTBaselineModel’ ‘rdmtkIGTEVLModel’ ‘rdmtkIGTMdlRslts’
-  ‘rdmtkIGTRandomModel’ ‘rdmtkRunJobs’ ‘rlcG2fun’ ‘scalepars’
-  ‘unscalepars’
+  ‘Filterrlcpredpfun’ ‘filternarmed’ ‘rdmtkBoxPlot’
+  ‘rdmtkExprLiveStats’ ‘rdmtkGetData’ ‘rdmtkGetIGTData’
+  ‘rdmtkGetParticipantsCntExpr’ ‘rdmtkIGTBaselineModel’
+  ‘rdmtkIGTEVLModel’ ‘rdmtkIGTMdlRslts’ ‘rdmtkIGTRandomModel’
+  ‘rdmtkRunJobs’ ‘rlcG2fun’ ‘scalepars’ ‘unscalepars’
 All user-level objects in a package should have documentation entries.
 See chapter ‘Writing R documentation files’ in the ‘Writing R
 Extensions’ manual.

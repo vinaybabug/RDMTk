@@ -62,7 +62,7 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="panel panel-yellow">
                         <div class="panel-heading">
-                            <div class="row" id="ExprInfo">
+                            <div class="row" id="StatInfo">
                                 
                                 <div class="col-xs-1">
                                     <i class="fa fa-info-circle fa-2x"></i>

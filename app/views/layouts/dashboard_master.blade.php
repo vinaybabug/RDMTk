@@ -39,7 +39,13 @@
     {{ HTML::style('font-awesome-4.1.0/css/font-awesome.min.css') }}
 
     {{ HTML::style('css/mousemarker.css') }}
+    
+    
+    
+   
+   
     <!-- jQuery -->
+    
     {{ HTML::script('js/jquery.min.js'); }}
     <!-- Bootstrap Core JavaScript -->
     {{ HTML::script('js/bootstrap.min.js') }} 
@@ -50,6 +56,9 @@
     
     <!-- Custom Theme JavaScript -->
     {{ HTML::script('js/opencpu/opencpu-0.4.js') }} 
+    
+    
+ 
     
     <!-- Script to track mouse movement -->
     <!--{{ HTML::script('js/track.js') }} -->
