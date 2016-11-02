@@ -8,5 +8,5 @@ Description: More about what it does (maybe more than one line)
 License: What license is it under?
 LazyData: TRUE
 NeedsCompilation: no
-Packaged: 2016-10-08 20:35:26 UTC; vinaya
-Built: R 3.2.4; ; 2016-10-08 20:35:26 UTC; unix
+Packaged: 2016-11-02 20:43:02 UTC; vinaya
+Built: R 3.2.4; ; 2016-11-02 20:43:03 UTC; unix

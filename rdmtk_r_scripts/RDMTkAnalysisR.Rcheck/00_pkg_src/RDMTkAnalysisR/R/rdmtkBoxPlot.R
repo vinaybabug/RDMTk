@@ -1,5 +1,6 @@
 rdmtkBoxPlot <- function(taskType, exprID, ...) {
 
+  dev.off();
   library(DBI);
   # Connect to my-db as defined in ~/.my.cnf
   con <- dbConnect(RMySQL::MySQL(), group = "my-db");

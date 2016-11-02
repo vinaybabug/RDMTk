@@ -121,13 +121,18 @@ rdmtkRunJobs: no visible global function definition for ‘dbSendQuery’
 rdmtkRunJobs: no visible global function definition for ‘dbFetch’
 rdmtkRunJobs: no visible global function definition for ‘dbDisconnect’
 rdmtkRunJobs: no visible global function definition for ‘dbClearResult’
+rdmtkSApply: no visible global function definition for ‘dbConnect’
+rdmtkSApply: no visible global function definition for ‘dbSendQuery’
+rdmtkSApply: no visible global function definition for ‘dbFetch’
+rdmtkSApply: no visible global function definition for ‘dbClearResult’
+rdmtkSApply: no visible global function definition for ‘dbDisconnect’
 * checking for missing documentation entries ... WARNING
 Undocumented code objects:
   ‘Filterrlcpredpfun’ ‘filternarmed’ ‘rdmtkBoxPlot’
   ‘rdmtkExprLiveStats’ ‘rdmtkGetData’ ‘rdmtkGetIGTData’
   ‘rdmtkGetParticipantsCntExpr’ ‘rdmtkIGTBaselineModel’
   ‘rdmtkIGTEVLModel’ ‘rdmtkIGTMdlRslts’ ‘rdmtkIGTRandomModel’
-  ‘rdmtkRunJobs’ ‘rlcG2fun’ ‘scalepars’ ‘unscalepars’
+  ‘rdmtkRunJobs’ ‘rdmtkSApply’ ‘rlcG2fun’ ‘scalepars’ ‘unscalepars’
 All user-level objects in a package should have documentation entries.
 See chapter ‘Writing R documentation files’ in the ‘Writing R
 Extensions’ manual.

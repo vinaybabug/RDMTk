@@ -15,7 +15,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-DROP DATABASE `rdmtoolkit`;
+DROP DATABASE IF EXISTS `rdmtoolkit`;
 
 --
 -- Database: `rdmtoolkit`
@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `expr_design_type` (
   `id` varchar(50) NOT NULL,
   `name` varchar(150) NOT NULL,  
   `created_by` varchar(100) NOT NULL,
-  `modified_by` varchar(60) NOT NULL,
+  `modified_by` varchar(60),
   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,  
   PRIMARY KEY (`id`)

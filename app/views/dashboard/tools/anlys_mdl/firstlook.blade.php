@@ -99,12 +99,48 @@
     </div>   
     @endif    
     -->
+    
+     <div class="col-lg-8 col-md-16">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <b>Summary Statistics</b>
+                        </div>                        
+                        <div class="panel-footer">
+                           <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Min.</th>
+                                            <th>1st Qu.</th>
+                                            <th>Median</th>
+                                            <th>Mean</th>
+                                            <th>3rd Qu.</th>
+                                            <th>Max.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td id="ss_min"></td>
+                                            <td id="ss_1st_qu"></td>
+                                            <td id="ss_median"></td>
+                                            <td id="ss_mean"></td>
+                                            <td id="ss_3rd_qu"></td>
+                                            <td id="ss_max"></td>
+                                        </tr>                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-4 -->
 </div>
 <script type="text/javascript">
 
     function BoxPlot(exprid, tasktype) {
 
-        alert(tasktype + ' ' + ' ' + exprid);
+        //alert(tasktype + ' ' + ' ' + exprid);
 
         ocpu.seturl('{{Config::get('app.opencpu_url')}}');
         
@@ -113,17 +149,47 @@
             exprID:exprid,           
         }).always(function () {
             //$("#plotbutton").removeAttr("disabled");
+             console.log(req);
         }).fail(function () {
             alert(req.responseText);
         });
     }
 
+
+    function SummaryStatistics(exprid, tasktype){
+          // Get summary statistics
+        
+          ocpu.seturl('{{Config::get('app.opencpu_url')}}');
+        
+            var req = ocpu.rpc("rdmtkSApply", {
+                taskType:tasktype,
+                exprID:exprid              
+            }, function(output){
+                        
+            $("#ss_min").text(output.min);
+            $("#ss_1st_qu").text(output.fst_qu);    
+            $("#ss_median").text(output.median);
+            $("#ss_mean").text(output.mean);         
+            $("#ss_3rd_qu").text(output.trd_qu);
+            $("#ss_max").text(output.max);     
+            
+            });
+        
+            //if R returns an error, alert the error message
+            req.fail(function(){
+//            alert("Server error: " + req.responseText);
+            });
+            
+    }
+    
     function RDMTkStatFunctions() {
 
         var taskType = document.getElementById("expertype").value;
         var exprid = document.getElementById("exprid").value; //$("#exprid");
-        var statFunc = document.getElementById("statfunc").value; //$("#statfunc") 
+        var statFunc = document.getElementById("statfunc").value; //$("#statfunc")             
 
+        SummaryStatistics(exprid, taskType);
+        
         switch (statFunc) {
             case "BOXPLOT":
                 BoxPlot(exprid, taskType);
@@ -131,7 +197,11 @@
             default:
                 text = "I have never heard of that fruit...";
         }
+        
+      
     }
+       
+    
 </script>    
 <script type="text/javascript">
 
