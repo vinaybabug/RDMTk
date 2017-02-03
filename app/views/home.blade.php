@@ -20,8 +20,8 @@
 
     <!-- Custom Fonts -->
     {{ HTML::style('font-awesome-4.1.0/css/font-awesome.css') }} 
-    {{ HTML::style('https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic') }} 
-    {{ HTML::style('https://fonts.googleapis.com/css?family=Montserrat:400,700') }}     
+    {{ HTML::style('http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic') }} 
+    {{ HTML::style('http://fonts.googleapis.com/css?family=Montserrat:400,700') }}     
 
 </head>
 
@@ -34,7 +34,7 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                 </button>
-                <a class="navbar-brand" href="#page-top">RDMTK</a>
+                <a class="navbar-brand">RDMTK</a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
