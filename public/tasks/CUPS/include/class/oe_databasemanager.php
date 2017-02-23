@@ -15,7 +15,7 @@ class OE_DataBaseManager{
 	 */
 	public $db_host = "localhost";  // Change as required
     public $db_user = "root";  // Change as required
-    public $db_pass = "password";  // Change as required
+    public $db_pass = "Changem3";  // Change as required
     public $db_name = "rdmtoolkit"; // Change as required
 	
 	/*

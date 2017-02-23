@@ -1,11 +1,11 @@
 @echo off &setlocal
 
 REM WMU Server Specific Configuation
- set "db_host_r=localhost"
- set "db_user_r=root"
- set "db_pass_r=password"  
- set "db_name_r=rdmtoolkit" 
- set "url_r=http://localhost/RDMTk" 
+rem set "db_host_r=localhost"
+rem set "db_user_r=root"
+rem set "db_pass_r=password"  
+rem set "db_name_r=rdmtoolkit" 
+rem set "url_r=http://localhost/RDMTk" 
 
 REM WMU Server Specific Configuation
 rem  set "db_host_r=dbase.cs.wmich.edu"
@@ -15,11 +15,11 @@ rem  set "db_name_r=rdmtoolkit"
 rem  set "url_r=http://behaviourtasks.dataanalysis.wsn.cs.wmich.edu/RDMTk" 
 
 REM WMU Server Specific Configuation
-rem set "db_host_r=localhost"
-rem  set "db_user_r=root"
-rem  set "db_pass_r=Changem3"  
-rem  set "db_name_r=rdmtoolkit" 
-rem  set "url_r=http://rdmtk.wsn.cs.wmich.edu/RDMTk" 
+set "db_host_r=localhost"
+set "db_user_r=root"
+set "db_pass_r=Changem3"  
+set "db_name_r=rdmtoolkit" 
+set "url_r=http://rdmtk.wsn.cs.wmich.edu/RDMTk" 
 
 REM Configuration place holder's
 set "db_host_c=DBHOST"  
@@ -27,7 +27,7 @@ set "db_user_c=DBUSER"
 set "db_pass_c=DBPASS"  
 set "db_name_c=DBNAME"
 set "url_c=APPURL"
-set "RDM=C:\wamp\www\RDMTk"
+set "RDM=C:\Users\Nisha\Documents\NetBeansProjects\RDMTk"
 
 REM Configuration Files 
 

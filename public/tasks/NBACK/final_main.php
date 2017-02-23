@@ -27,7 +27,7 @@ $random=$_SESSION['random_val'];
 $trials_atttempted=$_SESSION['trials_atttempted'];
 print_r($_SESSION['dataparticipant_main']);
 $date_val=date("Y-m-d H:i:s");
-$con=mysqli_connect("localhost","root","password","rdmtoolkit");
+$con=mysqli_connect("localhost","root","Changem3","rdmtoolkit");
 // Check connection
 if (mysqli_connect_errno()) {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();

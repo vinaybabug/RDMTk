@@ -30,7 +30,7 @@ $participantid =$_POST['participantid'];
 $random_val =$_POST['random_val'];
 $list_data_json=$_SESSION['list_data_json'];
 $list_data=$_SESSION['list_data'];
-$con=mysqli_connect("localhost","root","password","rdmtoolkit");
+$con=mysqli_connect("localhost","root","Changem3","rdmtoolkit");
 // Check connection
 if (mysqli_connect_errno()) {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();

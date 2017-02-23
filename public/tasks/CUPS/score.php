@@ -29,14 +29,27 @@ $experimentid =$_POST['experimentid'];
 $participantid =$_POST['participantid'];
 $random_val =$_POST['random_val'];
 $url=$_SESSION['currenturlink'];
-$con=mysqli_connect("localhost","root","password","rdmtoolkit");
+$con=mysqli_connect("localhost","root","Changem3","rdmtoolkit");
 // Check connection
 if (mysqli_connect_errno()) {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }		
 
 $myarr=json_decode(stripcslashes($myarr));
-
+/*foreach($myarr  as $product)
+{
+        $product->color_rand;
+        $product->side_rand;
+	$product->size;
+	$product->amount;
+	$product->assign_val;	
+	$product->total_score;
+	$product->amount_assign;
+	$product->selected_cup;
+	$product->selected_side;
+	$product->time_taken;
+	$product->date_created;
+}*/
 $date_val=date("Y-m-d H:i:s");
 for($trialorder=0;$trialorder<count($myarr)-1;$trialorder++)
 {
@@ -59,7 +72,6 @@ for($trialorder=0;$trialorder<count($myarr)-1;$trialorder++)
 }
 $str=trim($str, ",");
 mysqli_query($con,"INSERT INTO `cups_expr_data`( `mid`, `experid`, `cupsnumber`, `amountshown`, `paychoice`, `position`, `participantchoice`, `participantposition`, `trialno`, `trial_pts`, `total_pts`, `created_by`, `modified_by`, `created_at`,`tracktime`, `cup_color`) VALUES  ".$str);
-mysqli_close($con);
-echo "true";
+$con->disconnect();
 ?>
 

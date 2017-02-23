@@ -69,7 +69,7 @@ return array(
 			'host'      => 'localhost',
 			'database'  => 'rdmtoolkit',
 			'username'  => 'root',
-			'password'  => 'nisha',
+			'password'  => 'Changem3',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

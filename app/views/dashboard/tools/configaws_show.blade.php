@@ -70,8 +70,7 @@
         </div>
                 
     </div>
-</div>
-<br>
+    <br>
     <div class="panel panel-default">
         <div class="panel-heading">
             <i class="fa fa-bell fa-fw"></i> Note
@@ -84,6 +83,7 @@
         <!-- /.panel-body -->
     </div>
     <!-- /.panel -->
+</div>
 @stop
 
 

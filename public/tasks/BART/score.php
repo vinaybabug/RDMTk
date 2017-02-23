@@ -28,7 +28,7 @@ $myarr =$_POST['data'];
 
 $myarr = json_decode($myarr);
 
-$con=mysqli_connect("localhost","root","password","rdmtoolkit");
+$con=mysqli_connect("localhost","root","Changem3","rdmtoolkit");
 // Check connection
 if (mysqli_connect_errno()) {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -36,7 +36,7 @@ if (mysqli_connect_errno()) {
 
 
 
-for($trialorder=0;$trialorder<count($myarr);$trialorder++)
+for($trialorder=0;$trialorder<count($myarr)-1;$trialorder++)
 {
 	
 	$str.="('"

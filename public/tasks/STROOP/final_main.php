@@ -29,7 +29,7 @@ $random=$_SESSION['random_val'];
 $click=$_POST['click'];
 $myarr=$_POST['result'];
 $myarr_p=$_SESSION['arry_p'];
-$con=mysqli_connect("localhost","root","password","rdmtoolkit");
+$con=mysqli_connect("localhost","root","Changem3","rdmtoolkit");
 // Check connection
 if (mysqli_connect_errno()) {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
