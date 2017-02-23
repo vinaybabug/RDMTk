@@ -21,7 +21,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header">AWS EC2 Configuration Information</h1>
+        <h1 class="page-header">AWS EC2 Bootstrapping</h1>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -71,6 +71,19 @@
                 
     </div>
 </div>
+<br>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <i class="fa fa-bell fa-fw"></i> Note
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <p>Workings of automated bootstrap of AWS and RDMTk is in progress. For manual set up of an account please contact us:
+            <a href="mailto:cs-rdmtk@wmich.edu"><b>cs-rdmtk@wmich.edu</b></p>
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
 @stop
 
 

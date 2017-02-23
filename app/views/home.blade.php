@@ -16,12 +16,11 @@
 
     <!-- Custom CSS -->
      {{ HTML::style('css/grayscale.css') }} 
-     {{ HTML::style('css/offcanvas.css') }} 
-
+    
     <!-- Custom Fonts -->
     {{ HTML::style('font-awesome-4.1.0/css/font-awesome.css') }} 
-    {{ HTML::style('http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic') }} 
-    {{ HTML::style('http://fonts.googleapis.com/css?family=Montserrat:400,700') }}     
+    {{ HTML::style('https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic') }} 
+    {{ HTML::style('https://fonts.googleapis.com/css?family=Montserrat:400,700') }}     
 
 </head>
 

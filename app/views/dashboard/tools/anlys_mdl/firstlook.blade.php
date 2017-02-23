@@ -24,7 +24,7 @@
         <div class="panel panel-primary">           
             <a>
                 <div class="panel-footer">
-                    <span class="pull-left"><h3>First Look</h3></span>
+                    <span class="pull-left"><h3>Statistical Analysis</h3></span>
                     <span class="pull-right"><i class="fa  fa-empire fa-5x"></i></span>
                     <div class="clearfix"></div>
                 </div>

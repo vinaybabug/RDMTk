@@ -97,9 +97,9 @@
                             <a href="#"><i class="fa fa-gears fa-fw"></i> Analysis Tools<span class="fa arrow"></span></a>
                            <ul class="nav nav-second-level">
                                <li>
-                                   <a href="{{URL::to('dashboard/tools/configaws')}}"><i class="fa fa-cloud fa-fw"></i> Configure AWS EC2</a>                                   
+                                   <a href="{{URL::to('dashboard/tools/configaws')}}"><i class="fa fa-cloud fa-fw"></i> Bootstrap AWS</a>                                   
                                    <a href="{{URL::to('dashboard/tools/monitoring/monitorExpr')}}"><i class="fa fa-refresh fa-spin fa-fw"></i> Experiment Monitor</a>
-                                   <a href="{{URL::to('dashboard/tools/firstlook')}}"><i class="fa  fa-empire fa-spin fa-fw"></i> First Look</a>
+                                   <a href="{{URL::to('dashboard/tools/firstlook')}}"><i class="fa  fa-empire fa-spin fa-fw"></i> Statistical Analysis</a>
                                 </li>
                                 <li>
                                      <a href="#"><i class="fa fa-gear fa-fw"></i> IGT</a>
