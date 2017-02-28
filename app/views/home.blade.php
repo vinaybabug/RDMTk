@@ -16,7 +16,7 @@
 
     <!-- Custom CSS -->
      {{ HTML::style('css/grayscale.css') }} 
-    
+
     <!-- Custom Fonts -->
     {{ HTML::style('font-awesome-4.1.0/css/font-awesome.css') }} 
     {{ HTML::style('https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic') }} 
@@ -115,6 +115,7 @@
     <footer>
         <div class="container text-center">
             <p>Copyright &copy; RDMTk: A Toolkit for Risky Decision Making 2016</p>
+<span id="siteseal"><script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=C42Pn3okXzbfX8GdrDXxetaeul9ReF9g0fJu4HbLxYpkmNJy2V6S4dREtBc9"></script></span>
         </div>
     </footer>
 
@@ -130,8 +131,8 @@
     {{ HTML::script('js/jquery.easing.min.js') }} 
     
 
-    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/ -->
-    {{ HTML::script('https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false') }} 
+    <!-- Google Maps API Key - Use your own API key to enable the map feature. More information on the Google Maps API can be found at https://developers.google.com/maps/
+    {{ HTML::script('https://maps.googleapis.com/maps/api/js?key=AIzaSyCRngKslUGJTlibkQ3FkfTxj3Xss1UlZDA&sensor=false') }} -->
     
 
     <!-- Custom Theme JavaScript -->
