@@ -6,7 +6,7 @@ rdmtkIGTBaselineModel <- function(taskType, exprID,  ...) {
   #This program will only model up to the trial where one deck runs out.
   #Programmed by Anthony Bishara. Model from Busemeyer & Stout (2002).
   #Version 7 uses a digital filter (kudos to Ryan Jessup for this idea)
-
+  #Modified for RDMTk: Vinay B Gavirangaswamy
 
   #First Time R Users:
   #R is free, and can be downloaded and installed from http://www.r-project.org/.  To find the download, click CRAN on the left side, then, choose a nearby geographic location to download from, then choose your operating system.  For Windows users, choose "base" when you get a chance.

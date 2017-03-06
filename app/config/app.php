@@ -44,7 +44,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://rdmtk.wsn.cs.wmich.edu/RDMTk',
+	'url' => 'http://localhost/RDMTk',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -210,5 +210,9 @@ return array(
                 'Excel'             => 'Maatwebsite\Excel\Facades\Excel',
 
 	),
+    
+   // 'opencpu_url' => '/proxy.php/ocpu/library/RDMTkAnalysisR/R',
+   'opencpu_url' => 'https://anlys.rdmtk.wise.cs.wmich.edu/ocpu/library/RDMTkAnalysisR/R',
+    
 
 );
