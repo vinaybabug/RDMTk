@@ -72,7 +72,7 @@
 
             </div>
             <div class="panel-body">
-                <div class="span8">
+                <div class="span8">                    
                     <div id="plotdiv"></div>
                 </div>  
             </div>
@@ -136,6 +136,16 @@
                 </div>
                 <!-- /.col-lg-4 -->
 </div>
+
+<style>
+#plotdiv {
+  margin-left: 10px;
+  margin-top: 10px;
+  width: 95vh;
+  height: 40vh;  
+}
+</style>
+
 <script type="text/javascript">
 
     function BoxPlot(exprid, tasktype) {
@@ -153,6 +163,9 @@
         }).fail(function () {
             alert(req.responseText);
         });
+        
+        //optional, requires jquery-ui.
+        $("#plotdiv").resizable()   
     }
 
 
@@ -195,7 +208,7 @@
                 BoxPlot(exprid, taskType);
                 break;
             default:
-                text = "I have never heard of that fruit...";
+                text = "Invalid function!";
         }
         
       
@@ -235,7 +248,7 @@
 
 
 
-        $('a#execstatfun').click(function (e) {
+        $('#execstatfun').click(function (e) {
             e.preventDefault(); /*your_code_here;*/
             return false;
         });
