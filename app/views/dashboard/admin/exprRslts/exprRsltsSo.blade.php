@@ -47,12 +47,12 @@
     <!-- /.col-lg-12 -->
 </div>
 <br>
-    <div class="panel panel-default">
+    <div class="panel panel-danger">
         <div class="panel-heading">
             <i class="fa fa-bell fa-fw"></i> Note
         </div>
         <!-- /.panel-heading -->
-        <div class="panel-body">
+        <div class="panel-body panel-danger">
             <p>Current version only supports capability to download experiment data via excel spread
             sheet. To download first select task type and then corresponding experiment.
             Future versions will support advanced reporting framework.</p>

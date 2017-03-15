@@ -55,10 +55,7 @@
                     <td class="col-md-2 "><b>AWS Instance\'s Region:</b></td>                             
                     <td class="col-md-10">{{ $awsconfig->aws_region }}</td>
                 </tr>                     
-                <tr>
-                    <td>
-                    </td>
-                </tr>   
+                
                 </tbody>                   
             </table>
         </div>
@@ -71,7 +68,7 @@
                 
     </div>
     <br>
-    <div class="panel panel-default">
+    <div class="panel panel-danger">
         <div class="panel-heading">
             <i class="fa fa-bell fa-fw"></i> Note
         </div>
