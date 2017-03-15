@@ -1,6 +1,6 @@
 #install packages for IGT analysis
 install.packages("fOptions" , lib="/usr/lib/R/library/")
-install.packages("fOptions" , lib="/usr/lib/R/library/")
+install.packages("DBI" , lib="/usr/lib/R/library/")
 
 #Install Package ‘RMySQL’
 
