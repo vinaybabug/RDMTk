@@ -1,0 +1,53 @@
+FROM php:7.2-fpm
+
+RUN apt-get update && apt-get install -y \
+    git \
+    libzip-dev \
+    zip \
+		unzip \
+		nginx
+
+WORKDIR /etc/nginx
+
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/cert.key -out /etc/nginx/cert.crt -subj "/C=US/ST=Michigan/L=Kalamazoo/O=Wise Lab/OU=Computer Science Department, Western Michigan University/CN=rdmtk.wise.cs.wmich.edu/"
+
+RUN apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libpng-dev \
+		&& pecl install mcrypt-1.0.3 \
+		&& docker-php-ext-enable mcrypt
+
+
+RUN docker-php-ext-configure zip --with-libzip
+RUN docker-php-ext-install pdo_mysql zip
+RUN curl --silent --show-error https://getcomposer.org/installer | php && \
+    mv composer.phar /usr/local/bin/composer
+
+
+COPY index.php /var/www/html/
+COPY RDMTk /var/www/html/RDMTk
+COPY run-lamp.sh /usr/sbin/
+# Laravel related tasks
+WORKDIR /var/www/html/RDMTk
+RUN composer update \
+  && php artisan dump-autoload \
+  && php artisan key:generate
+
+COPY nginx.conf /etc/nginx/sites-available/nginx.conf
+RUN ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/
+RUN rm /etc/nginx/sites-enabled/default
+RUN rm /etc/nginx/sites-available/default
+
+
+RUN chmod +x /usr/sbin/run-lamp.sh
+RUN chown -R www-data:www-data /var/www/html
+
+
+EXPOSE 80
+EXPOSE 443
+EXPOSE 3306
+
+#CMD ["/usr/sbin/run-lamp.sh"]
+ENTRYPOINT /bin/bash -x /usr/sbin/run-lamp.sh && nginx -g 'daemon off;'

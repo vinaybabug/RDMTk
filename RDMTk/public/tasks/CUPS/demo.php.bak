@@ -1,0 +1,959 @@
+<?php
+/**
+* Copyright (C) 2015  WiSe Lab, Computer Science Department, Western Michigan University
+*Project Members Involved: Ajay Gupta, Aakash Gupta, Baba Shiv, Praneet Soni, Shrey Gupta and Vinay B Gavirangaswamy
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation, either version 3 of the License, or
+* (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with this program.  If not, see <http://www.gnu.org/licenses/>
+*/
+
+session_start();
+ob_start();
+	include 'include/class/oe_databasemanager.php';
+	include 'users/controller/user_dbo.php';
+	$_SESSION['theend']="start";
+	$experimentid= $_GET['exp'];
+	$participantid= $_GET['MID'];
+			/* Database call to check whether the experiment in url exists,
+		 if exists fecthing number of trials assigned to this experiment */
+	$userdbo = new UserDBO();
+	$viewusers= $userdbo->viewFieldsExperimentCond('nooftrials,urllink,confirmationcode','id="'.$experimentid.'"');
+	$viewusers = json_decode($viewusers);
+	$countexists=count($viewusers);
+	if(($countexists > 0)&&($participantid!==""))
+	{
+		$_SESSION['experimentid']=$experimentid;
+		$_SESSION['mid']=$participantid;
+		$trials_atttempted = $viewusers[0]->nooftrials;
+		$_SESSION['trials_atttempted']=$trials_atttempted;
+			/* Database call to check whether the participant id in url exists to this experiment ,
+			 if exists fecthing number of trials done by the participant corresponding to this experiment */
+		$viewexpts= $userdbo->viewFieldsParticipantCond('uniquecode,paytotal','mid="'.$participantid.'" and experimentid="'.$experimentid.'" order by trialno');
+		$viewexpts = json_decode($viewexpts);
+		$trialno = count($viewexpts);
+		$paytot = count($viewexpts);
+		$paytot=$paytot-1;
+		
+		$urllink =$viewusers[0]->urllink;
+		$halfstring = explode('?',$urllink);
+		$realurlstring = $halfstring[0];
+		$urllink=$realurlstring .'?exp='.$experimentid.'&MID='.$participantid;
+		$_SESSION['currenturlink']=$urllink;
+		/* if participant already done trials no need of confirmation coode for them */
+		if($trialno > 0)
+			{
+				$random=$viewexpts[0]->uniquecode;
+				$paytotalses=$viewexpts[$paytot]->paytotal;
+				$_SESSION['paytotalses']=$paytotalses;
+			}
+			else
+			{
+				$paytotalses=0.0;
+				$_SESSION['paytotalses']=$paytotalses;
+				$random=$viewusers[0]->confirmationcode;
+			}
+		
+		$trialno = $trialno+1;
+		if($trialno <= $trials_atttempted)
+		{
+
+			$_SESSION['uniquecode']=$random;
+			$_SESSION['trialno']=$trialno;
+						
+			?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+		<title>Welcome to the Cup game! </title>
+		<script type="text/javascript" src="src/js/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="src/css/cupgame.css">
+		
+				<script>
+								
+					$(document).ready(function(){
+					
+					var data_trial = [[]];
+					
+					
+					for(i=0; i<45;i++){
+						var j = Math.floor((i - 0) / 5) + 1;		
+						
+						if(j==1){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=2;
+							data_trial[i][1]=2;							
+						}		
+						if(j==2){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=3;
+							data_trial[i][1]=3;							
+							
+						 }
+						 if(j==3){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=5;
+							data_trial[i][1]=5;							
+						 }
+						 if(j==4){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=2;
+							data_trial[i][1]=3;
+							
+						 }
+						 if(j==5){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=2;
+							data_trial[i][1]=5;
+							
+						 }
+						 if(j==6){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=3;
+							data_trial[i][1]=5;
+							
+						 }
+						 if(j==7){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=3;
+							data_trial[i][1]=2;
+							
+						 }
+						 if(j==8){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=5;
+							data_trial[i][1]=2;
+							
+						 }
+						 if(j==9){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=5;
+							data_trial[i][1]=3;
+							
+						 }					 
+						
+					}
+										
+					for(i=45;i<90;i++){
+					
+						 var j = Math.floor((i - 45)/5)+1;
+						 if(j==1){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=2;
+							data_trial[i][1]=-2;
+							
+						 }
+						 if(j==2){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=3;
+							data_trial[i][1]=-3;
+							
+						 }
+						 if(j==3){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=5;
+							data_trial[i][1]=-5;
+							
+						 }
+						 if(j==4){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=2;
+							data_trial[i][1]=-3;
+							
+						 }
+						 if(j==5){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=2;
+							data_trial[i][1]=-5;
+							
+						 }
+						 if(j==6){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=3;
+							data_trial[i][1]=-5;
+							
+						 }
+						 if(j==7){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=3;
+							data_trial[i][1]=-2;
+							
+						 }
+						 if(j==8){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=5;
+							data_trial[i][1]=-2;
+							
+						 }
+						 if(j==9){
+							data_trial[i] = new Array(2);
+							data_trial[i][0]=5;
+							data_trial[i][1]=-3;
+							
+						 }				 						 
+						
+					}
+								
+					
+					//data_trial.shuffle();
+						var i = data_trial.length, j, temp;
+						if ( i == 0 ) return;
+						while ( i-- > 0 ) {
+							j = Math.floor( Math.random() * ( i + 1 ) );
+							temp = data_trial[i];
+							data_trial[i] = data_trial[j];
+							data_trial[j] = temp;
+						}
+										
+					
+					
+					/*for(i=1; i<data_trial.length;i++){
+					alert("-cups-# "+ data_trial[i][0]+ " -pay-# " + data_trial[i][1]);
+					}*/
+					
+					var trial=<?php echo $trials_atttempted;?>;
+					var myarr =[];
+					//var color = ["red","blue"];
+					
+					var side = ["L","R"];
+					var side_rand = side[Math.floor(Math.random() * side.length)];
+					//var size = ["2","3","5"];
+					var size_rand = data_trial[0][0];
+					var amount_rand = data_trial[0][1];
+					var color_rand = "red";
+					if(data_trial[1][1] > 0){
+						color_rand = "blue";
+					}
+					else{
+						color_rand = "red";
+					}
+					var starttimesec = new Date().getTime();
+					myarr.push({color_rand:color_rand,side_rand:side_rand,size:size_rand,amount:amount_rand,assign_val:0,total_score:0,amount_assign:0,selected_cup:0,selected_side:0,time_taken:0,date_created:starttimesec});
+					$("#startappbutton").click(function() { 
+						$('#welcometext').css('display', 'none');
+						$('#pickup_text').css('display', 'block');
+						$('#trail_total').css('display', 'block');
+						$('#cupgameid').css('display', 'block');
+						if(amount_rand<0){
+							$('#red').css('display', 'block');
+							$('#blue').css('display', 'none');
+							if(side_rand=="L"){
+								
+								$('#rdynluckr').html("-1");
+								$('#rdynluckl').html(amount_rand);
+								$('#completeleftr').css('display', 'block');
+								$('#completerightr').css('display', 'block');
+								$('#leftred'+size_rand).css('display', 'block');
+								$('#rightred1').css('display', 'block');
+								
+							}else{
+								$('#rdynluckl').html("-1");
+								$('#rdynluckr').html(amount_rand);
+								$('#completerightr').css('display', 'block');
+								$('#completeleftr').css('display', 'block');
+								$('#rightred'+size_rand).css('display', 'block');
+								$('#leftred1').css('display', 'block');
+							}
+						}else{
+							$('#blue').css('display', 'block');
+							$('#red').css('display', 'none');
+							if(side_rand=="L"){
+								$('#bdynluckr').html("1");
+								$('#bdynluckl').html(amount_rand);
+								$('#completeleft').css('display', 'block');
+								$('#completeright').css('display', 'block');
+								$('#leftblue'+size_rand).css('display', 'block');
+								$('#rightblue1').css('display', 'block');
+							}else{
+								$('#bdynluckl').html("1");
+								$('#bdynluckr').html(amount_rand);
+								$('#completeright').css('display', 'block');
+								$('#completeleft').css('display', 'block');
+								$('#rightblue'+size_rand).css('display', 'block');
+								$('#leftblue1').css('display', 'block');
+							}
+						}
+						var clicks=0;
+						$(".cup").click(function() {
+						var time_click = new Date().getTime();
+						var time_ui=myarr[clicks].date_created;
+						var timetrack = (parseInt(time_click)-parseInt(time_ui))/1000;
+						myarr[clicks].time_taken=timetrack;
+							var id=this.id;
+							var picked_cup = id.slice(-1);
+								var picked_side=id.charAt(0);
+								var picked_color=id.charAt(1);
+								var color_rand=myarr[clicks].color_rand;
+								var color_rand=color_rand.charAt(0);
+								var amount_selected=myarr[clicks].amount;
+								var side_selected=myarr[clicks].side_rand;
+								var no_of_cups=myarr[clicks].size;
+								var assign_cup=Math.floor(Math.random() * (no_of_cups))+1;
+								myarr[clicks].amount_assign=assign_cup;
+								myarr[clicks].selected_cup=picked_cup;
+								myarr[clicks].selected_side=picked_side;
+								$('#cupgameid').css('display', 'none');
+								$('#trail_total').css('display', 'none');
+								$('#pickup_text').css('display', 'none');
+								$('#facescoreboard').css('display', 'block');
+								$('#s_timer').css('display', 'block');
+								if(picked_side==side_selected){
+									if(picked_cup==assign_cup){
+										var final_val=amount_selected;
+									}else{
+										var final_val=0;
+									}
+									if(picked_color=="R"){
+										if(final_val==0){
+											$('#zero_red').css('display', 'block');
+										}else{
+											$('#lose_red').css('display', 'block');
+										}
+										var final_val=-Math.abs(final_val);
+										
+									}else{
+										if(final_val==0){
+											$('#zero_blue').css('display', 'block');
+										}else{
+											$('#win_blue').css('display', 'block');
+										}
+										var final_val=final_val;
+									}
+										
+								}else{
+									if(picked_color=="R"){
+										var final_val=-1;
+										$('#lose_red').css('display', 'block');
+									}else{
+										var final_val=1;
+										$('#win_blue').css('display', 'block');
+									}
+									
+								}
+								myarr[clicks].assign_val=final_val;
+								var total_score=myarr[clicks].total_score;
+								final_val=parseInt(final_val);
+								total_score=parseInt(total_score);
+								total_score=total_score+final_val;
+								myarr[clicks].total_score=total_score;
+								clicks=clicks+1;
+								$('.amount').html(amount_selected);
+								var positive_final_total_val=Math.abs(final_val);
+								$('.score').html(positive_final_total_val);
+								$('.total_score_value').html(total_score);
+							if(trial>=clicks){
+							var data_v=[];
+			$.ajax({ type: 'POST',
+						url:"data.php",
+						data: { 
+							'click': clicks,
+							'id':id
+						},
+						success:function(result){
+							data_v=result.split(',');
+							
+							final_win=data_v[0];
+							final_win = final_win.replace(/\r\n/,"");
+							final_lose=data_v[1];
+							
+							
+							//var color_rand = color[Math.floor(Math.random() * color.length)];
+							var side_rand = side[Math.floor(Math.random() * side.length)];
+								
+							//var size_rand = final_win;
+							//var amount_rand = final_lose;
+							
+							var size_rand = data_trial[clicks][0];
+							var amount_rand = data_trial[clicks][1];
+							var color_rand;
+							
+							if(data_trial[clicks][1] > 0){
+								color_rand = "blue";
+							}
+							else{
+								color_rand = "red";
+							}
+							//alert("cups# "+ data_trial[clicks][0]+ " pay# " + data_trial[clicks][1]);
+							
+							myarr.push({color_rand:color_rand,side_rand:side_rand,size:size_rand,amount:amount_rand,assign_val:0,total_score:total_score,amount_assign:0,selected_cup:0,selected_side:0,time_taken:0,date_created:new Date().getTime()});
+							console.log(myarr);
+							var sec = 1;
+							var timer = setInterval(function() { 
+									$('#s_timer').text(sec--);
+									if (sec == -1) {
+										clearTimeout(timer);
+										$('#cupgameid').css('display', 'block');
+										$('#pickup_text').css('display', 'block');
+										$('#facescoreboard').css('display', 'none');
+										$('#s_timer').css('display', 'none');
+										$('#trail_total').css('display', 'block');
+										$('#red').css('display', 'none');
+										$('#blue').css('display', 'none');
+										$('#completeleftr').css('display', 'none');
+										$('#completerightr').css('display', 'none');
+										$('#completeleft').css('display', 'none');
+										$('#completeright').css('display', 'none');
+										$('#zero_blue').css('display', 'none');
+										$('#zero_red').css('display', 'none');
+										$('#win_blue').css('display', 'none');
+										$('#lose_red').css('display', 'none');
+										for(var i=1;i<=5;i++){
+											$('#leftred'+i).css('display', 'none');
+										}
+										for(var i=1;i<=5;i++){
+											$('#rightred'+i).css('display', 'none');
+										}
+										for(var i=1;i<=5;i++){
+											$('#leftblue'+i).css('display', 'none');
+										}
+										for(var i=1;i<=5;i++){
+											$('#rightblue'+i).css('display', 'none');
+										}
+										if(amount_rand<0){
+											$('#red').css('display', 'block');
+											$('#blue').css('display', 'none');
+											if(side_rand=="L"){
+												$('#rdynluckr').html("-1");
+												$('#rdynluckl').html(amount_rand);
+												$('#completeleftr').css('display', 'block');
+												$('#completerightr').css('display', 'block');
+												$('#leftred'+size_rand).css('display', 'block');
+												$('#rightred1').css('display', 'block');
+											}else{
+												$('#rdynluckl').html("-1");
+												$('#rdynluckr').html(amount_rand);
+												$('#completerightr').css('display', 'block');
+												$('#completeleftr').css('display', 'block');
+												$('#rightred'+size_rand).css('display', 'block');
+												$('#leftred1').css('display', 'block');
+											}
+										}else{
+											$('#blue').css('display', 'block');
+											$('#red').css('display', 'none');
+											if(side_rand=="L"){
+												$('#bdynluckr').html("1");
+												$('#bdynluckl').html(amount_rand);
+												$('#completeleft').css('display', 'block');
+												$('#completeright').css('display', 'block');
+												$('#leftblue'+size_rand).css('display', 'block');
+												$('#rightblue1').css('display', 'block');
+											}else{
+												$('#bdynluckl').html("1");
+												$('#bdynluckr').html(amount_rand);
+												$('#completeright').css('display', 'block');
+												$('#completeleft').css('display', 'block');
+												$('#rightblue'+size_rand).css('display', 'block');
+												$('#leftblue1').css('display', 'block');
+											}
+										}
+										$('#trail').html(clicks+1);	
+										if(total_score>0){
+											$('#totalscoreboardblue').html('Total Score: +'+total_score);
+										}else{
+											$('#totalscoreboardblue').html('Total Score:'+total_score);
+										}
+										if(total_score==0){
+											$('#totalscoreboardblue').html('Total Score:'+total_score);
+										}										
+										
+										if(total_score>0){
+											$('#totalscoreboardred').html('Total Score: +'+total_score);
+										}else{
+											$('#totalscoreboardred').html('Total Score:'+total_score);
+										}
+										if(total_score==0){
+											$('#totalscoreboardred').html('Total Score:'+total_score);
+										}	
+									} 
+								}, 1000);
+								
+								if(trial==clicks){
+									var json = JSON.stringify(myarr);
+									$.ajax({ type: 'POST',
+										url:"score.php",
+										data: { 
+											'myarr': json, 
+											'id': id ,
+											'experimentid': '<?php echo $experimentid;?>', 
+											'participantid': '<?php echo $participantid;?>',
+											'random_val': '<?php echo $random;?>'
+										},
+										success:function(result){
+											console.log(result);
+											window.location="demo.php?&exp=<?php echo $experimentid;?>&MID=<?php echo $participantid;?>";
+										}
+									});
+								}
+								}
+								});
+							}else{
+								window.location="demo.php?&exp=<?php echo $experimentid;?>&MID=<?php echo $participantid;?>";
+							}
+							});
+						});
+					});
+				</script>
+	</head>
+
+	<body>
+	
+
+			<div style="width:100%;" id="dynamicmain">
+				
+					<div align="left" style="width:98%;margin-top: -2%;font-family: arial;" id="welcometext">
+					<h3 id="welcomeheadtext">
+						Cups 
+						</h3>
+						<p>
+						Welcome to <b>Cups </b> game ! During this game, you are going to choose cups to get the highest score.
+						</p> 
+						<p>
+						On each side of the screen, you will see certain number of cups (either 2, 3, or 5). The cups will have a return value over them, either positive or negative:
+						</p>
+						<div style="width:100%;">
+						<div style="width:15%;float:left;padding-left:20%;padding-right:15%;">
+						<div style="width:90%;padding:2%;font-size: 25px;">
+						<font color="blue"><b>Positive Cups</b></font>
+						</div>
+						<img  src="images/bluecups3.png" style="width:100%;height:10%;" value="1" />
+						</div>
+						<div style="width:15%;float:left;padding-right:35%;">
+						<div style="width:90%;padding:2%;font-size: 25px;">
+						<font color="red"><b>Negative Cups</b></font>
+						</div>
+						<img  src="images/redcup3.png" style="width:100%;height:10%;" value="1" />
+						</div>
+						</div>
+						<p>
+						For each trial, you will be given the option of choosing a cup from either side by clicking on your choice. The side with multiple cups has one cup with the return value under it. The other cups have nothing under them.
+						</p>
+						<p>
+						So your goal is to choose the right cups to maximize your score.
+						</p>
+						<p>
+						Please read the payouts for each trial carefully.
+						</p>
+						
+						<div id="startppp" align="center" style=" color: rgb(8, 66, 133);width: 17%;">
+							<input type="button" name="startappbutton" id="startappbutton" style="font-family: arial; font-size: x-large;" value="Start">
+						</div>
+					</div>
+				
+			</div>
+			
+			<div style="width:100%;display:none;" id="pickup_text">
+					<div id="pickup" style="width:100%;" align="center">
+						<h3>
+						Pick Up a Cup
+						</h3>
+						
+					</div>
+					
+					
+				</div>
+				<div id="trail_total" style="display:none;"><div align="center" style="  background-color: rgb(13, 127, 194);
+    color: rgb(242, 239, 235);
+    float: left;
+    font-size: larger;
+    margin-left: 55%;
+    margin-right: 74%;
+    padding: 1%;">Trail:<span id="trail">1</span>/<?php echo $trials_atttempted; ?></div>
+					<div style="width:30%;float:left;" id="completescoreright" >
+								<div style="width:100%;">
+									<div id="totalscoreboardred" style=" float: left;
+    font-size: larger;
+    margin-left: 107%;
+    margin-top: -12%;
+    padding: 4%;
+    width: 40%;;" align="center">
+									Total Score: 0
+									</div>
+								</div>
+							</div></div>
+				
+				<div id="cupgameid" style="display:none;">
+					
+						<div style="width:100%;display:none;" id="red">
+							
+							<div style="width:30%;float:right;display:none;margin-top:3%; margin-left: 6%;margin-right: 17%;" id="completerightr" >
+								<div style="width:100%;">
+									<div id="rdynluckr"  align="center">
+									- <?php echo $rmaxmnyside; ?>
+									</div>
+								</div>
+							
+									<div id="rightred1" style="width:60%;padding-left:41%;padding-right:10%;height: 212px;display:none;">
+										<div  style="width:30%;" >
+											<img  class="cup" id="RRcups1" src="images/cupr.png" style="width:100%;height:10%;"/>
+										</div>
+									</div>
+								
+								<div id="rightred2" style="width:60%;padding-left:33%;padding-right:10%;height: 212px;display:none;" >
+
+									<div style="width:30%;float:left;" >
+										<img  class="cup" id="RRcupd1" src="images/cupr.png" style="width:100%;height:10%"/>
+									</div>
+									<div  style="width:30%;float:left;">
+										<img  class="cup" id="RRcupd2" src="images/cupr.png"  style="width:100%;height:10%"/>
+									</div>
+								</div>
+								
+									<div id="rightred3" style="width:60%;padding-left:32%;padding-right:10%;height: 212px;display:none;" >
+										<div style="width:100%;">
+											<div style="width:100%;margin-left: 15%;margin-bottom: -3%;">
+												<div   style="width:30%;">
+													<img  class="cup" id="RRcupt1" src="images/cupr.png" style="width:100%;height:10%" />
+												</div>
+											</div>
+											<div  style="clear:both;"></div>
+											<div style="width:100%;">
+												<div style="width:30%;float:left;" >
+													<img  class="cup" id="RRcupt2" src="images/cupr.png" style="width:100%;height:10%"/>
+												</div>
+												<div  style="width:30%;float:left;">
+													<img  class="cup" id="RRcupt3" src="images/cupr.png"  style="width:100%;height:10%"/>
+												</div>
+											</div>
+										</div>
+									</div>
+								
+									<div id="rightred5" style="width:60%;padding-left:27%;padding-right:10%;height: 212px;display:none;" >
+										<div style="width:100%;">
+											<div style="width:100%;margin-left: 15%;">
+												<div   style="width:30%;float:left;margin-bottom: -3%;">
+													<img class="cup" id="RRcupf1" src="images/cupr.png" style="width:100%;height:10%" />
+												</div>
+												<div style="width:30%;float:left;margin-bottom: -3%;" >
+													<img class="cup" id="RRcupf2" src="images/cupr.png" style="width:100%;height:10%"/>
+												</div>
+											</div>
+											<div  style="clear:both;"></div>
+											<div style="width:100%;">
+												<div  style="width:30%;float:left;">
+													<img class="cup" id="RRcupf3" src="images/cupr.png"  style="width:100%;height:10%"/>
+												</div>
+												<div style="width:30%;float:left;" >
+													<img class="cup" id="RRcupf4" src="images/cupr.png" style="width:100%;height:10%"/>
+												</div>
+												<div  style="width:30%;float:left;">
+													<img class="cup" id="RRcupf5" src="images/cupr.png"  style="width:100%;height:10%"/>
+												</div>
+											</div>
+										</div>
+										<div  style="clear:both;"></div>
+									</div>
+								
+							</div>
+							<div style=" display: block;
+    float: left;
+    width: 30%;margin-left:13%; margin-top: 3%;" id="completeleftr">
+								<div style="width:100%;">
+									<div id="rdynluckl" align="center">
+									- <?php echo $lmaxmnyside; ?>
+									</div>
+								</div>
+								
+									<div id="leftred1" style="width:60%;height: 212px;padding-left:41%;display:none;" >
+										<div   style="width:30%;">
+											<img  class="cup" id="LRcups1" src="images/cupr.png" style="width:100%;height:10%;" value="1" />
+										</div>
+									</div>
+								
+									<div id="leftred2" style="width:60%;padding-left:33%;height: 212px;display:none;" >
+										<div style="width:100%;" >
+											<div   style="width:30%;float:left;">
+												<img  class="cup" id="LRcupd1" src="images/cupr.png" style="width:100%;height:10%" value="1"/>
+											</div>
+											<div style="width:30%;float:left;" >
+												<img  class="cup" id="LRcupd2" src="images/cupr.png" style="width:100%;height:10%" value="2"/>
+											</div>
+
+										</div>
+									</div>
+
+								
+									<div id="leftred3" style="width:60%;padding-left:32%;height: 212px;display:none;">
+										<div style="width:100%;">
+											<div style="width:100%;margin-left: 15%;margin-bottom: -3%;">
+												<div   style="width:30%;">
+													<img  class="cup" id="LRcupt1" src="images/cupr.png" style="width:100%;height:10%" />
+												</div>
+											</div>
+											<div  style="clear:both;"></div>
+											<div style="width:100%;">
+												<div style="width:30%;float:left;" >
+													<img  class="cup" id="LRcupt2" src="images/cupr.png" style="width:100%;height:10%"/>
+												</div>
+												<div  style="width:30%;float:left;">
+													<img  class="cup" id="LRcupt3" src="images/cupr.png"  style="width:100%;height:10%"/>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div id="leftred5" style="width:60%;padding-left:27%;height: 212px;display:none;" >
+										<div style="width:100%;">
+											<div style="width:100%;margin-left: 15%;">
+												<div   style="width:30%;float:left;margin-bottom: -3%;">
+													<img class="cup" id="LRcupf1" src="images/cupr.png" style="width:100%;height:10%" />
+												</div>
+												<div style="width:30%;float:left;margin-bottom: -3%;" >
+													<img class="cup" id="LRcupf2" src="images/cupr.png" style="width:100%;height:10%"/>
+												</div>
+											</div>
+											<div  style="clear:both;"></div>
+											<div style="width:100%;">
+												<div  style="width:30%;float:left;">
+													<img class="cup" id="LRcupf3" src="images/cupr.png"  style="width:100%;height:10%"/>
+												</div>
+												<div style="width:30%;float:left;" >
+													<img class="cup" id="LRcupf4" src="images/cupr.png" style="width:100%;height:10%"/>
+												</div>
+												<div  style="width:30%;float:left;">
+													<img class="cup" id="LRcupf5" src="images/cupr.png"  style="width:100%;height:10%"/>
+												</div>
+											</div>
+										</div>
+										<div  style="clear:both;"></div>
+									</div>
+								
+							</div>
+						
+						</div>
+					
+						<div style="width:100%;" id="blue">
+
+							
+							<div style="width:30%;float:right;display:none;margin-top:3%; margin-left: 6%;margin-right: 20%;" id="completeright" >
+								<div style="width:100%;">
+									<div id="bdynluckr"  align="center">
+										+ <?php //echo $rmaxmnyside; ?>
+									</div>
+								</div>
+								
+									<div id="rightblue1" style="width:60%;padding-left:41%;padding-right:10%;height: 212px;display:none;">
+										<div  style="width:30%;" >
+											<img  class="cup" id="RBcups1" src="images/cup.png" style="width:100%;height:10%;"/>
+										</div>
+									</div>
+							
+									<div id="rightblue2" style="width:60%;padding-left:33%;padding-right:10%;height: 212px;display:none;" >
+
+										<div style="width:30%;float:left;" >
+											<img  class="cup" id="RBcupd1" src="images/cup.png" style="width:100%;height:10%"/>
+										</div>
+										<div  style="width:30%;float:left;">
+											<img  class="cup" id="RBcupd2" src="images/cup.png"  style="width:100%;height:10%"/>
+										</div>
+									</div>
+								
+									<div id="rightblue3" style="width:60%;padding-left:32%;padding-right:10%;height: 212px;display:none;" >
+										<div style="width:100%;">
+											<div style="width:100%;margin-left: 15%;margin-bottom: -3%;">
+												<div   style="width:30%;">
+													<img  class="cup" id="RBcupt1" src="images/cup.png" style="width:100%;height:10%" />
+												</div>
+											</div>
+											<div  style="clear:both;"></div>
+											<div style="width:100%;">
+												<div style="width:30%;float:left;" >
+													<img  class="cup" id="RBcupt2" src="images/cup.png" style="width:100%;height:10%"/>
+												</div>
+												<div  style="width:30%;float:left;">
+													<img  class="cup" id="RBcupt3" src="images/cup.png"  style="width:100%;height:10%"/>
+												</div>
+											</div>
+										</div>
+									</div>
+								
+									<div id="rightblue5" style="width:60%;padding-right:40%;padding-left:27%;height: 212px;height: 212px;display:none;" >
+										<div style="width:100%;">
+											<div style="width:100%;margin-left: 15%;">
+												<div   style="width:30%;float:left;margin-bottom: -3%;">
+													<img class="cup" id="RBcupf1" src="images/cup.png" style="width:100%;height:10%" />
+												</div>
+												<div style="width:30%;float:left;margin-bottom: -3%;" >
+													<img class="cup" id="RBcupf2" src="images/cup.png" style="width:100%;height:10%"/>
+												</div>
+											</div>
+											<div  style="clear:both;"></div>
+											<div style="width:100%;">
+												<div  style="width:30%;float:left;">
+													<img class="cup" id="RBcupf3" src="images/cup.png"  style="width:100%;height:10%"/>
+												</div>
+												<div style="width:30%;float:left;" >
+													<img class="cup" id="RBcupf4" src="images/cup.png" style="width:100%;height:10%"/>
+												</div>
+												<div  style="width:30%;float:left;">
+													<img class="cup" id="RBcupf5" src="images/cup.png"  style="width:100%;height:10%"/>
+												</div>
+											</div>
+										</div>
+									</div>
+								
+							</div>
+							
+						<div style=" display: block;
+    float: left;
+    width: 30%;
+	margin-left:13%; margin-top: 3%;" id="completeleft">
+								<div style="width:100%;">
+									<div id="bdynluckl"  align="center">
+										+ <?php //echo $lmaxmnyside; ?>
+									</div>
+								</div>
+								
+									<div id="leftblue1" style="width:60%;padding-left:41%;height: 212px;display:none;" >
+										<div   style="width:30%;">
+											<img  class="cup" id="LBcups1" src="images/cup.png" style="width:100%;height:10%" />
+										</div>
+									</div>
+								
+									<div id="leftblue2" style="width:60%;padding-left:33%;height: 212px;display:none;" >
+										<div style="width:100%;" >
+											<div   style="width:30%;float:left;">
+												<img  class="cup" id="LBcupd1" src="images/cup.png" style="width:100%;height:10%" />
+											</div>
+											<div style="width:30%;float:left;" >
+												<img  class="cup" id="LBcupd2" src="images/cup.png" style="width:100%;height:10%"/>
+											</div>
+
+										</div>
+									</div>
+
+								
+									<div id="leftblue3" style="width:60%;padding-left:32%;height: 212px;display:none;" >
+										<div style="width:100%;">
+											<div style="width:100%;margin-left: 15%;margin-bottom: -3%;">
+												<div   style="width:30%;">
+													<img  class="cup" id="LBcupt1" src="images/cup.png" style="width:100%;height:10%" />
+												</div>
+											</div>
+											<div  style="clear:both;"></div>
+											<div style="width:100%;">
+												<div style="width:30%;float:left;" >
+													<img  class="cup" id="LBcupt2" src="images/cup.png" style="width:100%;height:10%"/>
+												</div>
+												<div  style="width:30%;float:left;">
+													<img  class="cup" id="LBcupt3" src="images/cup.png"  style="width:100%;height:10%"/>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								
+									<div id="leftblue5" style="width:60%;padding-left:27%;height: 212px;display:none;" >
+										<div style="width:100%;">
+											<div style="width:100%;margin-left: 15%;">
+												<div   style="width:30%;float:left;margin-bottom: -3%;">
+													<img class="cup" id="LBcupf1" src="images/cup.png" style="width:100%;height:10%" />
+												</div>
+												<div style="width:30%;float:left;margin-bottom: -3%;" >
+													<img class="cup" id="LBcupf2" src="images/cup.png" style="width:100%;height:10%"/>
+												</div>
+											</div>
+											<div  style="clear:both;"></div>
+											<div style="width:100%;">
+												<div  style="width:30%;float:left;">
+													<img class="cup" id="LBcupf3" src="images/cup.png"  style="width:100%;height:10%"/>
+												</div>
+												<div style="width:30%;float:left;" >
+													<img class="cup" id="LBcupf4" src="images/cup.png" style="width:100%;height:10%"/>
+												</div>
+												<div  style="width:30%;float:left;">
+													<img class="cup" id="LBcupf5" src="images/cup.png"  style="width:100%;height:10%"/>
+												</div>
+											</div>
+										</div>
+									</div>
+								
+							</div>
+							<div  style="clear:both;"></div>
+								
+
+						</div>
+				
+				</div>
+				<!-----------smiley-->
+				<div id="s_timer" style="display:none;"><span >0</span></div>		
+
+	<div style="width:100%;display:none;" id="facescoreboard" align="center">
+		
+		
+			<div id="lose_red" style="display:none;">
+					<img src="images/LoseFace.gif" style="width:16%;"/>
+					<div id="finalscoreboard"  align="center">
+					You lost <span class="score"><?php echo $amountdelivered; ?></span>.<br>
+		<!--	Your Total Score is <span class="total_score_value"><?php //echo $dataparticipant['paytotal']; ?></span>-->
+				</div>
+			</div>
+			
+				<div id="win_blue" style="display:none;">
+					<img src="images/WinFace.gif" style="width:16%;"/>
+					<div id="finalscoreboard"  align="center">
+					You Won <span class="score"><?php echo $amountdelivered; ?></span>.<br>
+			<!--Your Total Score is <span class="total_score_value"><?php //echo $dataparticipant['paytotal']; ?></span>-->
+					</div>
+				</div>
+			
+				<div id="zero_red" style="display:none;">
+					<img src="images/WinFace.gif" style="width:16%;"/>
+					<div id="finalscoreboard"  align="center">
+					You avoided a loss of <span class="amount">-<?php echo $_SESSION['amountshown']; ?></span>.<br>
+			<!--Your Total Score is <span class="total_score_value"><?php //echo $dataparticipant['paytotal']; ?></span>-->
+					</div>
+					
+				</div>
+		
+				<div id="zero_blue" style="display:none;">
+					<img src="images/LoseFace.gif" style="width:16%;"/>
+					<div id="finalscoreboard"  align="center">
+					That cup did not have the <span class="amount"><?php echo $_SESSION['amountshown']; ?></span> reward. You did not win anything.<br>
+			<!--Your Total Score is <span class="total_score_value"><?php //echo $dataparticipant['paytotal']; ?></span>-->
+					</div>
+									
+				</div>
+			
+		
+	</div>
+			<!--<input type="hidden" id="currenttrial" value="<?php //echo ($trialno-1);?>"  >
+			<input type="hidden" id="totaltrial" value="<?php //echo $_SESSION['trials_atttempted'];?>">-->
+		<?php 
+		}
+		else
+		{
+		?>
+			<div id="finishedattemptsscore" style="font-size: 21px;line-height: 30px;padding: 2%;width:80%">
+				Thank you for your participation in this task. Your final score was  <strong>$ <?php echo $_SESSION['paytotalses'];?>.00</strong>.<br>
+
+				Please note the confirmation code, <strong><?php echo $random; ?></strong>. Please input this in the survey that directed you to this experiment. That will allow you to continue on with the HIT and get paid for your time.
+			</div>
+		<?php 
+		}
+		
+	}
+	else
+	{
+	?>
+		<div id="wrongurl" style=" font-size: 106%; padding: 4%;">
+			Sorry, Your URL Does Not Match Our Database, Please Get The Right URL And Get Back to Us Later.
+		</div>
+	<?php 
+	}
+	?>
+
+
+	
+ </body>
+ </html>
+ 
