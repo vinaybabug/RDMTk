@@ -271,7 +271,7 @@ class ExprAnlysController extends BaseController {
 //    'credentials' => $credentials,
 //]);
 // Instantiate the S3 client with your AWS credentials
-        //$creds = array('key' => 'AKIAJMIVCBXUZMTPWP6A-THIS IS DUMMY', 'secret' => 'NoB7cimX9PlcgHE+MWJdr7/23U30VOzb4Y1nV5rc -THIS IS DUMMY', 'region' => 'us-east-1 -THIS IS DUMMY');
+        
         try {
                 $creds = array('key' => $awsconfig->aws_key, 'secret' => $awsconfig->aws_secret, 'region' => $awsconfig->aws_region);
                 $ec2client = Ec2Client::factory($creds);
