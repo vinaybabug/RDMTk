@@ -234,7 +234,7 @@ VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `expr_reln` (
-  `id` int(50) DEFAULT NULL AUTO_INCREMENT,
+  `id` int(50) AUTO_INCREMENT,
   `expr_design_id` varchar(50) NOT NULL,
   `exprid1` varchar(50) NOT NULL, 
   `exprid2` varchar(50) NOT NULL,   
