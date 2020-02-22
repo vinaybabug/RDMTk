@@ -463,7 +463,7 @@ CREATE TABLE IF NOT EXISTS `nback_expr_data` (
 --
 
 CREATE TABLE IF NOT EXISTS `nback_score_practice` (
-  `s.no` int(50) DEFAULT NULL AUTO_INCREMENT,
+  `s.no` int(50) AUTO_INCREMENT,
   `score_values` char(1) NOT NULL,
   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
