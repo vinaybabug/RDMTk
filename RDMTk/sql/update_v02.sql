@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS random_table;
 --
 
 CREATE TABLE IF NOT EXISTS `delayd_expr_data` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `mid` varchar(60) NOT NULL,
   `experid` varchar(50) NOT NULL,
   `que_id` int(11) NOT NULL,
@@ -16,17 +16,14 @@ CREATE TABLE IF NOT EXISTS `delayd_expr_data` (
   `created_by` varchar(60) NOT NULL,
   `modified_by` varchar(60) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  
+   PRIMARY KEY(`id`)
+  
 ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
 
---
--- Indexes for table `delayd_expr_data`
---
-ALTER TABLE `delayd_expr_data`
-  ADD PRIMARY KEY (`id`);
 
-ALTER TABLE `delayd_expr_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
+ALTER TABLE `delayd_expr_data` AUTO_INCREMENT=1;
 
 
 ALTER TABLE `experiments` ADD `select_dataset` VARCHAR(100) NOT NULL DEFAULT 'DEFAULT' AFTER `mouse_track`;
