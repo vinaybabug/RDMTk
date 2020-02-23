@@ -1,29 +1,4 @@
 
-Skip to content
-Pull requests
-Issues
-Marketplace
-Explore
-@utkarshakotkar
-vinaybabug /
-RDMTk
-forked from guptagithub/RDMTk
-
-1
-0
-
-    2
-
-Code
-Pull requests 0
-Actions
-Projects 0
-Wiki
-Security
-Insights
-RDMTk/mysql container creation
-@utkarshakotkar utkarshakotkar Create mysql container creation b76f865 14 minutes ago
-815 lines (750 sloc) 30.8 KB
 # Creating mysql container using image mysql:5.7.22
 
 ~/rdmtk-project$ docker run -d -p 3306-3306 --name mysql-server -e "MYSQL_ROOT_PASSWORD=password"  -d mysql:5.7.22
