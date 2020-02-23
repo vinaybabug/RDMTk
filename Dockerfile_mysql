@@ -1,0 +1,14 @@
+FROM mysql:5.7.22
+
+# Add a database
+ENV MYSQL_DATABASE rdmtoolkit
+
+VOLUME /var/lib/mysql
+
+# Config files
+
+COPY my.cnf /etc/mysql/my.cnf
+
+EXPOSE 3306 33060
+
+CMD ["mysqld"]
