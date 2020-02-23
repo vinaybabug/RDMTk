@@ -1,0 +1,842 @@
+
+Skip to content
+Pull requests
+Issues
+Marketplace
+Explore
+@utkarshakotkar
+vinaybabug /
+RDMTk
+forked from guptagithub/RDMTk
+
+1
+0
+
+    2
+
+Code
+Pull requests 0
+Actions
+Projects 0
+Wiki
+Security
+Insights
+RDMTk/mysql container creation
+@utkarshakotkar utkarshakotkar Create mysql container creation b76f865 14 minutes ago
+815 lines (750 sloc) 30.8 KB
+# Creating mysql container using image mysql:5.7.22
+
+~/rdmtk-project$ docker run -d -p 3306-3306 --name mysql-server -e "MYSQL_ROOT_PASSWORD=password"  -d mysql:5.7.22
+
+# Result:
+
+~/rdmtk-project$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                                                                                                                                      NAMES
+b497f13e2a18        rdmtk:latest        "/bin/sh -c '/bin/ba…"   About a minute ago   Up About a minute   3306/tcp, 9000/tcp, 0.0.0.0:8088->80/tcp, 0.0.0.0:32793->440/tcp, 0.0.0.0:32792->441/tcp, 0.0.0.0:32791->442/tcp, 0.0.0.0:32790->443/tcp   rdmtk-app
+c4babc4c87ff        mysql:5.7.22        "docker-entrypoint.s…"   23 hours ago         Up 26 minutes       0.0.0.0:32785->3306/tcp                                                                                                                    mysql-server
+
+# Inside the mysql container shell
+
+~/rdmtk-project$ docker exec -it  mysql-server /bin/bash
+root@c4babc4c87ff:/# mysql --version
+mysql  Ver 14.14 Distrib 5.7.22, for Linux (x86_64) using  EditLine wrapper
+root@c4babc4c87ff:/# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 4
+Server version: 5.7.22 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.00 sec)
+
+# Alter the root password and login using new password
+
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'nisha';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> exit;
+Bye
+root@c4babc4c87ff:/# mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 5.7.22 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+# Executing all sql commands inside RDMTk/sql => from rdm_toolkit_db_v03.sql and update_v02.sql
+mysql> CREATE SCHEMA IF NOT EXISTS `rdmtoolkit` ;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> USE rdmtoolkit;
+Database changed
+mysql> CREATE TABLE IF NOT EXISTS `bart_expr_data` (  
+    ->   `mid` varchar(60) NOT NULL,
+    ->   `experid` varchar(50) NOT NULL,
+    ->   `trialstopindex` int(5) NOT NULL,
+    ->   `noofpumps` int(5) NOT NULL,
+    ->   `trial_pts` varchar(50) NOT NULL,
+    ->   `total_pts` varchar(50) NOT NULL,
+    ->   `trialno` int(5) NOT NULL,
+    ->   `tracktime` double NOT NULL,
+    ->   `created_by` varchar(100) NOT NULL,
+    ->   `modified_by` varchar(60) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    ->   PRIMARY KEY (`mid`,`experid`,`trialno` )  
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `cups_expr_data` (
+    ->   
+    ->   `mid` varchar(60) NOT NULL,
+    ->   `experid` varchar(50) NOT NULL,
+    ->   `cupsnumber` int(5) NOT NULL,
+    ->   `amountshown` varchar(5) NOT NULL,
+    ->   `paychoice` int(5) NOT NULL,
+    ->   `position` varchar(5) NOT NULL,
+    ->   `participantchoice` int(5) NOT NULL,
+    ->   `participantposition` varchar(5) NOT NULL,
+    ->   `trialno` int(5) NOT NULL,
+    ->   `trial_pts` varchar(50) NOT NULL,
+    ->   `total_pts` varchar(50) NOT NULL,
+    ->   `created_by` varchar(100) NOT NULL,
+    ->   `modified_by` varchar(60) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    ->   `tracktime` double NOT NULL,
+    ->   `cup_color` varchar(50) NOT NULL,
+    ->   PRIMARY KEY (`mid`,`experid`,`trialno` )
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `delayd_expr_data` (  
+    ->   
+    ->   `mid` varchar(60) NOT NULL,
+    ->   `experid` varchar(50) NOT NULL,
+    ->   `que_id` int(11) NOT NULL,
+    ->   `option_selected` varchar(30) NOT NULL,
+    ->   `trialno` int(11) NOT NULL,
+    ->   `created_by` varchar(60) NOT NULL,
+    ->   `modified_by` varchar(60) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    -> 
+    -> PRIMARY KEY (`mid`,`experid`,`trialno` )
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `delayed_discount_que` (
+    ->   `id` int(50) NOT NULL AUTO_INCREMENT,
+    ->   `option_b` varchar(100) NOT NULL,
+    ->   `option_a` varchar(100) NOT NULL,
+    ->   `dataset_name` varchar(100) NOT NULL DEFAULT 'DEFAULT',
+    ->   `created_by` varchar(200) NOT NULL DEFAULT 'ADMIN',
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    ->   PRIMARY KEY (`id`)
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO `delayed_discount_que` (`option_b`, `option_a`, `dataset_name`, `created_by`) VALUES
+    -> ('$44 10 years', '$22 now', 'DEFAULT', 'ADMIN'),
+    -> ('$10 with 50% chance', '$3.5 for sure', 'DEFAULT', 'ADMIN'),
+    -> ('$10 in 3 Days', '$1 now', 'DEFAULT', 'ADMIN'),
+    -> ('$10 in 365 days', '$4.5 now', 'DEFAULT', 'ADMIN'),
+    -> ('$10 in 2 days', '$1 now', 'DEFAULT', 'ADMIN'),
+    -> ('$10 with 90% chance', '$0.5 for sure', 'DEFAULT', 'ADMIN'),
+    -> ('$10 in 180 days', '$1.5 now', 'DEFAULT', 'ADMIN'),
+    -> ('$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN'),
+    -> ('$10 with 90% chance', '$0.5 for sure', 'DEFAULT', 'ADMIN'),
+    -> ('$10 in 180 days', '$1.5 now', 'DEFAULT', 'ADMIN'),
+    -> ('$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN'),
+    -> ('$10 with 90% chance', '$0.5 for sure', 'DEFAULT', 'ADMIN'),
+    -> ('$10 in 180 days', '$1.5 now', 'DEFAULT', 'ADMIN'),
+    -> ('$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN'),
+    -> ('$10 with 90% chance', '$0.5 for sure', 'DEFAULT', 'ADMIN'),
+    -> ('$10 in 180 days', '$1.5 now', 'DEFAULT', 'ADMIN'),
+    -> ('$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN'),
+    -> ('$10 with 90% chance', '$0.5 for sure', 'DEFAULT', 'ADMIN'),
+    -> ('$10 in 180 days', '$1.5 now', 'DEFAULT', 'ADMIN'),
+    -> ('$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN'),
+    -> ('$10 in 7 days', '$1 right now', 'DEFAULT', 'ADMIN'),
+    -> ('$100 in 1 year', '$1 right now', 'DEFAULT', 'ADMIN');
+Query OK, 22 rows affected (0.09 sec)
+Records: 22  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE IF NOT EXISTS `experconfirmation` (
+    ->   `id` int(50) unsigned NOT NULL AUTO_INCREMENT,
+    ->   `confirmation_type` varchar(150) NOT NULL,
+    ->   `confirmation_page_route` varchar(150) NOT NULL,
+    ->   `created_by` varchar(100) NOT NULL,
+    ->   `modified_by` varchar(60) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    ->    PRIMARY KEY (`id`)
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.04 sec)
+
+
+mysql> INSERT INTO `experconfirmation` (`confirmation_type`, `confirmation_page_route`, `created_by`, `modified_by`) VALUES
+    -> ('CUSTOM_TXT', '#', 'ADMIN', 'ADMIN'),
+    -> ('DEFAULT', 'end.php', 'ADMIN', 'ADMIN');
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE IF NOT EXISTS `experiments` (
+    ->   `id` varchar(50) NOT NULL,
+    ->   `expername` varchar(150) NOT NULL,
+    ->   `expertype` varchar(100) NOT NULL,
+    ->   `nooftrials` int(10) NOT NULL,
+    ->   `expertrial_outcome_type` varchar(50) NOT NULL,
+    ->   `confirmationcode` varchar(100) DEFAULT NULL,
+    ->   `experend_conf_page_type` varchar(200) NOT NULL,
+    ->   `experend_conf_customtext` varchar(1000) DEFAULT NULL,
+    ->   `urllink` varchar(350) NOT NULL,
+    ->   `mouse_track` int(11) NOT NULL DEFAULT '0',
+    ->   `select_dataset` varchar(100) NOT NULL DEFAULT 'DEFAULT',
+    ->   `created_by` varchar(100) NOT NULL,
+    ->   `modified_by` varchar(60) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,  
+    ->   PRIMARY KEY (`id`)
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `expr_design_type` (
+    ->   `id` varchar(50) NOT NULL,
+    ->   `name` varchar(150) NOT NULL,  
+    ->   `created_by` varchar(100) NOT NULL,
+    ->   `modified_by` varchar(60),
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,  
+    ->   PRIMARY KEY (`id`)
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO `rdmtoolkit`.`expr_design_type`
+    -> (`id`,
+    -> `name`,
+    -> `created_by`
+    -> )
+    -> VALUES
+    -> ('IND_MEAS_DSG',
+    -> 'Independent Measures Design',
+    -> 'ADMIN');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO `rdmtoolkit`.`expr_design_type`
+    -> (`id`,
+    -> `name`,
+    -> `created_by`
+    -> )
+    -> VALUES
+    -> ('BTW_SUBJ_DSG',
+    -> 'Between Subjects Design',
+    -> 'ADMIN');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `expr_reln` (
+    ->   `id` int(50) AUTO_INCREMENT,
+    ->   `expr_design_id` varchar(50) NOT NULL,
+    ->   `exprid1` varchar(50) NOT NULL, 
+    ->   `exprid2` varchar(50) NOT NULL,   
+    ->   `created_by` varchar(100) NOT NULL,
+    ->   `modified_by` varchar(60) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,  
+    ->   PRIMARY KEY (`id`),
+    ->   foreign key (`expr_design_id`) references expr_design_type(id),
+    ->   foreign key (`exprid1`) references experiments(id),
+    ->   foreign key (`exprid2`) references experiments(id)
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `igt_expr_data` (  
+    ->   `mid` varchar(100) NOT NULL,
+    ->   `experid` char(36) NOT NULL,
+    ->   `trialno` int(100) NOT NULL,
+    ->   `initial_total` int(100) NOT NULL,
+    ->   `cash_A_win` int(100) NOT NULL,
+    ->   `cash_A_lose` int(100) NOT NULL,
+    ->   `cash_B_win` int(100) NOT NULL,
+    ->   `cash_B_lose` int(100) NOT NULL,
+    ->   `cash_C_win` int(100) NOT NULL,
+    ->   `cash_C_lose` int(100) NOT NULL,
+    ->   `cash_D_win` int(100) NOT NULL,
+    ->   `cash_D_lose` int(100) NOT NULL,
+    ->   `selected_card` varchar(50) NOT NULL,
+    ->   `final_total` int(100) NOT NULL,
+    ->   `created_by` varchar(50) NOT NULL,
+    ->   `modified_by` varchar(50) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    ->   `tracktime` double NOT NULL,
+    ->   PRIMARY KEY (`mid`,`experid`,`trialno` )
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf16;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `igt_score_cards` (
+    ->   `s.no` int(50) NOT NULL AUTO_INCREMENT,
+    ->   `card_A_win` int(100) NOT NULL,
+    ->   `card_A_lose` int(100) NOT NULL,
+    ->   `card_B_win` int(100) NOT NULL,
+    ->   `card_B_lose` int(100) NOT NULL,
+    ->   `card_C_win` int(100) NOT NULL,
+    ->   `card_C_lose` int(100) NOT NULL,
+    ->   `card_D_win` int(100) NOT NULL,
+    ->   `card_D_lose` int(100) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    -> PRIMARY KEY (`s.no`)
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=144 DEFAULT CHARSET=utf16;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO `igt_score_cards` (`card_A_win`, `card_A_lose`, `card_B_win`, `card_B_lose`, `card_C_win`, `card_C_lose`, `card_D_win`, `card_D_lose`) VALUES
+    -> (130, -300, 160, 0, 80, -25, 60, 0),
+    -> (160, -350, 130, 0, 50, -50, 75, 0),
+    -> (120, -250, 150, 0, 90, -75, 60, 0),
+    -> (150, -350, 150, 0, 75, -25, 75, 0),
+    -> ( 140, -200, 160, 0, 85, -25, 85, 0),
+    -> (160, -250, 140, 0, 65, -25, 70, 0),
+    -> (150, -250, 130, 0, 70, -25, 75, 0),
+    -> (130, -150, 150, 0, 80, -25, 85, 0),
+    -> (170, -250, 170, 0, 75, -25, 95, 0),
+    -> (160, -150, 130, 0, 65, -75, 55, 0),
+    -> (140, -300, 170, -2500, 85, -25, 65, -375),
+    -> (170, -350, 140, 0, 55, -50, 80, 0),
+    -> (130, -250, 160, 0, 95, -75, 65, 0),
+    -> (170, -350, 140, 0, 65, -25, 95, 0),
+    -> (130, -200, 140, 0, 95, -75, 65, -375),
+    -> (130, -250, 150, -2500, 65, -25, 75, 0),
+    -> (140, -150, 130, 0, 55, -25, 65, 0),
+    -> (150, -350, 160, 0, 70, -25, 80, 0),
+    -> (160, -300, 170, 0, 80, -25, 85, 0),
+    -> (160, -250, 170, 0, 75, -25, 80, 0),
+    -> (150, -150, 170, 0, 75, -25, 75, 0),
+    -> (170, -150, 150, 0, 55, -25, 55, 0),
+    -> (140, -300, 160, 0, 75, -25, 75, 0),
+    -> (130, -350, 140, 0, 70, -75, 55, 0),
+    -> (160, -250, 160, -2500, 85, -25, 65, -375),
+    -> (140, -350, 140, 0, 95, -25, 85, 0),
+    -> (150, -250, 130, 0, 85, -50, 65, 0),
+    -> (130, -250, 150, 0, 75, -50, 70, 0),
+    -> (140, -200, 160, 0, 85, -25, 85, 0),
+    -> (170, -250, 130, 0, 65, -75, 70, 0),
+    -> (160, -250, 130, 0, 80, -25, 75, 0),
+    -> (150, -150, 170, 0, 65, -25, 85, 0),
+    -> (170, -250, 150, 0, 85, -75, 95, 0),
+    -> (140, -300, 160, 0, 80, -25, 85, 0),
+    -> (170, -300, 150, 0, 75, -25, 65, 0),
+    -> (160, -150, 140, 0, 75, -75, 75, -375),
+    -> (130, -150, 130, 0, 55, -25, 95, 0),
+    -> (130, -200, 150, 0, 80, -25, 75, 0),
+    -> (130, -250, 130, 0, 65, -25, 65, 0),
+    -> (170, -250, 130, 0, 95, -25, 80, 0),
+    -> (160, -150, 160, -2500, 70, -75, 85, 0),
+    -> (150, -250, 150, 0, 75, -25, 95, 0),
+    -> (160, -350, 170, 0, 85, -75, 65, 0),
+    -> (140, -250, 140, 0, 85, -25, 70, 0),
+    -> (150, -250, 140, 0, 65, -50, 85, 0),
+    -> (130, -250, 150, 0, 55, -75, 85, -375),
+    -> (170, -350, 170, -2500, 95, -25, 75, 0),
+    -> (140, -200, 130, 0, 65, -25, 65, 0),
+    -> (150, -250, 170, 0, 85, -25, 75, 0),
+    -> (160, -350, 140, 0, 65, -25, 55, 0),
+    -> (170, -250, 160, 0, 75, -25, 70, 0),
+    -> (140, -350, 160, 0, 70, -25, 55, 0),
+    -> (150, -150, 170, 0, 85, -50, 80, 0),
+    -> (170, -350, 140, 0, 65, -25, 95, 0),
+    -> (130, -200, 140, 0, 95, -75, 65, -375),
+    -> (130, -250, 150, -2500, 65, -25, 75, 0),
+    -> (140, -150, 130, 0, 55, -25, 65, 0),
+    -> (150, -350, 160, 0, 70, -25, 80, 0),
+    -> (160, -300, 170, 0, 80, -25, 85, 0),
+    -> (160, -250, 170, 0, 75, -25, 80, 0),
+    -> (150, -150, 170, 0, 75, -25, 75, 0),
+    -> (170, -150, 150, 0, 55, -25, 55, 0),
+    -> (140, -300, 160, 0, 75, -25, 75, 0),
+    -> (130, -350, 140, 0, 70, -75, 55, 0),
+    -> (160, -250, 160, -2500, 85, -25, 65, -375),
+    -> (140, -350, 140, 0, 95, -25, 85, 0),
+    -> (150, -250, 130, 0, 85, -50, 65, 0),
+    -> (130, -250, 150, 0, 75, -50, 70, 0),
+    -> (140, -200, 160, 0, 85, -25, 85, 0),
+    -> (170, -250, 130, 0, 65, -75, 70, 0),
+    -> (160, -250, 130, 0, 80, -25, 75, 0),
+    -> (150, -150, 170, 0, 65, -25, 85, 0),
+    -> (170, -250, 150, 0, 85, -75, 95, 0),
+    -> (140, -300, 160, 0, 80, -25, 85, 0),
+    -> (170, -300, 150, 0, 75, -25, 65, 0),
+    -> (160, -150, 140, 0, 75, -75, 75, -375),
+    -> (130, -150, 130, 0, 55, -25, 95, 0),
+    -> (130, -200, 150, 0, 80, -25, 75, 0),
+    -> (130, -250, 130, 0, 65, -25, 65, 0),
+    -> (170, -250, 130, 0, 95, -25, 80, 0),
+    -> (160, -150, 160, -2500, 70, -75, 85, 0),
+    -> (150, -250, 150, 0, 75, -25, 95, 0),
+    -> (160, -350, 170, 0, 85, -75, 65, 0),
+    -> (140, -250, 140, 0, 85, -25, 70, 0),
+    -> (150, -250, 140, 0, 65, -50, 85, 0),
+    -> (130, -250, 150, 0, 55, -75, 85, -375),
+    -> (170, -350, 170, -2500, 95, -25, 75, 0),
+    -> (140, -200, 130, 0, 65, -25, 65, 0),
+    -> (150, -250, 170, 0, 85, -25, 75, 0),
+    -> (160, -350, 140, 0, 65, -25, 55, 0),
+    -> (170, -250, 160, 0, 75, -25, 70, 0),
+    -> (140, -350, 160, 0, 70, -25, 55, 0),
+    -> (150, -150, 170, 0, 85, -50, 80, 0);
+Query OK, 93 rows affected (0.05 sec)
+Records: 93  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE IF NOT EXISTS `mouse_offset_coords` (
+    ->   `id` int(50) NOT NULL AUTO_INCREMENT,
+    ->   `exptype` varchar(100) NOT NULL,
+    ->   `coords` text NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    ->     PRIMARY KEY (`id`)
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `mouse_track` (
+    ->   `id` int(50) NOT NULL AUTO_INCREMENT,
+    ->   `expid` varchar(1000) NOT NULL,
+    ->   `expertype` varchar(100) NOT NULL,
+    ->   `mid` varchar(1000) NOT NULL,
+    ->   `x_coord` int(11) NOT NULL,
+    ->   `y_coord` int(11) NOT NULL,
+    ->   `time_spent` int(11) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    ->   PRIMARY KEY (`id`)
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `nback_expr_data` (  
+    ->   `mid` varchar(100) NOT NULL,
+    ->   `experid` char(36) NOT NULL,
+    ->   `trialno` int(100) NOT NULL,
+    ->   `stimuli` char(1) NOT NULL,
+    ->   `corres` int(100) NOT NULL,
+    ->   `response` int(100) NOT NULL,
+    ->   `score` int(200) NOT NULL,
+    ->   `created_by` varchar(50) NOT NULL,
+    ->   `modified_by` varchar(50) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    ->   `exp_flag` varchar(50) NOT NULL,
+    ->   PRIMARY KEY (`mid`,`experid`,`trialno` )
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf16;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `nback_score_practice` (
+    ->   `s.no` int(50) AUTO_INCREMENT,
+    ->   `score_values` char(1) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    ->   PRIMARY KEY (`s.no`)
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> INSERT INTO `nback_score_practice` (`score_values`) VALUES
+    -> ('a'),
+    -> ('m'),
+    -> ('e'),
+    -> ('m'),
+    -> ('y'),
+    -> ('p'),
+    -> ('v'),
+    -> ('w'),
+    -> ('v'),
+    -> ('t'),
+    -> ('r'),
+    -> ('t'),
+    -> ('o'),
+    -> ('d'),
+    -> ('b'),
+    -> ('d'),
+    -> ('o'),
+    -> ('c'),
+    -> ('o'),
+    -> ('u'),
+    -> ('o');
+Query OK, 21 rows affected (0.02 sec)
+Records: 21  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE IF NOT EXISTS `nback_score_values` (
+    ->   `s.no` int(50) NOT NULL AUTO_INCREMENT,
+    ->   `char_value` char(1) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    ->   PRIMARY KEY (`s.no`)
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO `nback_score_values` (`char_value`) VALUES
+    -> ('a'),
+    -> ('y'),
+    -> ('s'),
+    -> ('f'),
+    -> ('k'),
+    -> ('f'),
+    -> ('p'),
+    -> ('w'),
+    -> ('o'),
+    -> ('e'),
+    -> ('o'),
+    -> ('r'),
+    -> ('n'),
+    -> ('v'),
+    -> ('x'),
+    -> ('a'),
+    -> ('x'),
+    -> ('c'),
+    -> ('k'),
+    -> ('p'),
+    -> ('q'),
+    -> ('p'),
+    -> ('f'),
+    -> ('a'),
+    -> ('y'),
+    -> ('h'),
+    -> ('y'),
+    -> ('r'),
+    -> ('e'),
+    -> ('u'),
+    -> ('m'),
+    -> ('a'),
+    -> ('i'),
+    -> ('f'),
+    -> ('e'),
+    -> ('f'),
+    -> ('j'),
+    -> ('a'),
+    -> ('r'),
+    -> ('e'),
+    -> ('r'),
+    -> ('k'),
+    -> ('y'),
+    -> ('e'),
+    -> ('a'),
+    -> ('c'),
+    -> ('q'),
+    -> ('n'),
+    -> ('q'),
+    -> ('f'),
+    -> ('c'),
+    -> ('a'),
+    -> ('k'),
+    -> ('d'),
+    -> ('k'),
+    -> ('j'),
+    -> ('v'),
+    -> ('s'),
+    -> ('a'),
+    -> ('e'),
+    -> ('a'),
+    -> ('e'),
+    -> ('d'),
+    -> ('y'),
+    -> ('b'),
+    -> ('m'),
+    -> ('w'),
+    -> ('p'),
+    -> ('w'),
+    -> ('m'),
+    -> ('x'),
+    -> ('o'),
+    -> ('g'),
+    -> ('h'),
+    -> ('g'),
+    -> ('r'),
+    -> ('s'),
+    -> ('f'),
+    -> ('y'),
+    -> ('f'),
+    -> ('o'),
+    -> ('j'),
+    -> ('m'),
+    -> ('n'),
+    -> ('f'),
+    -> ('t'),
+    -> ('b'),
+    -> ('t'),
+    -> ('d'),
+    -> ('f'),
+    -> ('g'),
+    -> ('h'),
+    -> ('g'),
+    -> ('k'),
+    -> ('t'),
+    -> ('i');
+Query OK, 96 rows affected (0.02 sec)
+Records: 96  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE IF NOT EXISTS `rdm_user` (
+    ->   `id` int(50) unsigned NOT NULL AUTO_INCREMENT,
+    ->   `first_name` varchar(200) NOT NULL,
+    ->   `last_name` varchar(150) NOT NULL,
+    ->   `role` varchar(500) NOT NULL DEFAULT 'END_USER',
+    ->   `email` varchar(300) NOT NULL,
+    ->   `username` varchar(100) NOT NULL,
+    ->   `password` varchar(300) NOT NULL,
+    ->   `remember_token` varchar(100) DEFAULT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    ->   PRIMARY KEY (`id`)
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> -- Sample update to get admin account setup
+mysql> -- update  rdm_user set username = 'admin', role = 'ADMIN' where first_name = 'Admin';
+mysql> CREATE TABLE IF NOT EXISTS `aws_rdmtk_config` (
+    ->   `id` int(50) unsigned NOT NULL AUTO_INCREMENT,  
+    ->   `username` varchar(100) NOT NULL,
+    ->   `aws_instanceid` varchar(200) NOT NULL,  
+    ->   `aws_key` varchar(500) NOT NULL,
+    ->   `aws_secret` varchar(500) NOT NULL,
+    ->   `aws_region` varchar(500) NOT NULL,
+    ->   `created_by` varchar(50) NOT NULL,
+    ->   `modified_by` varchar(50) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    ->   PRIMARY KEY (`id`)
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `stroop_expr_data` (
+    ->   
+    ->   `mid` varchar(100) NOT NULL,
+    ->   `experid` char(36) NOT NULL,
+    ->   `trialno` int(100) NOT NULL,
+    ->   `word` varchar(50) NOT NULL,
+    ->   `corres` varchar(100) NOT NULL,
+    ->   `response` varchar(100) NOT NULL,
+    ->   `score` int(200) NOT NULL,
+    ->   `created_by` varchar(50) NOT NULL,
+    ->   `modified_by` varchar(50) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    ->   `exp_flag` varchar(50) NOT NULL,
+    ->   `tracktime` double NOT NULL,
+    ->   PRIMARY KEY (`mid`,`experid`,`trialno` )
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=utf16;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `tasks` (
+    ->   `id` varchar(50) NOT NULL,
+    ->   `taskname` varchar(150) NOT NULL,
+    ->   `created_by` varchar(100) NOT NULL,
+    ->   `modified_by` varchar(60) NOT NULL,
+    ->  `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+    -> PRIMARY KEY (`id`)
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO `tasks` (`id`, `taskname`, `created_by`, `modified_by`) VALUES
+    -> ('BART', 'Balloon Task', 'ADMIN', 'ADMIN'),
+    -> ('CUPS', 'Cups Task', 'ADMIN', 'ADMIN'),
+    -> ('DelayD', 'Delayed Discounting Task', 'ADMIN', 'ADMIN'),
+    -> ('IGT', 'Iowa Gambling Task', 'ADMIN', 'ADMIN'),
+    -> ('NBACK', 'N Back', 'ADMIN', 'ADMIN'),
+    -> ('STROOP', 'Stroop', 'ADMIN', 'ADMIN');
+Query OK, 6 rows affected (0.04 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE IF NOT EXISTS `expr_anlys_data` (
+    ->   `experid` char(36) NOT NULL, 
+    ->   `expertype` varchar(100) NOT NULL,
+    ->   `anlys_mdl` char(36) NOT NULL,   
+    ->   `anlys_rslt` mediumblob default NULL,   
+    ->   `created_by` varchar(50) NOT NULL,
+    ->   `modified_by` varchar(50) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,  
+    ->   PRIMARY KEY (`experid`,`expertype`,`anlys_mdl` )
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=utf16;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `expr_anlys_job` (
+    ->   `id` int(50) unsigned NOT NULL AUTO_INCREMENT,
+    ->   `experid` char(36) NOT NULL, 
+    ->   `expertype` varchar(100) NOT NULL,
+    ->   `anlys_mdl` char(36) NOT NULL,   
+    ->   `doExec` TINYINT default 0,   
+    ->   `owner` varchar(50) NOT NULL,
+    ->   `created_by` varchar(50) NOT NULL,
+    ->   `modified_by` varchar(50) NOT NULL,
+    ->   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+    ->   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,  
+    ->   PRIMARY KEY (`id`)
+    -> ) ENGINE=InnoDB DEFAULT CHARSET=utf16;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> USE rdmtoolkit;
+Database changed
+mysql> DROP TABLE IF EXISTS random_table;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `delayd_expr_data` (
+    ->   `id` int(11) NOT NULL,
+    ->   `mid` varchar(60) NOT NULL,
+    ->   `experid` varchar(50) NOT NULL,
+    ->   `que_id` int(11) NOT NULL,
+    ->   `option_selected` varchar(30) NOT NULL,
+    ->   `trialno` int(11) NOT NULL,
+    ->   `created_by` varchar(60) NOT NULL,
+    ->   `modified_by` varchar(60) NOT NULL,
+    ->   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ->   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `delayd_expr_data` (
+    ->   `id` int(11) NOT NULL AUTO_INCREMENT,
+    ->   `mid` varchar(60) NOT NULL,
+    ->   `experid` varchar(50) NOT NULL,
+    ->   `que_id` int(11) NOT NULL,
+    ->   `option_selected` varchar(30) NOT NULL,
+    ->   `trialno` int(11) NOT NULL,
+    ->   `created_by` varchar(60) NOT NULL,
+    ->   `modified_by` varchar(60) NOT NULL,
+    ->   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ->   `modified_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ->   
+    ->    PRIMARY KEY(`id`)
+    ->   
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> ALTER TABLE `delayd_expr_data` AUTO_INCREMENT=1;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DROP TABLE IF EXISTS `delayed_discount_que`;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> CREATE TABLE IF NOT EXISTS `delayed_discount_que` (
+    ->   `id` int(11) NOT NULL,
+    ->   `option_b` varchar(100) NOT NULL,
+    ->   `option_a` varchar(100) NOT NULL,
+    ->   `dataset_name` varchar(100) NOT NULL DEFAULT 'DEFAULT',
+    ->   `created_by` varchar(200) NOT NULL DEFAULT 'ADMIN',
+    ->   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+    -> ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> INSERT INTO `delayed_discount_que` (`id`, `option_b`, `option_a`, `dataset_name`, `created_by`, `created_at`) VALUES
+    -> (1, '$44 10 years', '$22 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (5, '$10 with 50% chance', '$3.5 for sure', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (9, '$10 in 3 Days', '$1 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (10, '$10 in 365 days', '$4.5 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (11, '$10 in 2 days', '$1 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (13, '$10 with 90% chance', '$0.5 for sure', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (14, '$10 in 180 days', '$1.5 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (15, '$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (16, '$10 with 90% chance', '$0.5 for sure', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (17, '$10 in 180 days', '$1.5 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (18, '$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (19, '$10 with 90% chance', '$0.5 for sure', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (20, '$10 in 180 days', '$1.5 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (21, '$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (22, '$10 with 90% chance', '$0.5 for sure', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (23, '$10 in 180 days', '$1.5 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (24, '$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (25, '$10 with 90% chance', '$0.5 for sure', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (26, '$10 in 180 days', '$1.5 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (27, '$10 in 30 days', '$2 now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (28, '$10 in 7 days', '$1 right now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00'),
+    -> (29, '$100 in 1 year', '$1 right now', 'DEFAULT', 'ADMIN', '2015-11-09 19:27:00');
+Query OK, 22 rows affected (0.10 sec)
+Records: 22  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE `delayed_discount_que`
+    ->   ADD PRIMARY KEY (`id`);
+Query OK, 0 rows affected (0.70 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE `delayed_discount_que`
+    ->   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=34;
+Query OK, 22 rows affected (0.15 sec)
+Records: 22  Duplicates: 0  Warnings: 0
+
+# Verifying that schema and all tables are generated
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| rdmtoolkit         |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> show tables;
++----------------------+
+| Tables_in_rdmtoolkit |
++----------------------+
+| aws_rdmtk_config     |
+| bart_expr_data       |
+| cups_expr_data       |
+| delayd_expr_data     |
+| delayed_discount_que |
+| experconfirmation    |
+| experiments          |
+| expr_anlys_data      |
+| expr_anlys_job       |
+| expr_design_type     |
+| expr_reln            |
+| igt_expr_data        |
+| igt_score_cards      |
+| mouse_offset_coords  |
+| mouse_track          |
+| nback_expr_data      |
+| nback_score_practice |
+| nback_score_values   |
+| rdm_user             |
+| stroop_expr_data     |
+| tasks                |
++----------------------+
+21 rows in set (0.00 sec)
+
+mysql> exit;
+Bye
+root@c4babc4c87ff:/# exit;
+exit
+
+# After running application on https://localhost:8088/index.php/login getting error for registering new user 
+ 
+ PDOException (2002)
+
+SQLSTATE[HY000] [2002] No such file or directory
+
+
+
+   
