@@ -47,7 +47,7 @@ RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
 EXPOSE 443
-EXPOSE 3306
+EXPOSE 3306 33060
 
 #CMD ["/usr/sbin/run-lamp.sh"]
 ENTRYPOINT /bin/bash -x /usr/sbin/run-lamp.sh && nginx -g 'daemon off;'
