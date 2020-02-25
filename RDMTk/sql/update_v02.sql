@@ -25,9 +25,6 @@ CREATE TABLE IF NOT EXISTS `delayd_expr_data` (
 
 ALTER TABLE `delayd_expr_data` AUTO_INCREMENT=1;
 
-
-ALTER TABLE `experiments` ADD `select_dataset` VARCHAR(100) NOT NULL DEFAULT 'DEFAULT' AFTER `mouse_track`;
-
 DROP TABLE IF EXISTS `delayed_discount_que`;
 
 -- --------------------------------------------------------
