@@ -66,9 +66,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
+			'host'      => '172.17.0.2',
+			'port'      => '3306',
 			'database'  => 'rdmtoolkit',
-			'username'  => 'root',
+			'username'  => 'user',
 			'password'  => 'nisha',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
