@@ -1,14 +1,26 @@
 FROM mysql:5.7.22
 
-# Add a database
+RUN apt-get install -y mysql-server
+
+# Add a database , create user
+
 ENV MYSQL_DATABASE rdmtoolkit
+ENV MYSQL_USER  user
+ENV MYSQL_PASSWORD  nisha
+ENV MYSQL_ROOT_PASSWORD  123
 
-VOLUME /var/lib/mysql
+# Remove pre-installed database
+RUN rm -rf /var/lib/mysql/*
 
-# Config files
+RUN chown -R mysql:root /var/lib/mysql/
 
-COPY my.cnf /etc/mysql/my.cnf
+# specify the path to sql scripts so schema and tables created automatically
+
+COPY ./RDMTk/sql/ /docker-entrypoint-initdb.d/
+
+CMD ["mysqld"]
 
 EXPOSE 3306 33060
 
-CMD ["mysqld"]
+EXPOSE 80
+EXPOSE 443
