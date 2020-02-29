@@ -234,7 +234,7 @@ VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `expr_reln` (
-  `id` int(50) DEFAULT NULL AUTO_INCREMENT,
+  `id` int(50) AUTO_INCREMENT,
   `expr_design_id` varchar(50) NOT NULL,
   `exprid1` varchar(50) NOT NULL, 
   `exprid2` varchar(50) NOT NULL,   
@@ -463,7 +463,7 @@ CREATE TABLE IF NOT EXISTS `nback_expr_data` (
 --
 
 CREATE TABLE IF NOT EXISTS `nback_score_practice` (
-  `s.no` int(50) DEFAULT NULL AUTO_INCREMENT,
+  `s.no` int(50) AUTO_INCREMENT,
   `score_values` char(1) NOT NULL,
   `updated_at` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
