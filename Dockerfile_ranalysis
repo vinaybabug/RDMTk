@@ -1,0 +1,20 @@
+FROM opencpu/rstudio
+
+# Install dependencies 
+RUN apt-get update && apt-get install -y \
+    libmariadbclient-dev \
+    littler \
+    r-cran-littler 
+
+# Install R Packages
+RUN R -e "install.packages('fOptions' , lib='usr/lib/R/library/')"
+RUN R -e "install.packages('DBI' , lib='usr/lib/R/library/')"
+RUN R -e "install.packages('RMySQL', type = 'source', lib='usr/lib/R/library/')"
+RUN R -e "install.packages('pwr', repos='http://cran.r-project.org', lib='usr/lib/R/library/')"
+RUN R -e "install.packages('devtools', type = 'source', lib='usr/lib/R/library/')"
+
+
+EXPOSE 8004
+EXPOSE 80
+EXPOSE 443
+EXPOSE 3306
