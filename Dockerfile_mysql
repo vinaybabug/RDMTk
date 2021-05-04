@@ -20,6 +20,8 @@ COPY ./RDMTk/sql/ /docker-entrypoint-initdb.d/
 
 CMD ["mysqld"]
 
+# Expose the ports for MySQL,HTTP and HTTPS
+
 EXPOSE 3306 33060
 
 EXPOSE 80
