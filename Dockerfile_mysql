@@ -1,5 +1,7 @@
+# Set a base image for susequent instructions
 FROM mysql:5.7.22
 
+# install mysql server on system
 RUN apt-get install -y mysql-server
 
 # Add a database , create user
@@ -12,12 +14,13 @@ ENV MYSQL_ROOT_PASSWORD  123
 # Remove pre-installed database
 RUN rm -rf /var/lib/mysql/*
 
+# changing ownership of /var/lib/mysql
 RUN chown -R mysql:root /var/lib/mysql/
 
 # specify the path to sql scripts so schema and tables created automatically
-
 COPY ./RDMTk/sql/ /docker-entrypoint-initdb.d/
 
+# Define a command to run when the container starts
 CMD ["mysqld"]
 
 # Expose the ports for MySQL,HTTP and HTTPS
