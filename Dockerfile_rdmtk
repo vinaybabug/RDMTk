@@ -1,5 +1,7 @@
+# Set a base image for susequent instructions
 FROM php:7.2-fpm
 
+# Insatall system dependencies
 RUN apt-get update && apt-get install -y \
     git \
     libzip-dev \
@@ -7,10 +9,13 @@ RUN apt-get update && apt-get install -y \
 		unzip \
 		nginx
 
+# Define  working directory 
 WORKDIR /etc/nginx
 
+# Generate SSH key with openssl
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/cert.key -out /etc/nginx/cert.crt -subj "/C=US/ST=Michigan/L=Kalamazoo/O=Wise Lab/OU=Computer Science Department, Western Michigan University/CN=rdmtk.wise.cs.wmich.edu/"
 
+# Install mcrypt on Docker
 RUN apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
@@ -19,35 +24,54 @@ RUN apt-get install -y \
 		&& pecl install mcrypt-1.0.3 \
 		&& docker-php-ext-enable mcrypt
 
-
+# Install php zip extension 
 RUN docker-php-ext-configure zip --with-libzip
+
+# Install pdo_mysql extension 
 RUN docker-php-ext-install pdo_mysql zip
+
+# Install composer using curl and move composer to a bin directory 
 RUN curl --silent --show-error https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer
 
-
+# Copy files to specified location
 COPY index.php /var/www/html/
 COPY RDMTk /var/www/html/RDMTk
 COPY run-lamp.sh /usr/sbin/
-# Laravel related tasks
+
+# Set working directory for laravel related tasks
 WORKDIR /var/www/html/RDMTk
+
+# Update compose, 
+# Run the composer dump-autoload command to generate the necessary files that Composer will use for autoloading 
+# and generate a application key 
 RUN composer update \
   && php artisan dump-autoload \
   && php artisan key:generate
 
+# Copy nginx configuration file to specified location
 COPY nginx.conf /etc/nginx/sites-available/nginx.conf
+
+# link nginx config file to site-enabled
 RUN ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/
+
+# Delete the default file in nginx
 RUN rm /etc/nginx/sites-enabled/default
 RUN rm /etc/nginx/sites-available/default
 
-
+# Set the access permissions to fille 
 RUN chmod +x /usr/sbin/run-lamp.sh
+
+# Grant user permissions on www-data owned /var/www/html
 RUN chown -R www-data:www-data /var/www/html
 
-
+# Expose ports as HTTp, HTTPS and MySQL
 EXPOSE 80
 EXPOSE 443
 EXPOSE 3306 33060
 
+# Define default command
 #CMD ["/usr/sbin/run-lamp.sh"]
+
+# Specify the commands to be executed when the container starts
 ENTRYPOINT /bin/bash -x /usr/sbin/run-lamp.sh && nginx -g 'daemon off;'
