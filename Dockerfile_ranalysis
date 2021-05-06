@@ -1,3 +1,4 @@
+# Set a base image for susequent instructions
 FROM opencpu/ubuntu-18.04
 
 # Install dependencies 
@@ -14,6 +15,8 @@ RUN R -e "install.packages('RMySQL', type = 'source', lib='usr/lib/R/library/')"
 RUN R -e "install.packages('pwr', repos='http://cran.r-project.org', lib='usr/lib/R/library/')"
 RUN R -e "install.packages('devtools', type = 'source', lib='usr/lib/R/library/')"
 
+
+# Expose the ports for TCP, HTTP, HTTPS and MySQL
 
 EXPOSE 8004
 EXPOSE 80
